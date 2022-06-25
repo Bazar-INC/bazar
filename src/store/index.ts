@@ -1,7 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
+import { accountReducer } from '../features/account/reducer';
+
 const store = configureStore({
-   reducer: {}
+   reducer: {
+      accountReducer
+   }
 });
 
 export { store };
