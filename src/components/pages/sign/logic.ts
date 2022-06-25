@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { Client } from '../../../api/client';
+
+const client = new Client();
 
 const useSignPageLogic = () => {
 
@@ -34,6 +37,8 @@ const useSignPageLogic = () => {
          return;
       }
 
+      client.methodPost('auth/request', { phone });
+
       setEnterMode('code');
    };
 
@@ -44,6 +49,11 @@ const useSignPageLogic = () => {
       }
 
       setEnterMode('verification');
+
+      client.methodPost('auth/confirm', { phone, code })
+         .then(response => {
+            alert('Log in!');
+         });
    };
 
    return {
