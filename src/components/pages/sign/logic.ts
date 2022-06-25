@@ -1,9 +1,15 @@
 import { useState } from 'react';
-import { Client } from '../../../api/client';
+import { AccountEndpoints } from '../../../api/endpoints/account';
+import { AuthEndpoints } from '../../../api/endpoints/auth';
+import { accountActions } from '../../../features/account/reducer';
+import { useAppDispatch } from '../../../store/hooks';
+import { StorageUtility } from '../../../utilities/storageUtility';
 
-const client = new Client();
+const tokenStorage = new StorageUtility('TOKEN_STORAGE');
 
 const useSignPageLogic = () => {
+
+   const dispatch = useAppDispatch();
 
    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 
@@ -37,12 +43,12 @@ const useSignPageLogic = () => {
          return;
       }
 
-      client.methodPost('auth/request', { phone });
+      AuthEndpoints.loginRequest(phone);
 
       setEnterMode('code');
    };
 
-   const confirmCode = () => {
+   const confirmCode = async () => {
 
       if (code.length < 4) {
          return;
@@ -50,10 +56,13 @@ const useSignPageLogic = () => {
 
       setEnterMode('verification');
 
-      client.methodPost('auth/confirm', { phone, code })
-         .then(response => {
-            alert('Log in!');
-         });
+      const confirmResponse = await AuthEndpoints.loginConfirm(phone, code);
+
+      tokenStorage.set(confirmResponse.data.token);
+
+      const profileResponse = await AccountEndpoints.getProfile();
+
+      dispatch(accountActions.setProfile(profileResponse.data));
    };
 
    return {
