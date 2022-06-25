@@ -4,6 +4,7 @@ import { AuthEndpoints } from '../../../api/endpoints/auth';
 import { accountActions } from '../../../features/account/reducer';
 import { useAppDispatch } from '../../../store/hooks';
 import { StorageUtility } from '../../../utilities/storageUtility';
+import { useProperty } from '../../hooks/property';
 
 const tokenStorage = new StorageUtility('TOKEN_STORAGE');
 
@@ -24,39 +25,39 @@ const useSignPageLogic = () => {
       };
    };
 
-   const [phone, setPhone] = useState('');
-   const [code, setCode] = useState('');
+   const [phone] = useProperty('');
+   const [code] = useProperty('');
 
    const [enterMode, setEnterMode] = useState<'phone' | 'code' | 'verification'>('phone');
 
    const handleChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPhone(event.currentTarget.value);
+      phone.set(event.currentTarget.value);
    };
 
    const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCode(event.currentTarget.value);
+      code.set(event.currentTarget.value);
    };
 
    const sendPhone = () => {
 
-      if (phone.length < 9) {
+      if (phone.get.length < 9) {
          return;
       }
 
-      AuthEndpoints.loginRequest(phone);
+      AuthEndpoints.loginRequest(phone.get);
 
       setEnterMode('code');
    };
 
    const confirmCode = async () => {
 
-      if (code.length < 4) {
+      if (code.get.length < 4) {
          return;
       }
 
       setEnterMode('verification');
 
-      const confirmResponse = await AuthEndpoints.loginConfirm(phone, code);
+      const confirmResponse = await AuthEndpoints.loginConfirm(phone.get, code.get);
 
       tokenStorage.set(confirmResponse.data.token);
 
