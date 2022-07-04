@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { StorageUtility } from "../../utilities/storageUtility";
+import { StorageUtility } from '../../utilities/storageUtility';
 
 const HOST_NAME = 'https://localhost:7165';
 
@@ -26,8 +26,7 @@ const createAxiosInstance = (baseUrl: string) => {
    );
 
    return client;
-}
-
+};
 
 class Client {
 

@@ -1,9 +1,9 @@
 import { Badge } from './badge';
-import { Button } from './layout-button';
+import { Button } from './button';
 
 const Layout = {
-   Button,
-   Badge
+   Badge,
+   Button
 };
 
 export { Layout };

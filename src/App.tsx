@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
-import { AccountEndpoints } from "./api/endpoints/account";
+import { AccountEndpoints } from './api/endpoints/account';
 import { SignPage } from './components/pages/sign';
-import { accountActions } from "./features/account/reducer";
-import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { accountActions } from './features/account/reducer';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 
 const App: FC = () => {
 
