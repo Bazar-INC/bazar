@@ -16,4 +16,4 @@ const Badge: FC<Props> = ({ children, color }) => {
    );
 };
 
-export { Badge };
+export { Badge }
