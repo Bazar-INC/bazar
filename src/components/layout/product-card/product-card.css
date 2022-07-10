@@ -1,0 +1,7 @@
+.product-card:hover {
+    filter: drop-shadow(0px 0px 103px rgba(0, 0, 0, 0.08))
+            drop-shadow(0px 0px 37.5967px rgba(0, 0, 0, 0.0551985))
+            drop-shadow(0px 0px 18.2525px rgba(0, 0, 0, 0.0445033))
+            drop-shadow(0px 0px 8.94771px rgba(0, 0, 0, 0.0354967))
+            drop-shadow(0px 0px 3.53794px rgba(0, 0, 0, 0.0248015));
+}
