@@ -1,9 +1,10 @@
 import { FC, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AccountEndpoints } from './api/endpoints/account';
+import { Layout } from './components/layout/layout';
 import { SignPage } from './components/pages/sign';
 import { accountActions } from './features/account/reducer';
-import { useAppDispatch, useAppSelector } from './store/hooks';
+import { useAppDispatch } from './store/hooks';
 
 const App: FC = () => {
 
@@ -20,8 +21,9 @@ const App: FC = () => {
    }, []);
 
    return (
-      <div className="h-full">
-         <header>User: {profile.name}</header>
+      <div className="h-full bg-[#f4f4f4]">
+
+         <Layout.Header />
 
          <Routes>
             <Route path="sign" element={<SignPage />} />
