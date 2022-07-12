@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { AccountEndpoints } from './api/endpoints/account';
 import { SignPage } from './components/pages/sign';
 import { accountActions } from './features/account/reducer';
@@ -21,7 +22,11 @@ const App: FC = () => {
    return (
       <div className="h-full">
          <header>User: {profile.name}</header>
-         <SignPage />
+
+         <Routes>
+            <Route path="sign" element={<SignPage />} />
+         </Routes>
+
       </div>
    );
 };
