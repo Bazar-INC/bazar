@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AccountEndpoints } from './api/endpoints/account';
 import { Layout } from './components/layout/layout';
+import { HomePage } from './components/pages/home';
 import { SignPage } from './components/pages/sign';
 import { accountActions } from './features/account/reducer';
 import { useAppDispatch } from './store/hooks';
@@ -9,8 +10,6 @@ import { useAppDispatch } from './store/hooks';
 const App: FC = () => {
 
    const dispatch = useAppDispatch();
-
-   const profile = useAppSelector(state => state.accountReducer.profile);
 
    useEffect(() => {
 
@@ -21,11 +20,12 @@ const App: FC = () => {
    }, []);
 
    return (
-      <div className="h-full bg-[#f4f4f4]">
+      <div className="min-h-full bg-[#f4f4f4]">
 
          <Layout.Header />
 
          <Routes>
+            <Route path="home" element={<HomePage />} />
             <Route path="sign" element={<SignPage />} />
          </Routes>
 
