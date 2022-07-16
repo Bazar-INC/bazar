@@ -7,7 +7,7 @@ const Header: FC = () => {
       <>
          <header className="h-[100px] flex items-center max-w-[1660px] mx-auto">
             <Link to="/home">
-               <img src="logo.png" />
+               <img src="brand_logo_1.png" />
             </Link>
             <div className="ml-auto">
                <Link to="/sign">

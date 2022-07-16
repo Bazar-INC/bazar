@@ -29,6 +29,8 @@ const App: FC = () => {
             <Route path="sign" element={<SignPage />} />
          </Routes>
 
+         <Layout.Footer />
+
       </div>
    );
 };
