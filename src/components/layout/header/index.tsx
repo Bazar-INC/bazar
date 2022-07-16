@@ -5,7 +5,7 @@ import { Layout } from '../layout';
 const Header: FC = () => {
    return (
       <>
-         <header className="h-[100px] flex items-center max-w-[1660px] mx-auto">
+         <header className="h-[100px] flex items-center w-[1660px] mx-auto">
             <Link to="/home">
                <img src="brand_logo_1.png" />
             </Link>

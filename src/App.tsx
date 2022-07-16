@@ -20,7 +20,7 @@ const App: FC = () => {
    }, []);
 
    return (
-      <div className="min-h-full bg-[#f4f4f4]">
+      <div className="min-h-full bg-[#f4f4f4] flex flex-col">
 
          <Layout.Header />
 
@@ -29,7 +29,9 @@ const App: FC = () => {
             <Route path="sign" element={<SignPage />} />
          </Routes>
 
-         <Layout.Footer />
+         <div className="mt-auto">
+            <Layout.Footer />
+         </div>
 
       </div>
    );
