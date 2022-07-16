@@ -5,7 +5,10 @@ const HomePage: FC = () => {
    return (
       <div className="py-8">
          <div className="max-w-[1660px] mx-auto">
-            <span className="font-[Intro] text-[40px]">Хіти продаж</span>
+            <div className="flex items-center">
+               <img src="fire.png" />
+               <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
+            </div>
             <div className="flex justify-between mt-8">
                <Layout.ProductCard
                   categoryName="Смартфон"
@@ -32,7 +35,10 @@ const HomePage: FC = () => {
                   price={1_799}
                />
             </div>
-            <span className="font-[Intro] text-[40px] block mt-20">Новинки</span>
+            <div className="flex items-center mt-20">
+               <img src="sound.png" />
+               <span className="font-[Intro] text-[40px] mt-4 ml-2">Новинки</span>
+            </div>
             <div className="flex justify-between mt-8">
                <Layout.ProductCard
                   categoryName="Побутова хімія"
