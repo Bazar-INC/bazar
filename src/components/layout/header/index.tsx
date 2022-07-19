@@ -14,8 +14,11 @@ const Header: FC<Props> = ({ openSignModal }) => {
             <Link to="/home">
                <img src="brand_logo_1.png" />
             </Link>
-            <div className="ml-auto">
-               <div onClick={openSignModal}>
+            <div className="ml-auto flex items-center">
+               <Link to="/cart">
+                  <Icons.Cart />
+               </Link>
+               <div className="ml-10" onClick={openSignModal}>
                   <Layout.Button>Увійти</Layout.Button>
                </div>
             </div>
