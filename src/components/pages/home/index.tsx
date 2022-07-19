@@ -5,6 +5,10 @@ const HomePage: FC = () => {
    return (
       <div className="py-8">
          <div className="max-w-[1660px] mx-auto">
+            <div className="h-[595px] w-[1195px] ml-auto rounded-lg bg-black"></div>
+         </div>
+         <img className="mt-20 mb-10" src="banner.png" />
+         <div className="max-w-[1660px] mx-auto">
             <div className="flex items-center">
                <img src="fire.png" />
                <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
