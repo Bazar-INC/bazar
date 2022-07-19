@@ -3,7 +3,7 @@ import { Layout } from '../../layout/layout';
 
 const CartPage: FC = () => {
    return (
-      <div className="max-w-[1660px] mx-auto mb-36 mt-24">
+      <div className="w-[1660px] mx-auto mb-36 mt-24">
          <span className="font-[Intro] text-[40px]">Оформлення замовлення</span>
          <div className="w-full flex flex-col items-center">
             <img src="cart.png" className="-mt-52" />
