@@ -14,7 +14,7 @@ const Header: FC<Props> = ({ openSignModal }) => {
 
    return (
       <>
-         <header className="h-[100px] flex items-center w-[1660px] mx-auto">
+         <header className="h-[100px] flex items-center max-w-[1660px] mx-auto px-4">
             <Link to="/home">
                <img src="brand_logo_1.png" />
             </Link>
@@ -36,7 +36,7 @@ const Header: FC<Props> = ({ openSignModal }) => {
             </div>
          </header>
          <nav className="h-[70px] bg-[#1d1d1b]">
-            <div className="w-[1660px] mx-auto flex items-center h-full">
+            <div className="max-w-[1660px] mx-auto px-4 flex items-center h-full">
                <div className="w-[430px] h-full bg-[#31353c] flex items-center relative">
                   <span className="ml-5 mr-2.5"><Icons.AlignLeft /></span>
                   <span className="text-[21px] font-semibold text-white leading-[70px]">Каталог товарів</span>

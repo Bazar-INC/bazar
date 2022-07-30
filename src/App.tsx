@@ -37,19 +37,17 @@ const App: FC = () => {
 
    return (
       <>
-         <div className="min-h-full bg-[#f4f4f4] flex flex-col">
-
-            <Layout.Header openSignModal={openSignModal} />
-
-            <Routes>
-               <Route path="home" element={<HomePage />} />
-               <Route path="cart" element={<CartPage />} />
-            </Routes>
-
+         <div className="flex flex-col h-full">
+            <div className="flex-[1_0_auto]">
+               <Layout.Header openSignModal={openSignModal} />
+               <Routes>
+                  <Route path="home" element={<HomePage />} />
+                  <Route path="cart" element={<CartPage />} />
+               </Routes>
+            </div>
             <div className="mt-auto">
                <Layout.Footer />
             </div>
-
          </div>
          <Modals.Sign open={signModalIsOpen.get} onClose={closeSignModal} />
       </>
