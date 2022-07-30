@@ -1,14 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { StorageUtility } from '../../utilities/storageUtility';
-
-const HOST_NAME = 'https://localhost:7165';
+import { APP_ENV } from '../../env';
 
 const tokenStorage = new StorageUtility<string>('TOKEN_STORAGE');
 
 const createAxiosInstance = (baseUrl: string) => {
 
    const client = axios.create({
-      baseURL: `${HOST_NAME}/api/${baseUrl}/`,
+      baseURL: `${APP_ENV.REMOTE_HOST_NAME}/api/${baseUrl}/`,
    });
 
    client.interceptors.request.use(
