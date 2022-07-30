@@ -12,9 +12,6 @@ import { Modals } from './components/modals';
 
 import { CartPage } from './components/pages/cart';
 import { HomePage } from './components/pages/home';
-import { SignPage } from './components/pages/sign';
-import { accountActions } from './features/account/reducer';
-import { useAppDispatch } from './store/hooks';
 
 const App: FC = () => {
 
@@ -46,7 +43,6 @@ const App: FC = () => {
 
             <Routes>
                <Route path="home" element={<HomePage />} />
-               <Route path="sign" element={<SignPage />} />
                <Route path="cart" element={<CartPage />} />
             </Routes>
 
