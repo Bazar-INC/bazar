@@ -22,7 +22,7 @@ const useSignPageLogic = () => {
 
       if (!isControl && !isDigit) {
          event.preventDefault();
-      };
+      }
    };
 
    const [phone] = useProperty('');

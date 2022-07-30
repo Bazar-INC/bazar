@@ -1,9 +1,15 @@
 import { FC, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AccountEndpoints } from './api/endpoints/account';
+
 import { useProperty } from './components/hooks/property';
+import { useAppDispatch } from './store/hooks';
+
+import { AccountEndpoints } from './api/endpoints/account';
+import { accountActions } from './features/account/reducer';
+
 import { Layout } from './components/layout/layout';
 import { Modals } from './components/modals';
+
 import { CartPage } from './components/pages/cart';
 import { HomePage } from './components/pages/home';
 import { SignPage } from './components/pages/sign';

@@ -5,13 +5,11 @@ interface ProfileState {
 }
 
 interface AccountState {
-   profile: ProfileState;
+   profile: ProfileState | null;
 }
 
 const initialState: AccountState = {
-   profile: {
-      name: ''
-   }
+   profile: null
 };
 
 const accountSlice = createSlice({
