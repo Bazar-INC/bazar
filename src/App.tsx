@@ -12,6 +12,7 @@ import { Modals } from './components/modals';
 
 import { CartPage } from './components/pages/cart';
 import { HomePage } from './components/pages/home';
+import { GoodsPage } from './components/pages/goods';
 
 const App: FC = () => {
 
@@ -43,6 +44,7 @@ const App: FC = () => {
                <Routes>
                   <Route path="home" element={<HomePage />} />
                   <Route path="cart" element={<CartPage />} />
+                  <Route path="goods" element={<GoodsPage />} />
                </Routes>
             </div>
             <div className="mt-auto">
