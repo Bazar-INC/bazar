@@ -36,11 +36,11 @@ class Client {
    }
 
    get<TResponse>(url: string) {
-      return this.client.get(url);
+      return this.client.get<TResponse>(url);
    }
 
    post<TResponse>(url: string, data?: any) {
-      return this.client.post(url, data);
+      return this.client.post<TResponse>(url, data);
    }
 }
 
