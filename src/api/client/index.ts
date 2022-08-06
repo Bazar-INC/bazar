@@ -39,7 +39,7 @@ class Client {
       return this.client.get<TResponse>(url);
    }
 
-   post<TResponse>(url: string, data?: any) {
+   post<TResponse>(url: string, data?: unknown) {
       return this.client.post<TResponse>(url, data);
    }
 }
