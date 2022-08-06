@@ -1,11 +1,12 @@
 import { FC } from 'react';
+import { Layout } from '../layout';
 
 const Footer: FC = () => {
    return (
       <footer className="bg-[#1D1D1D] py-16">
-         <div className="max-w-[1660px] mx-auto">
+         <Layout.Container>
             <img src="brand_logo_2.png" alt="" />
-         </div>
+         </Layout.Container>
       </footer>
    );
 };
