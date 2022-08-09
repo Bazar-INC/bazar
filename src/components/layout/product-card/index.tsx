@@ -11,6 +11,19 @@ interface Props {
    price: number;
 }
 
+function priceSeparateByThousands(price: number) {
+
+   let priceAsString = (price % 1000) + " ";
+
+   const result = (Math.floor(price / 1000) % 1000);
+
+   if (result > 0) {
+      priceAsString = result + " " + priceAsString;
+   }
+
+   return priceAsString;
+}
+
 const ProductCard: FC<Props> = ({ picture, categoryName, productName, price }) => {
    return (
       <div className="card-product">
@@ -24,7 +37,7 @@ const ProductCard: FC<Props> = ({ picture, categoryName, productName, price }) =
                <span className="line-through text-[#70706d] font-semibold text-[10px]">17 999</span>
                <span className="bg-[#d4ffe7] rounded ml-2 font-semibold text-[10px] text-[#1d1d1d] px-2.5">-1000</span>
             </div>
-            <span className="text-[20px] font-[Intro]">{price} грн</span>
+            <span className="text-[20px] font-[Intro]">{priceSeparateByThousands(price)} грн</span>
             <div className="w-full flex mt-5">
                <Layout.Button stretch>Купити</Layout.Button>
                <Icons.Compare className="text-[#8f00f9] ml-7 w-16 cursor-pointer" />
