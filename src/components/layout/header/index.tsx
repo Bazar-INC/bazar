@@ -5,14 +5,46 @@ import { Icons } from '../../icons/icons';
 import { Layout } from '../layout';
 
 const catalogMenuItems = [
-   { title: "Ноутбуки та комп’ютери", icon: <Icons.Phone /> },
-   { title: "Смартфони, ТВ і електроніка", icon: <Icons.Phone /> },
-   { title: "Товари для геймерів", icon: <Icons.Controller /> },
-   { title: "Побутова техніка", icon: <Icons.Phone /> },
-   { title: "Товари для дому", icon: <Icons.Phone /> },
-   { title: "Інструменти та автотовари", icon: <Icons.Phone /> },
-   { title: "Сантехніка та ремонт", icon: <Icons.Phone /> },
-   { title: "Ще 15 категорій", icon: <Icons.Dots /> },
+   {
+      title: "Ноутбуки та комп’ютери",
+      icon: <Icons.Phone />,
+      route: "/goods/laptops"
+   },
+   {
+      title: "Смартфони, ТВ і електроніка",
+      icon: <Icons.Phone />,
+      route: "/goods/electronics"
+   },
+   {
+      title: "Товари для геймерів",
+      icon: <Icons.Controller />,
+      route: "/goods/gaming"
+   },
+   {
+      title: "Побутова техніка",
+      icon: <Icons.Phone />,
+      route: "/goods/household_appliances"
+   },
+   {
+      title: "Товари для дому",
+      icon: <Icons.Phone />,
+      route: "/goods/home"
+   },
+   {
+      title: "Інструменти та автотовари",
+      icon: <Icons.Phone />,
+      route: "/goods/cars"
+   },
+   {
+      title: "Сантехніка та ремонт",
+      icon: <Icons.Phone />,
+      route: "/goods/plumbing"
+   },
+   {
+      title: "Ще 15 категорій",
+      icon: <Icons.Dots />,
+      route: ""
+   },
 ];
 
 interface Props {
@@ -28,7 +60,7 @@ const Header: FC<Props> = ({ openSignModal }) => {
          <Layout.Container>
             <header className="h-[100px] flex items-center">
                <Link to="/home">
-                  <img src="brand_logo_1.png" />
+                  <img src="/brand_logo_1.png" />
                </Link>
                <div className="ml-auto flex items-center">
                   <Link className="mr-10" to="/cart">
@@ -56,12 +88,12 @@ const Header: FC<Props> = ({ openSignModal }) => {
                      <span className="text-[21px] font-semibold text-white leading-[70px] cursor-pointer">Каталог товарів</span>
                      <div className="hidden group-hover:block absolute top-full bg-white w-[430px] p-5 space-y-2 shadow-2xl rounded-b">
                         {catalogMenuItems.map((item, index) => (
-                           <div key={index} className="flex items-center h-14">
+                           <Link to={item.route} key={index} className="flex items-center h-14">
                               <div className="w-9 flex justify-center">
                                  {item.icon}
                               </div>
                               <span className="text-[19px] font-semibold ml-4">{item.title}</span>
-                           </div>
+                           </Link>
                         ))}
                      </div>
                   </div>
