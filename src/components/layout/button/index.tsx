@@ -11,7 +11,7 @@ const Button: FC<Props> = ({ children, stretch: stretch = false, onClick }) => {
    const stretchStyles = stretch === true ? 'w-full' : '';
 
    return (
-      <button onClick={onClick} className={`flex justify-center text-[25px] bg-[#8F00F9] hover:bg-[#6500B0] text-white py-3 px-7 rounded ${stretchStyles}`}>
+      <button onClick={onClick} className={`flex justify-center text-xl bg-[#8F00F9] hover:bg-[#6500B0] text-white py-2 px-6 rounded ${stretchStyles}`}>
          {children}
       </button>
    );
