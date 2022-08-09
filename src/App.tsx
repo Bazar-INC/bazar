@@ -47,9 +47,7 @@ const App: FC = () => {
                   <Route path="goods" element={<GoodsPage />} />
                </Routes>
             </div>
-            <div className="mt-auto">
-               <Layout.Footer />
-            </div>
+            <Layout.Footer className="mt-auto" />
          </div>
          <Modals.Sign open={signModalIsOpen.get} onClose={closeSignModal} />
       </>
