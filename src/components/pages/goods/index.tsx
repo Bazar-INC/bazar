@@ -1,15 +1,10 @@
 import React, { FC, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { Filter } from "./components/filter";
-
-const breadCrumbsItems = [
-   { label: 'Головна', route: '' },
-   { label: 'Каталог', route: '' },
-   { label: 'Літній розпродаж', route: '' },
-];
 
 const mockPics = [
    "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
@@ -27,6 +22,14 @@ const mockPics = [
 ];
 
 const GoodsPage: FC = () => {
+
+   const { category } = useParams();
+
+   const breadCrumbsItems = [
+      { label: 'Головна', route: '' },
+      { label: 'Каталог', route: '' },
+      { label: category ?? "", route: '' },
+   ];
 
    const [products] = useProperty<Array<{ title: string; price: number; }>>([]);
    const [totalPages] = useProperty(0);
@@ -53,7 +56,7 @@ const GoodsPage: FC = () => {
    return (
       <div className="max-w-[1660px] mx-auto px-4 mt-8">
          <Layout.BreadCrumbs items={breadCrumbsItems} />
-         <Typography.Heading className="block mt-5">Літній розпродаж</Typography.Heading>
+         <Typography.Heading className="block mt-5">{category ?? ""}</Typography.Heading>
          <div className="flex gap-x-[100px] mt-14">
             <div className="w-[400px]">
                <span>Фільтруй базар</span>

@@ -44,7 +44,7 @@ const App: FC = () => {
                <Routes>
                   <Route path="home" element={<HomePage />} />
                   <Route path="cart" element={<CartPage />} />
-                  <Route path="goods" element={<GoodsPage />} />
+                  <Route path="goods/:category" element={<GoodsPage />} />
                </Routes>
             </div>
             <Layout.Footer className="mt-auto" />
