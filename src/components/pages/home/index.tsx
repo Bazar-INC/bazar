@@ -4,16 +4,16 @@ import { Layout } from '../../layout/layout';
 const HomePage: FC = () => {
    return (
       <div className="py-8">
-         <div className="max-w-[1660px] mx-auto">
-            <div className="h-[595px] w-[1195px] ml-auto rounded-lg bg-black"></div>
-         </div>
+         <Layout.Container>
+            <div className="h-[595px] w-full ml-auto rounded-lg bg-black"></div>
+         </Layout.Container>
          <img className="mt-20 mb-10" src="banner.png" />
-         <div className="max-w-[1660px] mx-auto">
+         <Layout.Container>
             <div className="flex items-center">
                <img src="fire.png" />
                <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
             </div>
-            <div className="flex justify-between mt-8">
+            <div className="flex justify-between gap-2 mt-8">
                <Layout.ProductCard
                   categoryName="Смартфон"
                   productName="Apple Iphone 13 PRO 128GB Cірий"
@@ -43,7 +43,7 @@ const HomePage: FC = () => {
                <img src="sound.png" />
                <span className="font-[Intro] text-[40px] mt-4 ml-2">Новинки</span>
             </div>
-            <div className="flex justify-between mt-8">
+            <div className="flex justify-between mt-8 gap-2">
                <Layout.ProductCard
                   categoryName="Побутова хімія"
                   productName="Таблетки для посудомоечных машин FINISH Quantum Ultimate 60 шт"
@@ -69,7 +69,7 @@ const HomePage: FC = () => {
                   price={3_127}
                />
             </div>
-         </div>
+         </Layout.Container>
       </div>
    );
 };

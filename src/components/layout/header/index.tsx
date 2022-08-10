@@ -4,6 +4,49 @@ import { useAppSelector } from '../../../store/hooks';
 import { Icons } from '../../icons/icons';
 import { Layout } from '../layout';
 
+const catalogMenuItems = [
+   {
+      title: "Ноутбуки та комп’ютери",
+      icon: <Icons.Phone />,
+      route: "/goods/laptops"
+   },
+   {
+      title: "Смартфони, ТВ і електроніка",
+      icon: <Icons.Phone />,
+      route: "/goods/electronics"
+   },
+   {
+      title: "Товари для геймерів",
+      icon: <Icons.Controller />,
+      route: "/goods/gaming"
+   },
+   {
+      title: "Побутова техніка",
+      icon: <Icons.Phone />,
+      route: "/goods/household_appliances"
+   },
+   {
+      title: "Товари для дому",
+      icon: <Icons.Phone />,
+      route: "/goods/home"
+   },
+   {
+      title: "Інструменти та автотовари",
+      icon: <Icons.Phone />,
+      route: "/goods/cars"
+   },
+   {
+      title: "Сантехніка та ремонт",
+      icon: <Icons.Phone />,
+      route: "/goods/plumbing"
+   },
+   {
+      title: "Ще 15 категорій",
+      icon: <Icons.Dots />,
+      route: ""
+   },
+];
+
 interface Props {
    openSignModal(): void;
 }
@@ -17,7 +60,7 @@ const Header: FC<Props> = ({ openSignModal }) => {
          <Layout.Container>
             <header className="h-[100px] flex items-center">
                <Link to="/home">
-                  <img src="brand_logo_1.png" />
+                  <img src="/brand_logo_1.png" />
                </Link>
                <div className="ml-auto flex items-center">
                   <Link className="mr-10" to="/cart">
@@ -44,60 +87,14 @@ const Header: FC<Props> = ({ openSignModal }) => {
                      <span className="ml-5 mr-2.5"><Icons.AlignLeft /></span>
                      <span className="text-[21px] font-semibold text-white leading-[70px] cursor-pointer">Каталог товарів</span>
                      <div className="hidden group-hover:block absolute top-full bg-white w-[430px] p-5 space-y-2 shadow-2xl rounded-b">
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Акції інтернет - магазину</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Ноутбуки та комп’ютери</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Смартфони, ТВ і електроніка</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Controller />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Товари для геймерів</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Побутова техніка</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Товари для дому</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Інструменти та автотовари</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Phone />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Сантехніка та ремонт</span>
-                        </div>
-                        <div className="flex items-center h-14">
-                           <div className="w-9 flex justify-center">
-                              <Icons.Dots />
-                           </div>
-                           <span className="text-[19px] font-semibold ml-4">Ще 15 категорій</span>
-                        </div>
+                        {catalogMenuItems.map((item, index) => (
+                           <Link to={item.route} key={index} className="flex items-center h-14">
+                              <div className="w-9 flex justify-center">
+                                 {item.icon}
+                              </div>
+                              <span className="text-[19px] font-semibold ml-4">{item.title}</span>
+                           </Link>
+                        ))}
                      </div>
                   </div>
                   <div className="text-white font-semibold text-[20px] space-x-12 ml-8">
