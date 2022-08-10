@@ -13,6 +13,7 @@ import { Modals } from './components/modals';
 import { CartPage } from './components/pages/cart';
 import { HomePage } from './components/pages/home';
 import { GoodsPage } from './components/pages/goods';
+import { AdminPage } from "./components/admin";
 
 const App: FC = () => {
 
@@ -38,18 +39,26 @@ const App: FC = () => {
 
    return (
       <>
-         <div className="flex flex-col h-full">
-            <div className="flex-[1_0_auto]">
-               <Layout.Header openSignModal={openSignModal} />
-               <Routes>
-                  <Route path="home" element={<HomePage />} />
-                  <Route path="cart" element={<CartPage />} />
-                  <Route path="goods/:category" element={<GoodsPage />} />
-               </Routes>
-            </div>
-            <Layout.Footer className="mt-auto" />
-         </div>
-         <Modals.Sign open={signModalIsOpen.get} onClose={closeSignModal} />
+         <Routes>
+            <Route path="admin" element={<AdminPage />} />
+            <Route path="*" element={
+               <>
+                  <div className="flex flex-col h-full">
+                     <div className="flex-[1_0_auto]">
+                        <Layout.Header openSignModal={openSignModal} />
+                        <Routes>
+                           <Route path="home" element={<HomePage />} />
+                           <Route path="cart" element={<CartPage />} />
+                           <Route path="goods/:category" element={<GoodsPage />} />
+                        </Routes>
+                     </div>
+                     <Layout.Footer className="mt-auto" />
+                  </div>
+                  <Modals.Sign open={signModalIsOpen.get} onClose={closeSignModal} />
+               </>
+            }>
+            </Route>
+         </Routes>
       </>
    );
 };
