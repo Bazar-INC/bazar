@@ -1,14 +1,7 @@
 import { FC } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { useProperty } from "../../hooks/property";
-import { accountActions } from "../../../features/account/reducer";
-import { AccountEndpoints } from "../../../api/endpoints/account";
-import { AuthEndpoints } from "../../../api/endpoints/auth";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
-import { tokenStorage } from "../../../tokenStorage";
-
-type EnterMode = "phone" | "code" | "verification";
+import { useLogic } from "./logic";
 
 interface Props {
    open: boolean;
@@ -17,60 +10,25 @@ interface Props {
 
 const Sign: FC<Props> = ({ open, onClose }) => {
 
-   const dispatch = useAppDispatch();
+   const {
+      phone,
+      code,
+      isProfileNotNull,
+      handleClickButton,
+      isEnterModePhone,
+      isEnterModeCode,
+      isEnterModeVerification
+   } = useLogic();
 
-   const profile = useAppSelector(state => state.accountReducer.profile);
-
-   const [phone] = useProperty("");
-   const [code] = useProperty("");
-
-   const [enterMode] = useProperty<EnterMode>("phone");
-
-   const sendPhone = () => {
-
-      if (phone.get.length < 9) return;
-
-      AuthEndpoints.loginRequest(phone.get);
-
-      enterMode.set("code");
-   };
-
-   const confirmCode = async () => {
-
-      if (code.get.length < 4) return;
-
-      enterMode.set("verification");
-
-      const confirmResponse = await AuthEndpoints.loginConfirm(phone.get, code.get);
-      tokenStorage.set(confirmResponse.data.token);
-
-      const profileResponse = await AccountEndpoints.getProfile();
-      dispatch(accountActions.setProfile(profileResponse.data));
-   };
-
-   const handleClickButton = () => {
-
-      if (enterMode.get === "phone") {
-         sendPhone();
-      }
-
-      if (enterMode.get === "code") {
-         confirmCode();
-      }
-   };
-
-   if (open === false || profile !== null) {
+   if (open === false || isProfileNotNull) {
       return <></>;
    }
 
    const handleClose = (event: React.MouseEvent) => {
-
       // Prevent click on child elements
-      if (event.target !== event.currentTarget) {
-         return;
+      if (event.target === event.currentTarget) {
+         onClose();
       }
-
-      onClose();
    };
 
    return (
@@ -85,7 +43,7 @@ const Sign: FC<Props> = ({ open, onClose }) => {
                maxLength={9}
                className="border-[#9DA0A9] border-2 rounded-lg w-[360px] mt-2 py-4 text-center text-[20px]"
             />
-            {enterMode.get === "code" && (
+            {isEnterModeCode && (
                <>
                   <span className="text-lg mt-2">Введіть код з смс:</span>
                   <Layout.Input
@@ -99,11 +57,9 @@ const Sign: FC<Props> = ({ open, onClose }) => {
             )}
             <div className="w-full mt-10">
                <Layout.Button onClick={handleClickButton} stretch>
-                  {enterMode.get === "phone" && "Надіслати"}
-                  {enterMode.get === "code" && "Підтвердити"}
-                  {enterMode.get === "verification" && (
-                     <div className="w-1 h-8 bg-white animate-spin" />
-                  )}
+                  {isEnterModePhone && "Надіслати"}
+                  {isEnterModeCode && "Підтвердити"}
+                  {isEnterModeVerification && <div className="w-1 h-8 bg-white animate-spin" />}
                </Layout.Button>
             </div>
          </div>
