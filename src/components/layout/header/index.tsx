@@ -6,6 +6,11 @@ import { Layout } from '../layout';
 
 const catalogMenuItems = [
    {
+      title: "Акції інтернет - магазину",
+      icon: <Icons.Phone />,
+      route: "/goods/laptops"
+   },
+   {
       title: "Ноутбуки та комп’ютери",
       icon: <Icons.Phone />,
       route: "/goods/laptops"
