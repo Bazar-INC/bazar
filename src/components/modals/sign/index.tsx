@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { useLogic } from "./logic";
@@ -15,10 +15,18 @@ const Sign: FC<Props> = ({ open, onClose }) => {
       code,
       isProfileNotNull,
       handleClickButton,
+      loading,
       isEnterModePhone,
       isEnterModeCode,
-      isEnterModeVerification
+      isShowTimeoutError,
+      reset
    } = useLogic();
+
+   useEffect(() => {
+      if (open === false) {
+         reset();
+      }
+   }, [open]);
 
    if (open === false || isProfileNotNull) {
       return <></>;
@@ -38,6 +46,7 @@ const Sign: FC<Props> = ({ open, onClose }) => {
             <span className="text-lg mt-5">Введіть ваш номер телефону</span>
             <div className="relative">
                <Layout.Input
+                  disabled={!isEnterModePhone || loading.get}
                   onChange={phone.set}
                   type="phone"
                   hint="000-000-000"
@@ -58,14 +67,25 @@ const Sign: FC<Props> = ({ open, onClose }) => {
                   />
                </>
             )}
-            <div className="w-full mt-10">
+            <div className="w-full mt-10 relative">
                <Layout.Button onClick={handleClickButton} stretch>
                   {isEnterModePhone && "Надіслати"}
-                  {isEnterModeCode && "Підтвердити"}
-                  {isEnterModeVerification && <div className="w-1 h-8 bg-white animate-spin" />}
+                  {!isEnterModePhone && "Підтвердити"}
+                  {loading.get && (
+                     <>
+                        <div className="absolute top-3.5 right-4 w-4 h-4 border-4 border-white rounded-full animate-pulse" />
+                        <div className="absolute top-3.5 right-8 mr-1 w-4 h-4 border-4 border-white border-r-gray-400 rounded-full animate-spin" />
+                        <div className="absolute top-[18px] right-12 mr-3 w-2 h-2 border-4 border-white rounded-full animate-ping" />
+                     </>
+                  )}
                </Layout.Button>
             </div>
          </div>
+         {isShowTimeoutError && (
+            <div className="fixed bottom-0 left-0 w-full bg-red-900 text-center text-white font-[Gotham]">
+               No internet connection
+            </div>
+         )}
       </div>
    );
 };
