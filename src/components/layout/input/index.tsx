@@ -5,10 +5,11 @@ interface Props {
    hint?: string;
    type: "phone";
    maxLength?: number;
+   disabled?: boolean;
    onChange(value: string): void;
 }
 
-const Input: FC<Props> = ({ className, hint, type, maxLength, onChange }) => {
+const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange }) => {
 
    const [value, setValue] = useState("");
 
@@ -33,6 +34,7 @@ const Input: FC<Props> = ({ className, hint, type, maxLength, onChange }) => {
 
    return (
       <input
+         disabled={disabled}
          type="text"
          className={className}
          placeholder={hint}
