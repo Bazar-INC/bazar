@@ -8,6 +8,7 @@ const createAxiosInstance = (baseUrl: string) => {
 
    const client = axios.create({
       baseURL: `${APP_ENV.REMOTE_HOST_NAME}/api/${baseUrl}/`,
+      timeout: 5000
    });
 
    client.interceptors.request.use(
