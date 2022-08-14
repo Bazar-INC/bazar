@@ -1,45 +1,38 @@
 import React, { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { CategoriesEndpoints } from "../../../api/endpoints/categories";
 import { ProductsEndpoints } from "../../../api/endpoints/products";
+import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { Filter } from "./components/filter";
 
-const mockPics = [
-   "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-   "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-   "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-   "https://img.ktc.ua/img/base/1/0/400130.jpg",
-   "https://content2.rozetka.com.ua/goods/images/big/243680271.jpg",
-   "https://content1.rozetka.com.ua/goods/images/big/225058937.jpg",
-   "https://content2.rozetka.com.ua/goods/images/big/137115749.jpg",
-   "https://content1.rozetka.com.ua/goods/images/big/10732647.jpg",
-   "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-   "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-   "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-   "https://img.ktc.ua/img/base/1/0/400130.jpg"
-];
-
 const GoodsPage: FC = () => {
 
    const { category } = useParams();
 
-   const breadCrumbsItems = [
-      { label: 'Головна', route: '' },
-      { label: 'Каталог', route: '' },
-      { label: category ?? "", route: '' },
-   ];
-
-   const [products] = useProperty<Array<{ title: string; price: number; }>>([]);
+   const [products] = useProperty<Array<ProductModel>>([]);
    const [totalPages] = useProperty(0);
    const [filters] = useProperty<Array<{ title: string; values: Array<string>; }>>([]);
 
+   const [categoryName] = useProperty("");
+
+   const breadCrumbsItems = [
+      { label: 'Головна', route: '' },
+      { label: 'Каталог', route: '' },
+      { label: categoryName.get, route: '' },
+   ];
+
    useEffect(() => {
 
-      ProductsEndpoints.getProducts().then(({ data }) => {
+      category && CategoriesEndpoints.getCategory(category).then(({ data }) => {
+         categoryName.set(data.name);
+      });
 
-         products.set(data.products.map((p) => ({ title: p.name, price: p.price })));
+      category && ProductsEndpoints.getProducts(category).then(({ data }) => {
+
+         products.set(data.products);
 
          filters.set(
             data.filters.map((f) => ({
@@ -51,12 +44,12 @@ const GoodsPage: FC = () => {
          totalPages.set(data.totalPages);
       });
 
-   }, []);
+   }, [category]);
 
    return (
       <div className="max-w-[1660px] mx-auto px-4 mt-8">
          <Layout.BreadCrumbs items={breadCrumbsItems} />
-         <Typography.Heading className="block mt-5">{category ?? ""}</Typography.Heading>
+         <Typography.Heading className="block mt-5">{categoryName.get}</Typography.Heading>
          <div className="flex gap-x-[100px] mt-14">
             <div className="w-[400px]">
                <span>Фільтруй базар</span>
@@ -81,9 +74,10 @@ const GoodsPage: FC = () => {
                      <Layout.ProductCard
                         key={index}
                         categoryName="Смартфон"
-                        productName={product.title}
-                        picture={mockPics[index] && mockPics[index]}
+                        productName={product.name}
+                        picture={product.images[0]}
                         price={product.price}
+                        link={"/product/" + product.id}
                      />
                   ))}
                </div>
