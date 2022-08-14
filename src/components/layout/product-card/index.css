@@ -1,5 +1,5 @@
 .card-product {
-    @apply w-[400px] py-10 flex flex-col items-center bg-white rounded-lg transition duration-100 ease-out;
+    @apply w-[370px] py-10 flex flex-col items-center bg-white rounded-lg transition duration-100 ease-out;
 }
 
 .card-product:hover {
