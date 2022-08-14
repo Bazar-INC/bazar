@@ -73,12 +73,30 @@ const useLogic = () => {
       enterMode.set("verification");
 
       loading.set(true);
-      const confirmResponse = await AuthEndpoints.loginConfirm(phone.get, code.get);
-      tokenStorage.set(confirmResponse.data.token);
 
-      const profileResponse = await AccountEndpoints.getProfile();
-      dispatch(accountActions.setProfile(profileResponse.data));
-      loading.set(false);
+      try {
+         const confirmResponse = await AuthEndpoints.loginConfirm(phone.get, code.get);
+         tokenStorage.set(confirmResponse.data.token);
+      } catch {
+         showTimeoutError.set(true);
+         enterMode.set("code");
+         return;
+      } finally {
+         loading.set(false);
+      }
+
+      loading.set(true);
+
+      try {
+         const profileResponse = await AccountEndpoints.getProfile();
+         dispatch(accountActions.setProfile(profileResponse.data));
+      } catch {
+         showTimeoutError.set(true);
+         enterMode.set("code");
+         return;
+      } finally {
+         loading.set(false);
+      }
    };
 
    const handleClickButton = () => {
