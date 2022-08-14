@@ -59,7 +59,7 @@ const App: FC = () => {
                         <Route path="home" element={<HomePage />} />
                         <Route path="cart" element={<CartPage />} />
                         <Route path="goods/:category" element={<GoodsPage />} />
-                        <Route path="product" element={<ProductPage />} />
+                        <Route path="product/:id" element={<ProductPage />} />
                      </Routes>
                   </div>
                   <Layout.Footer className="mt-auto" />
