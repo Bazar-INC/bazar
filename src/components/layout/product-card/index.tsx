@@ -10,6 +10,7 @@ interface Props {
    categoryName: string;
    productName: string;
    price: number;
+   link?: string;
 }
 
 function priceSeparateByThousands(price: number) {
@@ -25,13 +26,13 @@ function priceSeparateByThousands(price: number) {
    return priceAsString;
 }
 
-const ProductCard: FC<Props> = ({ picture, categoryName, productName, price }) => {
+const ProductCard: FC<Props> = ({ picture, categoryName, productName, price, link }) => {
    return (
       <div className="card-product">
          <img className="card-image" src={picture} />
          <div className="w-72 mt-6 flex flex-col items-start">
             <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{categoryName}</span>
-            <Link to="/product" className="font-semibold hover:text-[#8F00F9] text-[17px] h-12 overflow-clip">{productName}</Link>
+            <Link to={link ?? ""} className="font-semibold hover:text-[#8F00F9] text-[17px] h-12 overflow-clip">{productName}</Link>
             <Layout.Badge additionalClasses="mt-4" color="#00ff74">Від 1099 в міс.</Layout.Badge>
             <Layout.Badge additionalClasses="mt-4" color="#8f00f9">Хіт продаж</Layout.Badge>
             <div className="flex mt-5 items-center">
