@@ -14,6 +14,7 @@ import { CartPage } from './components/pages/cart';
 import { HomePage } from './components/pages/home';
 import { GoodsPage } from './components/pages/goods';
 import { AdminPage } from "./components/admin";
+import { ProductPage } from "./components/pages/product";
 
 const App: FC = () => {
 
@@ -58,6 +59,7 @@ const App: FC = () => {
                         <Route path="home" element={<HomePage />} />
                         <Route path="cart" element={<CartPage />} />
                         <Route path="goods/:category" element={<GoodsPage />} />
+                        <Route path="product" element={<ProductPage />} />
                      </Routes>
                   </div>
                   <Layout.Footer className="mt-auto" />

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from "react-router-dom";
 import { Icons } from '../../icons/icons';
 import { Layout } from '../layout';
 
@@ -30,7 +31,7 @@ const ProductCard: FC<Props> = ({ picture, categoryName, productName, price }) =
          <img className="card-image" src={picture} />
          <div className="w-72 mt-6 flex flex-col items-start">
             <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{categoryName}</span>
-            <span className="font-semibold text-[17px] h-12 overflow-clip">{productName}</span>
+            <Link to="/product" className="font-semibold hover:text-[#8F00F9] text-[17px] h-12 overflow-clip">{productName}</Link>
             <Layout.Badge additionalClasses="mt-4" color="#00ff74">Від 1099 в міс.</Layout.Badge>
             <Layout.Badge additionalClasses="mt-4" color="#8f00f9">Хіт продаж</Layout.Badge>
             <div className="flex mt-5 items-center">
