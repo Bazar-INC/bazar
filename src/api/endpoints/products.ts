@@ -14,8 +14,8 @@ interface ProductsResponse {
    }>;
 }
 
-const getProducts = () => {
-   return client.get<ProductsResponse>("");
+const getProducts = (category: string) => {
+   return client.get<ProductsResponse>(`?category=${category}`);
 };
 
 export const ProductsEndpoints = {
