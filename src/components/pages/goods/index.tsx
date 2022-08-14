@@ -47,43 +47,46 @@ const GoodsPage: FC = () => {
    }, [category]);
 
    return (
-      <div className="max-w-[1660px] mx-auto px-4 mt-8">
-         <Layout.BreadCrumbs items={breadCrumbsItems} />
-         <Typography.Heading className="block mt-5">{categoryName.get}</Typography.Heading>
-         <div className="flex gap-x-[100px] mt-14">
-            <div className="w-[400px]">
-               <span>Фільтруй базар</span>
-               {filters.get.map((filter, index) => (
-                  <React.Fragment key={index}>
-                     <hr className="my-8" />
-                     <Filter title={filter.title} values={filter.values} />
-                  </React.Fragment>
-               ))}
-            </div>
-            <div className="w-full">
-               <div className="flex">
-                  <span>Показано {products.get.length} товарів</span>
-                  <select className="ml-auto">
-                     <option>За рейтингом</option>
-                     <option>Новинки</option>
-                     <option>За популярністью</option>
-                  </select>
-               </div>
-               <div className="flex flex-wrap justify-between mt-8 gap-3">
-                  {products.get.map((product, index) => (
-                     <Layout.ProductCard
-                        key={index}
-                        categoryName="Смартфон"
-                        productName={product.name}
-                        picture={product.images[0]}
-                        price={product.price}
-                        link={"/product/" + product.id}
-                     />
+      <Layout.Container>
+         <div className="mt-8">
+            <Layout.BreadCrumbs items={breadCrumbsItems} />
+            <Typography.Heading className="block mt-5">{categoryName.get}</Typography.Heading>
+            <div className="flex gap-x-[100px] mt-14">
+               <div className="w-[400px]">
+                  <span>Фільтруй базар</span>
+                  {filters.get.map((filter, index) => (
+                     <React.Fragment key={index}>
+                        <hr className="my-8" />
+                        <Filter title={filter.title} values={filter.values} />
+                     </React.Fragment>
                   ))}
+               </div>
+               <div className="w-full">
+                  <div className="flex">
+                     <span>Показано {products.get.length} товарів</span>
+                     <select className="ml-auto">
+                        <option>За рейтингом</option>
+                        <option>Новинки</option>
+                        <option>За популярністью</option>
+                     </select>
+                  </div>
+                  <div className="flex flex-wrap justify-between mt-8 gap-3">
+                     {products.get.map((product, index) => (
+                        <Layout.ProductCard
+                           key={index}
+                           categoryName="Смартфон"
+                           productName={product.name}
+                           picture={product.images[0]}
+                           price={product.price}
+                           link={"/product/" + product.id}
+                        />
+                     ))}
+                  </div>
                </div>
             </div>
          </div>
-      </div>
+      </Layout.Container>
+
    );
 };
 
