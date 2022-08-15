@@ -6,43 +6,43 @@ import { Layout } from '../layout';
 
 const catalogMenuItems = [
    {
-      title: "Акції інтернет - магазину",
-      icon: <Icons.Phone />,
-      route: "/goods/laptops"
-   },
-   {
-      title: "Ноутбуки та комп’ютери",
-      icon: <Icons.Phone />,
-      route: "/goods/laptops"
-   },
-   {
-      title: "Смартфони, ТВ і електроніка",
-      icon: <Icons.Phone />,
-      route: "/goods/electronics"
-   },
-   {
-      title: "Товари для геймерів",
+      title: "Технiка для дому",
       icon: <Icons.Controller />,
-      route: "/goods/gaming"
+      route: "/goods/home_appliances"
    },
    {
-      title: "Побутова техніка",
-      icon: <Icons.Phone />,
-      route: "/goods/household_appliances"
+      title: "Техніка та електроніка",
+      icon: <Icons.Controller />,
+      route: "/goods/technique_and_electronics"
    },
    {
-      title: "Товари для дому",
+      title: "Мобільні телефони",
       icon: <Icons.Phone />,
-      route: "/goods/home"
+      route: "/goods/mobile_phones"
+   },
+   {
+      title: "Ноутбуки та Планшети",
+      icon: <Icons.Controller />,
+      route: "/goods/laptops_and_tablets"
+   },
+   {
+      title: "ТВ та Вiдображення",
+      icon: <Icons.Controller />,
+      route: "/goods/tb_and_presentation"
+   },
+   {
+      title: "Навушники та Колонки",
+      icon: <Icons.Controller />,
+      route: "/goods/home_appliances"
    },
    {
       title: "Інструменти та автотовари",
-      icon: <Icons.Phone />,
+      icon: <Icons.Controller />,
       route: "/goods/cars"
    },
    {
       title: "Сантехніка та ремонт",
-      icon: <Icons.Phone />,
+      icon: <Icons.Controller />,
       route: "/goods/plumbing"
    },
    {

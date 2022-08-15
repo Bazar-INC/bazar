@@ -7,7 +7,7 @@ const tokenStorage = new StorageUtility<string>('TOKEN_STORAGE');
 const createAxiosInstance = (baseUrl: string) => {
 
    const client = axios.create({
-      baseURL: `${APP_ENV.REMOTE_HOST_NAME}/api/${baseUrl}/`,
+      baseURL: `${APP_ENV.REMOTE_HOST_NAME}/api/${baseUrl}`,
       timeout: 5000
    });
 

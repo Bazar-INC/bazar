@@ -8,14 +8,17 @@ interface ProductsResponse {
    totalPages: number;
    filters: Array<{
       name: string;
+      code: string;
       options: Array<{
          value: string;
+         code: string;
       }>
    }>;
 }
 
-const getProducts = () => {
-   return client.get<ProductsResponse>("");
+const getProducts = (category: string, filterString: string) => {
+
+   return client.get<ProductsResponse>(`?category=${category}&filterString=${filterString}`);
 };
 
 export const ProductsEndpoints = {
