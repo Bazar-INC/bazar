@@ -104,7 +104,7 @@ const GoodsPage: FC = () => {
 
    return (
       <Layout.Container>
-         <div className="mt-8">
+         <div className="my-8">
             <Layout.BreadCrumbs items={breadCrumbsItems} />
             <Typography.Heading className="block mt-5">{categoryName.get}</Typography.Heading>
             <div className="flex gap-x-[100px] mt-14">
