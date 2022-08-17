@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC } from "react";
+import { classes } from "../../../functions";
 
 interface Props {
    additionalClasses?: string;
@@ -7,12 +8,14 @@ interface Props {
 }
 
 const Badge: FC<Props> = ({ children, color, additionalClasses }) => {
+
+   const defaultClasses = "inline-block rounded-lg px-1 py-0.5 border-2";
+
    return (
-      <div
-         style={{ borderColor: color }}
-         className={`inline-block rounded-lg px-1 py-0.5 border-2 ${additionalClasses ?? ''}`}
-      >
-         <span className="text-sm font-[Gotham] font-bold">{children}</span>
+      <div style={{ borderColor: color }} className={classes(defaultClasses, additionalClasses)}>
+         <span className="text-sm font-[Gotham] font-bold block w-full text-center">
+            {children}
+         </span>
       </div>
    );
 };
