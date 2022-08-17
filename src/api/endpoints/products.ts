@@ -21,6 +21,11 @@ const getProducts = (category: string, filterString: string) => {
    return client.get<ProductsResponse>(`?category=${category}&filterString=${filterString}`);
 };
 
+const getProductById = (id: string) => {
+   return client.get<ProductModel>(`/${id}`);
+};
+
 export const ProductsEndpoints = {
-   getProducts
+   getProducts,
+   getProductById
 };
