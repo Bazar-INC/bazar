@@ -132,6 +132,7 @@ const GoodsPage: FC = () => {
                   <div className="flex flex-wrap justify-between mt-8 gap-3">
                      {products.get.map((product, index) => (
                         <Layout.ProductCard
+                           id={product.id}
                            key={index}
                            categoryName="Смартфон"
                            productName={product.name}
