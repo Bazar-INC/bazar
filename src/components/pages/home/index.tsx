@@ -5,6 +5,28 @@ import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
+interface CustomCardProps {
+   title: string;
+   badge: string;
+   picture: string;
+}
+
+const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
+   return (
+      <div className="flex bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64">
+         <div className="flex flex-col items-start">
+            <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">
+               {badge}
+            </Layout.Badge>
+            <Typography.Heading className="mt-5 !text-[20px] !2xl:text-[30px]">
+               {title}
+            </Typography.Heading>
+         </div>
+         <img className="h-64 2xl:h-96 -mt-32 2xl:-mt-48" src={picture} />
+      </div>
+   );
+};
+
 const HomePage: FC = () => {
 
    const [productList1] = useProperty<Array<ProductModel>>([]);
@@ -23,8 +45,8 @@ const HomePage: FC = () => {
       <div className="py-8">
          <Layout.Container>
             <div className="flex">
-               <div className="w-[430px] h-2"></div>
-               <div className="ml-8 flex-1 h-[608px] w-full rounded-lg bg-black"></div>
+               <div className="w-[286px] 2xl:w-[430px] h-2"></div>
+               <div className="ml-8 flex-1 h-[440px] 2xl:h-[608px] w-full rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
          <img className="mt-20 mb-10" src="/banner.png" />
@@ -48,20 +70,8 @@ const HomePage: FC = () => {
             </div>
 
             <div className="mt-32 flex gap-x-24">
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col items-start">
-                     <Layout.Badge color="#8f00f9" additionalClasses="w-[145px]">Огляд</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Спорт обладнання</Typography.Heading>
-                  </div>
-                  <img className="h-80 -mt-32" src="/girya.png" />
-               </div>
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col">
-                     <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">Огляд</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Смарт годинник</Typography.Heading>
-                  </div>
-                  <img className="h-80 -mt-32 w-full" src="/clock.png" />
-               </div>
+               <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
+               <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
 
             <div className="flex items-center mt-20">
@@ -82,21 +92,10 @@ const HomePage: FC = () => {
             </div>
 
             <div className="my-40 flex gap-x-24">
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col items-start">
-                     <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">Розтрочка</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Плати частинами</Typography.Heading>
-                  </div>
-                  <img className="h-96 -mt-48" src="/money.png" />
-               </div>
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col">
-                     <Layout.Badge color="#8f00f9" additionalClasses="w-[145px]">Категорії</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Фільтруй базар</Typography.Heading>
-                  </div>
-                  <img className="h-96 -mt-48 w-full" src="/txt.png" />
-               </div>
+               <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
+               <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
             </div>
+
          </Layout.Container>
       </div>
    );
