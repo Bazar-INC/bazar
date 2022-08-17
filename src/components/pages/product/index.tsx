@@ -388,7 +388,7 @@ const ProductPage: FC = () => {
                </div>
                <div className="flex flex-wrap justify-start mt-12 mb-32 gap-3">
                   {productList.map((product, index) => (
-                     <Layout.ProductCard key={index} {...product} />
+                     <Layout.ProductCard id={product.productName} key={index} {...product} />
                   ))}
                </div>
             </Layout.Container>
