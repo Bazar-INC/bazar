@@ -20,12 +20,12 @@ const CartPage: FC = () => {
    }, [productsIds]);
 
    return (
-      <div className="w-[1660px] mx-auto mb-36 mt-24">
+      <Layout.Container className="py-20">
          <span className="font-[Intro] text-[40px]">Оформлення замовлення</span>
          {productsIds.length === 0 ? (
-            <div className="w-full flex flex-col items-center">
-               <img src="cart.png" className="-mt-52" />
-               <div className="w-[676px] -mt-40">
+            <div className="w-full flex flex-col items-center justify-center">
+               <img src="cart.png" className="-mr-56" />
+               <div className="max-w-[676px]">
                   <span className="font-[Intro] text-[35px]">Упс... Ваш кошик порожній</span>
                   <br />
                   <span className="text-[30px]">Та з базару ніхто не йде з пустими руками, обери щось з каталогу</span>
@@ -61,7 +61,7 @@ const CartPage: FC = () => {
                />
             ))}
          </div>
-      </div>
+      </Layout.Container>
    );
 };
 
