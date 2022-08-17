@@ -1,7 +1,16 @@
 import { FC, PropsWithChildren } from 'react';
+import { classes } from "../../../functions";
 
-const Container: FC<PropsWithChildren> = ({ children }) => {
-   return <div className="max-w-[1660px] mx-auto px-16">{children}</div>;
+interface Props {
+   className?: string;
+}
+
+const Container: FC<PropsWithChildren<Props>> = ({ children, className }) => {
+   return (
+      <div className={classes("max-w-[1660px] mx-auto px-16", className)}>
+         {children}
+      </div>
+   );
 };
 
 export { Container };
