@@ -1,62 +1,24 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { ProductsEndpoints } from "../../../api/endpoints/products";
+import { ProductModel } from "../../../api/models/product";
+import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
-const productList1 = [
-   {
-      categoryName: "Смартфон",
-      productName: "Apple Iphone 13 PRO 128GB Cірий",
-      picture: "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-      price: 16_999
-   },
-   {
-      categoryName: "Сад та город",
-      productName: "Набір вазонів та грунт для вирощування трав Supretto на підвіконня Білий",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-      price: 500
-   },
-   {
-      categoryName: "Алкогольні напої",
-      productName: "Вино Misilla Nero D'Avola Sicilia DOC красное сухое 0.75 л 13%",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-      price: 699
-   },
-   {
-      categoryName: "Аксессуари",
-      productName: "Фітнес браслет Xiaomi Mi Smart Band 7 Black",
-      picture: "https://img.ktc.ua/img/base/1/0/400130.jpg",
-      price: 1_799
-   },
-];
-
-const productList2 = [
-   {
-      categoryName: "Побутова хімія",
-      productName: "Таблетки для посудомоечных машин FINISH Quantum Ultimate 60 шт",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/243680271.jpg",
-      price: 449
-   },
-   {
-      categoryName: "Автотовари",
-      productName: "Реагент Lesta AdBlue для зниження викидів оксиду азота 5 л",
-      picture: "https://content1.rozetka.com.ua/goods/images/big/225058937.jpg",
-      price: 341
-   },
-   {
-      categoryName: "Електроінструмент",
-      productName: "Пила циркулярная Metabo KS 66 FS",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/137115749.jpg",
-      price: 4_724
-   },
-   {
-      categoryName: "Автомобільні диски",
-      productName: "Zorat Wheels 969 R14 W6 PCD4x98 ET35 DIA67.1 (RL)BPX",
-      picture: "https://content1.rozetka.com.ua/goods/images/big/10732647.jpg",
-      price: 3_127
-   },
-];
-
 const HomePage: FC = () => {
+
+   const [productList1] = useProperty<Array<ProductModel>>([]);
+   const [productList2] = useProperty<Array<ProductModel>>([]);
+
+   useEffect(() => {
+      ProductsEndpoints.getTopProducts(1).then((response) => {
+         productList1.set(response.data.products);
+      });
+      ProductsEndpoints.getTopProducts(2).then((response) => {
+         productList2.set(response.data.products);
+      });
+   }, []);
+
    return (
       <div className="py-8">
          <Layout.Container>
@@ -73,8 +35,15 @@ const HomePage: FC = () => {
                <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
             </div>
             <div className="flex justify-between gap-2 mt-8">
-               {productList1.map((product, index) => (
-                  <Layout.ProductCard key={index} {...product} />
+               {productList1.get.map((product, index) => (
+                  <Layout.ProductCard
+                     id={product.id}
+                     productName={product.name}
+                     categoryName="Смартфон"
+                     price={product.price}
+                     picture={product.images[0]}
+                     key={index}
+                  />
                ))}
             </div>
 
@@ -100,8 +69,15 @@ const HomePage: FC = () => {
                <span className="font-[Intro] text-[40px] mt-4 ml-2">Новинки</span>
             </div>
             <div className="flex justify-between mt-8 gap-2">
-               {productList2.map((product, index) => (
-                  <Layout.ProductCard key={index} {...product} />
+               {productList2.get.map((product, index) => (
+                  <Layout.ProductCard
+                     id={product.id}
+                     productName={product.name}
+                     categoryName="Смартфон"
+                     price={product.price}
+                     picture={product.images[0]}
+                     key={index}
+                  />
                ))}
             </div>
 
