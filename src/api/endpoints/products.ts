@@ -16,11 +16,21 @@ interface ProductsResponse {
    }>;
 }
 
+const getTopProducts = (page: number) => {
+   return client.get<ProductsResponse>(`?page=${page}&perPage=4`);
+};
+
 const getProducts = (category: string, filterString: string) => {
 
    return client.get<ProductsResponse>(`?category=${category}&filterString=${filterString}`);
 };
 
+const getProductById = (id: string) => {
+   return client.get<ProductModel>(`/${id}`);
+};
+
 export const ProductsEndpoints = {
-   getProducts
+   getProducts,
+   getProductById,
+   getTopProducts,
 };

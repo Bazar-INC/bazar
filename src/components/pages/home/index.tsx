@@ -1,68 +1,52 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { ProductsEndpoints } from "../../../api/endpoints/products";
+import { ProductModel } from "../../../api/models/product";
+import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
-const productList1 = [
-   {
-      categoryName: "Смартфон",
-      productName: "Apple Iphone 13 PRO 128GB Cірий",
-      picture: "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-      price: 16_999
-   },
-   {
-      categoryName: "Сад та город",
-      productName: "Набір вазонів та грунт для вирощування трав Supretto на підвіконня Білий",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-      price: 500
-   },
-   {
-      categoryName: "Алкогольні напої",
-      productName: "Вино Misilla Nero D'Avola Sicilia DOC красное сухое 0.75 л 13%",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-      price: 699
-   },
-   {
-      categoryName: "Аксессуари",
-      productName: "Фітнес браслет Xiaomi Mi Smart Band 7 Black",
-      picture: "https://img.ktc.ua/img/base/1/0/400130.jpg",
-      price: 1_799
-   },
-];
+interface CustomCardProps {
+   title: string;
+   badge: string;
+   picture: string;
+}
 
-const productList2 = [
-   {
-      categoryName: "Побутова хімія",
-      productName: "Таблетки для посудомоечных машин FINISH Quantum Ultimate 60 шт",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/243680271.jpg",
-      price: 449
-   },
-   {
-      categoryName: "Автотовари",
-      productName: "Реагент Lesta AdBlue для зниження викидів оксиду азота 5 л",
-      picture: "https://content1.rozetka.com.ua/goods/images/big/225058937.jpg",
-      price: 341
-   },
-   {
-      categoryName: "Електроінструмент",
-      productName: "Пила циркулярная Metabo KS 66 FS",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/137115749.jpg",
-      price: 4_724
-   },
-   {
-      categoryName: "Автомобільні диски",
-      productName: "Zorat Wheels 969 R14 W6 PCD4x98 ET35 DIA67.1 (RL)BPX",
-      picture: "https://content1.rozetka.com.ua/goods/images/big/10732647.jpg",
-      price: 3_127
-   },
-];
+const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
+   return (
+      <div className="flex bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64">
+         <div className="flex flex-col items-start">
+            <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">
+               {badge}
+            </Layout.Badge>
+            <Typography.Heading className="mt-5 !text-[20px] !2xl:text-[30px]">
+               {title}
+            </Typography.Heading>
+         </div>
+         <img className="h-64 2xl:h-96 -mt-32 2xl:-mt-48" src={picture} />
+      </div>
+   );
+};
 
 const HomePage: FC = () => {
+
+   const [productList1] = useProperty<Array<ProductModel>>([]);
+   const [productList2] = useProperty<Array<ProductModel>>([]);
+
+   useEffect(() => {
+      ProductsEndpoints.getTopProducts(1).then((response) => {
+         productList1.set(response.data.products);
+      });
+      ProductsEndpoints.getTopProducts(2).then((response) => {
+         productList2.set(response.data.products);
+      });
+   }, []);
+
    return (
       <div className="py-8">
          <Layout.Container>
             <div className="flex">
-               <div className="w-[430px] h-2"></div>
-               <div className="ml-8 flex-1 h-[608px] w-full rounded-lg bg-black"></div>
+               <div className="w-[286px] 2xl:w-[430px] h-2"></div>
+               <div className="ml-8 flex-1 h-[440px] 2xl:h-[608px] w-full rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
          <img className="mt-20 mb-10" src="/banner.png" />
@@ -73,26 +57,21 @@ const HomePage: FC = () => {
                <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
             </div>
             <div className="flex justify-between gap-2 mt-8">
-               {productList1.map((product, index) => (
-                  <Layout.ProductCard key={index} {...product} />
+               {productList1.get.map((product, index) => (
+                  <Layout.ProductCard
+                     id={product.id}
+                     productName={product.name}
+                     categoryName="Смартфон"
+                     price={product.price}
+                     picture={product.images[0]}
+                     key={index}
+                  />
                ))}
             </div>
 
             <div className="mt-32 flex gap-x-24">
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col items-start">
-                     <Layout.Badge color="#8f00f9" additionalClasses="w-[145px]">Огляд</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Спорт обладнання</Typography.Heading>
-                  </div>
-                  <img className="h-80 -mt-32" src="/girya.png" />
-               </div>
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col">
-                     <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">Огляд</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Смарт годинник</Typography.Heading>
-                  </div>
-                  <img className="h-80 -mt-32 w-full" src="/clock.png" />
-               </div>
+               <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
+               <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
 
             <div className="flex items-center mt-20">
@@ -100,27 +79,23 @@ const HomePage: FC = () => {
                <span className="font-[Intro] text-[40px] mt-4 ml-2">Новинки</span>
             </div>
             <div className="flex justify-between mt-8 gap-2">
-               {productList2.map((product, index) => (
-                  <Layout.ProductCard key={index} {...product} />
+               {productList2.get.map((product, index) => (
+                  <Layout.ProductCard
+                     id={product.id}
+                     productName={product.name}
+                     categoryName="Смартфон"
+                     price={product.price}
+                     picture={product.images[0]}
+                     key={index}
+                  />
                ))}
             </div>
 
             <div className="my-40 flex gap-x-24">
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col items-start">
-                     <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">Розтрочка</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Плати частинами</Typography.Heading>
-                  </div>
-                  <img className="h-96 -mt-48" src="/money.png" />
-               </div>
-               <div className="flex bg-white px-12 py-16 rounded-xl h-64">
-                  <div className="flex flex-col">
-                     <Layout.Badge color="#8f00f9" additionalClasses="w-[145px]">Категорії</Layout.Badge>
-                     <Typography.Heading className="mt-5 text-[30px]">Фільтруй базар</Typography.Heading>
-                  </div>
-                  <img className="h-96 -mt-48 w-full" src="/txt.png" />
-               </div>
+               <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
+               <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
             </div>
+
          </Layout.Container>
       </div>
    );

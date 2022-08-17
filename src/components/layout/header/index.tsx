@@ -86,31 +86,31 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                </div>
             </header>
          </Layout.Container>
-         <nav className="h-[70px] bg-[#1d1d1b]">
+         <nav className="h-[48px] 2xl:h-[70px] bg-[#1d1d1b]">
             <Layout.Container>
                <div className="flex items-center h-full">
-                  <div className="group w-[430px] h-full bg-[#31353c] flex items-center relative">
+                  <div className="group w-[286px] 2xl:w-[430px] h-full bg-[#31353c] flex items-center relative">
                      <span className="ml-5 mr-2.5"><Icons.AlignLeft /></span>
-                     <span className="text-[21px] font-semibold text-white leading-[70px] cursor-pointer">Каталог товарів</span>
-                     <div className={`${!fixMenu && "hidden"} group-hover:block absolute top-full bg-white w-[430px] p-5 space-y-3 shadow-2xl rounded-b`}>
+                     <span className="text-[14px] 2xl:text-[21px] font-bold 2xl:font-semibold text-white leading-[48px] h-[48px] 2xl:h-[70px] 2xl:leading-[70px] cursor-pointer">Каталог товарів</span>
+                     <div className={`${!fixMenu && "hidden"} group-hover:block absolute top-full bg-white w-[286px] 2xl:w-[430px] p-5 space-y-0 2xl:space-y-3 shadow-2xl rounded-b`}>
                         {catalogMenuItems.map((item, index) => (
-                           <Link to={item.route} key={index} className="flex items-center h-14">
-                              <div className="w-9 flex justify-center">
+                           <Link to={item.route} key={index} className="flex items-center h-12 2xl:h-14">
+                              <div className="w-6 h-6 2xl:h-9 2xl:w-9 flex justify-center">
                                  {item.icon}
                               </div>
-                              <span className="text-[19px] font-semibold ml-4">{item.title}</span>
+                              <span className="text-[12px] 2xl:text-[19px] font-bold 2xl:font-semibold ml-4">{item.title}</span>
                            </Link>
                         ))}
                      </div>
                   </div>
-                  <div className="text-white font-semibold text-[20px] space-x-12 ml-8">
+                  <div className="text-white font-bold 2xl:font-semibold text-[15px] 2xl:text-[20px] space-x-12 ml-8">
                      <span>Про нас</span>
                      <span>Довідковий центр</span>
                      <span>Доставка та оплата</span>
                      <span>Партнерам</span>
                   </div>
                   <div className="ml-auto">
-                     <span className="text-white font-semibold text-[20px]">Покупцям</span>
+                     <span className="text-white font-bold 2xl:font-semibold text-[13px] 2xl:text-[20px]">Покупцям</span>
                   </div>
                </div>
             </Layout.Container>

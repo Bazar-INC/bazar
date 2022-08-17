@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import { Link } from "react-router-dom";
+import { accountActions } from "../../../features/account/reducer";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { Icons } from '../../icons/icons';
 import { Layout } from '../layout';
 
 import './index.css';
 
 interface Props {
+   id: string;
    picture: string;
    categoryName: string;
    productName: string;
@@ -26,7 +29,18 @@ function priceSeparateByThousands(price: number) {
    return priceAsString;
 }
 
-const ProductCard: FC<Props> = ({ picture, categoryName, productName, price, link }) => {
+const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price, link }) => {
+
+   const dispatch = useAppDispatch();
+
+   const products = useAppSelector(state => state.accountReducer.cart.products);
+
+   const addToCart = () => {
+      if (!products.includes(id)) {
+         dispatch(accountActions.addProductToCard(id));
+      }
+   };
+
    return (
       <div className="card-product">
          <img className="card-image" src={picture} />
@@ -41,7 +55,7 @@ const ProductCard: FC<Props> = ({ picture, categoryName, productName, price, lin
             </div>
             <span className="text-[20px] font-[Intro]">{priceSeparateByThousands(price)} грн</span>
             <div className="w-full flex mt-5">
-               <Layout.Button stretch>Купити</Layout.Button>
+               <Layout.Button onClick={addToCart} stretch>Купити</Layout.Button>
                <Icons.Compare className="text-[#8f00f9] ml-7 w-16 cursor-pointer" />
             </div>
          </div>
