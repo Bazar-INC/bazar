@@ -13,8 +13,8 @@ interface CustomCardProps {
 
 const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
    return (
-      <div className="flex bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64">
-         <div className="flex flex-col items-start">
+      <div className="flex bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64 w-full sm:w-auto">
+         <div className="flex flex-col">
             <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">
                {badge}
             </Layout.Badge>
@@ -22,7 +22,7 @@ const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
                {title}
             </Typography.Heading>
          </div>
-         <img className="h-64 2xl:h-96 -mt-32 2xl:-mt-48" src={picture} />
+         <img className="ml-auto sm:ml-0 h-32 sm:h-64 2xl:h-96 sm:-mt-32 2xl:-mt-48" src={picture} />
       </div>
    );
 };
@@ -43,10 +43,10 @@ const HomePage: FC = () => {
 
    return (
       <div className="py-8">
-         <Layout.Container>
-            <div className="flex">
-               <div className="w-[286px] 2xl:w-[430px] h-2"></div>
-               <div className="ml-8 flex-1 h-[440px] 2xl:h-[608px] w-full rounded-lg bg-black"></div>
+         <Layout.Container className="px-0">
+            <div className="flex gap-x-8">
+               <div className="hidden sm:block w-[286px] 2xl:w-[430px] h-2"></div>
+               <div className="flex-1 h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
          <img className="mt-20 mb-10" src="/banner.png" />
@@ -54,9 +54,9 @@ const HomePage: FC = () => {
 
             <div className="flex items-center">
                <img src="/fire.png" />
-               <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
+               <Typography.Heading className="mt-4">Хіти продаж</Typography.Heading>
             </div>
-            <div className="flex justify-between gap-2 mt-8">
+            <div className="flex flex-wrap xl:flex-nowrap gap-2 mt-8">
                {productList1.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
@@ -69,16 +69,16 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="mt-32 flex gap-x-24">
+            <div className="mt-32 flex flex-wrap lg:flex-nowrap gap-x-24 gap-y-8">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
 
             <div className="flex items-center mt-20">
                <img src="/sound.png" />
-               <span className="font-[Intro] text-[40px] mt-4 ml-2">Новинки</span>
+               <Typography.Heading className="mt-4 ml-2">Новинки</Typography.Heading>
             </div>
-            <div className="flex justify-between mt-8 gap-2">
+            <div className="flex flex-wrap xl:flex-nowrap mt-8 gap-2">
                {productList2.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
@@ -91,7 +91,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="my-40 flex gap-x-24">
+            <div className="my-40 flex flex-wrap gap-x-24 gap-y-8">
                <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
                <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
             </div>
