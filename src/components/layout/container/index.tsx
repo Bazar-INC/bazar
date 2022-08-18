@@ -7,7 +7,7 @@ interface Props {
 
 const Container: FC<PropsWithChildren<Props>> = ({ children, className }) => {
    return (
-      <div className={classes("max-w-[1660px] mx-auto px-16", className)}>
+      <div className={classes("max-w-[1660px] mx-auto px-6 sm:px-16", className)}>
          {children}
       </div>
    );
