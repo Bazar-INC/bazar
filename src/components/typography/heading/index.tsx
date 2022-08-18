@@ -15,7 +15,7 @@ const Heading: FC<Props> = ({ children, className, size = "default" }) => {
       <span className={
          classes(
             "font-[Intro]",
-            sizeIsSmall ? "text-[25px] 2xl:text-[30px]" : "text-[30px] 2xl:text-[40px]",
+            sizeIsSmall ? "text-[25px] 2xl:text-[30px]" : "text-[20px] sm:text-[30px] 2xl:text-[40px]",
             className
          )
       }>
