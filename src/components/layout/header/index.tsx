@@ -86,11 +86,13 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                </div>
             </header>
          </Layout.Container>
-         <nav className="h-[48px] 2xl:h-[70px] bg-[#1d1d1b]">
+         <nav className="h-[48px] 2xl:h-[70px] bg-[#1d1d1b] hidden sm:block">
             <Layout.Container>
                <div className="flex items-center h-full">
                   <div className="group w-[286px] 2xl:w-[430px] h-full bg-[#31353c] flex items-center relative">
-                     <span className="ml-5 mr-2.5"><Icons.AlignLeft /></span>
+                     <span className="ml-5 mr-2.5">
+                        <Icons.AlignLeft className="w-6 h-6 2xl:w-9 2xl:h-9" />
+                     </span>
                      <span className="text-[14px] 2xl:text-[21px] font-bold 2xl:font-semibold text-white leading-[48px] h-[48px] 2xl:h-[70px] 2xl:leading-[70px] cursor-pointer">Каталог товарів</span>
                      <div className={`${!fixMenu && "hidden"} group-hover:block absolute top-full bg-white w-[286px] 2xl:w-[430px] p-5 space-y-0 2xl:space-y-3 shadow-2xl rounded-b`}>
                         {catalogMenuItems.map((item, index) => (
@@ -103,7 +105,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                         ))}
                      </div>
                   </div>
-                  <div className="text-white font-bold 2xl:font-semibold text-[15px] 2xl:text-[20px] space-x-12 ml-8">
+                  <div className="text-white font-bold 2xl:font-semibold text-[13px] 2xl:text-[20px] space-x-12 ml-8 hidden lg:block">
                      <span>Про нас</span>
                      <span>Довідковий центр</span>
                      <span>Доставка та оплата</span>

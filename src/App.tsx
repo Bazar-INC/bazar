@@ -15,6 +15,7 @@ import { HomePage } from './components/pages/home';
 import { GoodsPage } from './components/pages/goods';
 import { AdminPage } from "./components/admin";
 import { ProductPage } from "./components/pages/product";
+import { MobileMenu } from "./components/mobile/menu";
 
 const App: FC = () => {
 
@@ -43,27 +44,32 @@ const App: FC = () => {
          <Routes>
             <Route path="admin" element={<AdminPage />} />
             <Route path="home" element={
-               <div className="flex flex-col h-full">
-                  <div className="flex-[1_0_auto]">
-                     <Layout.Header fixMenu openSignModal={openSignModal} />
-                     <HomePage />
+               <>
+                  <div className="flex flex-col h-full">
+                     <div className="flex-[1_0_auto]">
+                        <Layout.Header fixMenu openSignModal={openSignModal} />
+                        <HomePage />
+                     </div>
+                     <Layout.Footer className="mt-auto pb-40" />
                   </div>
-                  <Layout.Footer className="mt-auto" />
-               </div>
+                  <MobileMenu />
+               </>
             } />
             <Route path="*" element={
-               <div className="flex flex-col h-full">
-                  <div className="flex-[1_0_auto]">
-                     <Layout.Header openSignModal={openSignModal} />
-                     <Routes>
-                        <Route path="home" element={<HomePage />} />
-                        <Route path="cart" element={<CartPage />} />
-                        <Route path="goods/:category" element={<GoodsPage />} />
-                        <Route path="product/:id" element={<ProductPage />} />
-                     </Routes>
+               <>
+                  <div className="flex flex-col h-full">
+                     <div className="flex-[1_0_auto]">
+                        <Layout.Header openSignModal={openSignModal} />
+                        <Routes>
+                           <Route path="home" element={<HomePage />} />
+                           <Route path="cart" element={<CartPage />} />
+                           <Route path="goods/:category" element={<GoodsPage />} />
+                           <Route path="product/:id" element={<ProductPage />} />
+                        </Routes>
+                     </div>
+                     <Layout.Footer className="mt-auto pb-40" />
                   </div>
-                  <Layout.Footer className="mt-auto" />
-               </div>
+                  <MobileMenu /></>
             } />
          </Routes>
          <Modals.Sign open={signModalIsOpen.get} onClose={closeSignModal} />

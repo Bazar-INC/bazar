@@ -8,8 +8,17 @@ interface Props {
 }
 
 const Heading: FC<Props> = ({ children, className, size = "default" }) => {
+
+   const sizeIsSmall = size === "small";
+
    return (
-      <span className={classes("font-[Intro]", size === "small" ? "text-[30px]" : "text-[40px]", className)}>
+      <span className={
+         classes(
+            "font-[Intro]",
+            sizeIsSmall ? "text-[25px] 2xl:text-[30px]" : "text-[20px] sm:text-[30px] 2xl:text-[40px]",
+            className
+         )
+      }>
          {children}
       </span>
    );
