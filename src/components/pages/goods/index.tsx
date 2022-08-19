@@ -108,7 +108,7 @@ const GoodsPage: FC = () => {
             <Layout.BreadCrumbs items={breadCrumbsItems} />
             <Typography.Heading className="block mt-5">{categoryName.get}</Typography.Heading>
             <div className="flex gap-x-[100px] mt-14">
-               <div className="w-[400px]">
+               <div className="hidden md:block w-[400px]">
                   <span>Фільтруй базар</span>
                   {filters.get.map((filter, index) => (
                      <React.Fragment key={index}>
@@ -129,7 +129,7 @@ const GoodsPage: FC = () => {
                         <option>За популярністью</option>
                      </select>
                   </div>
-                  <div className="flex flex-wrap justify-between mt-8 gap-3">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                      {products.get.map((product, index) => (
                         <Layout.ProductCard
                            id={product.id}
