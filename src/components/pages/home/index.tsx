@@ -49,14 +49,14 @@ const HomePage: FC = () => {
                <div className="flex-1 h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
-         <img className="mt-20 mb-10" src="/banner.png" />
+         <img className="mt-20 mb-10 w-full h-[80px] object-contain" src="/banner.png" />
          <Layout.Container>
 
             <div className="flex items-center">
                <img src="/fire.png" />
                <Typography.Heading className="mt-4">Хіти продаж</Typography.Heading>
             </div>
-            <div className="flex flex-wrap xl:flex-nowrap gap-2 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
                {productList1.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
@@ -78,7 +78,7 @@ const HomePage: FC = () => {
                <img src="/sound.png" />
                <Typography.Heading className="mt-4 ml-2">Новинки</Typography.Heading>
             </div>
-            <div className="flex flex-wrap xl:flex-nowrap mt-8 gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
                {productList2.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
