@@ -4,6 +4,7 @@ import { ProductModel } from "../../../api/models/product";
 import { useAppSelector } from "../../../store/hooks";
 import { useProperty } from "../../hooks/property";
 import { Layout } from '../../layout/layout';
+import { Typography } from "../../typography";
 
 const CartPage: FC = () => {
 
@@ -21,7 +22,7 @@ const CartPage: FC = () => {
 
    return (
       <Layout.Container className="py-20">
-         <span className="font-[Intro] text-[40px]">Оформлення замовлення</span>
+         <Typography.Heading>Оформлення замовлення</Typography.Heading>
          {productsIds.length === 0 ? (
             <div className="w-full flex flex-col items-center justify-center">
                <img src="cart.png" className="-mr-56" />
@@ -47,7 +48,7 @@ const CartPage: FC = () => {
          )}
          <div className="flex items-center mt-20">
             <img src="fire.png" />
-            <span className="font-[Intro] text-[40px] mt-4">Хіти продаж</span>
+            <Typography.Heading>Хіти продаж</Typography.Heading>
          </div>
          <div className="flex justify-between mt-8">
             {products.get.map((product, index) => (
