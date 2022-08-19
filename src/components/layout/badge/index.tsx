@@ -13,7 +13,7 @@ const Badge: FC<Props> = ({ children, color, additionalClasses }) => {
 
    return (
       <div style={{ borderColor: color }} className={classes(defaultClasses, additionalClasses)}>
-         <span className="text-sm font-[Gotham] font-bold block w-full text-center">
+         <span className="text-xs 2xl:text-sm font-[Gotham] font-bold block w-full text-center">
             {children}
          </span>
       </div>
