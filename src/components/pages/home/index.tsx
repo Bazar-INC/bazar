@@ -69,7 +69,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="mt-32 flex flex-wrap lg:flex-nowrap gap-x-24 gap-y-8">
+            <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
@@ -91,7 +91,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="my-40 flex flex-wrap gap-x-24 gap-y-8">
+            <div className="my-40 grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-24">
                <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
                <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
             </div>
