@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 interface Props {
    className?: string;
    hint?: string;
-   type: "phone";
+   type: "text" | "phone";
    maxLength?: number;
    disabled?: boolean;
    onChange(value: string): void;
