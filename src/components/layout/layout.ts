@@ -5,7 +5,7 @@ import { Container } from "./container";
 import { Footer } from "./footer";
 import { Header } from "./header";
 import { Input } from "./input";
-import { ProductCard } from "./product-card";
+import { ProductCard } from './product-card';
 
 const Layout = {
    Badge,
