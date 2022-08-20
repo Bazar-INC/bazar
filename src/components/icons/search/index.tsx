@@ -1,8 +1,12 @@
 import { FC } from 'react';
 
-const Search: FC = () => {
+interface Props {
+   className?: string;
+}
+
+const Search: FC<Props> = ({ className }) => {
    return (
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className={className} viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
          <path fillRule="evenodd" clipRule="evenodd" d="M18.9677 10.4839C18.9677 15.1694 15.1694 18.9677 10.4839 18.9677C5.79836 18.9677 2 15.1694 2 10.4839C2 5.79836 5.79836 2 10.4839 2C15.1694 2 18.9677 5.79836 18.9677 10.4839ZM17.1564 18.5706C15.3436 20.0681 13.0188 20.9677 10.4839 20.9677C4.69379 20.9677 0 16.274 0 10.4839C0 4.69379 4.69379 0 10.4839 0C16.274 0 20.9677 4.69379 20.9677 10.4839C20.9677 13.0188 20.0681 15.3436 18.5706 17.1564L25.7071 24.2929C26.0976 24.6834 26.0976 25.3166 25.7071 25.7071C25.3166 26.0976 24.6834 26.0976 24.2929 25.7071L17.1564 18.5706Z" fill="#464D5E" fillOpacity="0.8" />
       </svg>
    );
