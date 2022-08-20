@@ -5,6 +5,7 @@ import { Container } from './container';
 import { Footer } from './footer';
 import { Header } from './header';
 import { Input } from "./input";
+import { Menu } from "./menu";
 import { ProductCard } from './product-card';
 
 const Layout = {
@@ -15,6 +16,7 @@ const Layout = {
    Footer,
    Header,
    Input,
+   Menu,
    ProductCard
 };
 
