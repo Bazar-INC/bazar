@@ -45,7 +45,7 @@ const HomePage: FC = () => {
       <div className="py-8">
          <Layout.Container className="px-0">
             <div className="flex gap-x-8">
-               <div className="hidden sm:block w-[286px] 2xl:w-[430px] h-2"></div>
+               <div className="hidden lg:block w-[256px] xl:w-[286px] 2xl:w-[430px] h-2"></div>
                <div className="flex-1 h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
