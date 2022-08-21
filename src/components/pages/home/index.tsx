@@ -45,18 +45,18 @@ const HomePage: FC = () => {
       <div className="py-8">
          <Layout.Container className="px-0">
             <div className="flex gap-x-8">
-               <div className="hidden sm:block w-[286px] 2xl:w-[430px] h-2"></div>
+               <div className="hidden lg:block w-[256px] xl:w-[286px] 2xl:w-[430px] h-2"></div>
                <div className="flex-1 h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
-         <img className="mt-20 mb-10" src="/banner.png" />
+         <img className="mt-20 mb-10 w-full h-[80px] object-contain" src="/banner.png" />
          <Layout.Container>
 
             <div className="flex items-center">
                <img src="/fire.png" />
                <Typography.Heading className="mt-4">Хіти продаж</Typography.Heading>
             </div>
-            <div className="flex flex-wrap xl:flex-nowrap gap-2 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
                {productList1.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
@@ -69,7 +69,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="mt-32 flex flex-wrap lg:flex-nowrap gap-x-24 gap-y-8">
+            <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
@@ -78,7 +78,7 @@ const HomePage: FC = () => {
                <img src="/sound.png" />
                <Typography.Heading className="mt-4 ml-2">Новинки</Typography.Heading>
             </div>
-            <div className="flex flex-wrap xl:flex-nowrap mt-8 gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
                {productList2.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
@@ -91,7 +91,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="my-40 flex flex-wrap gap-x-24 gap-y-8">
+            <div className="my-40 grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-24">
                <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
                <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
             </div>

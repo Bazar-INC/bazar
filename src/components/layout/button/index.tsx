@@ -19,7 +19,7 @@ const Button: FC<Props> = ({
 
    return (
       <button onClick={onClick} className={classes(
-         "flex justify-center items-center text-xl bg-[#8F00F9] hover:bg-[#6500B0] text-white py-2 px-6 rounded",
+         "flex justify-center items-center text-[18px] 2xl:text-xl bg-[#8F00F9] hover:bg-[#6500B0] text-white py-1 2xl:py-2 px-6 rounded",
          stretchStyles,
          className
       )}>
