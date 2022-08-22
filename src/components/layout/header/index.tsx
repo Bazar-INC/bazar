@@ -63,7 +63,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
 
    return (
       <>
-         <Layout.Container className="h-[66px] 2xl:h-[100px] flex items-center gap-x-8">
+         <Layout.Container className="h-[66px] 2xl:h-[100px] flex items-center gap-x-8 shadow-lg">
             <div className="flex items-center justify-between w-full sm:w-auto lg:w-[286px] 2xl:w-[430px] gap-x-5">
                <Link to="/home">
                   <img src="/brand_logo_1.png" className="w-32 lg:w-full" />
@@ -88,12 +88,11 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                   <Icons.Cart className="w-6 2xl:w-8" />
                </Link>
                {profile ? (
-                  <div className="flex items-center border-2 rounded border-[#8f00f9] p-1.5">
+                  <div className="min-w-[56px] h-14 items-center border-2 rounded border-[#8f00f9] p-1">
                      <img
-                        className="w-12 h-12 object-cover rounded"
+                        className="block w-full h-full object-cover rounded"
                         src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=456"
                      />
-                     <span className="text-[#8f00f9] text-[20px] ml-3.5">{profile.name}</span>
                   </div>
                ) : (
                   <Layout.Button
