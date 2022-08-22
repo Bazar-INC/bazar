@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { useProperty } from './components/hooks/property';
 import { useAppDispatch } from './store/hooks';
@@ -39,27 +39,17 @@ const App: FC = () => {
       signModalIsOpen.set(false);
    };
 
+   const location = useLocation();
+
    return (
       <>
          <Routes>
             <Route path="admin" element={<AdminPage />} />
-            <Route path="home" element={
-               <>
-                  <div className="flex flex-col h-full">
-                     <div className="flex-[1_0_auto]">
-                        <Layout.Header fixMenu openSignModal={openSignModal} />
-                        <HomePage />
-                     </div>
-                     <Layout.Footer className="mt-auto pb-40" />
-                  </div>
-                  <MobileMenu />
-               </>
-            } />
             <Route path="*" element={
                <>
                   <div className="flex flex-col h-full">
                      <div className="flex-[1_0_auto]">
-                        <Layout.Header openSignModal={openSignModal} />
+                        <Layout.Header fixMenu={location.pathname === "/home"} openSignModal={openSignModal} />
                         <Routes>
                            <Route path="home" element={<HomePage />} />
                            <Route path="cart" element={<CartPage />} />

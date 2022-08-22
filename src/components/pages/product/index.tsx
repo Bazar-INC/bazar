@@ -1,92 +1,25 @@
 import { FC, useEffect, useRef } from 'react';
+import { ProductsEndpoints } from "../../../api/endpoints/products";
+import { ProductModel } from "../../../api/models/product";
+import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
-
-const productList = [
-   {
-      categoryName: "Смартфон",
-      productName: "Apple Iphone 13 PRO 128GB Cірий",
-      picture: "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-      price: 16_999
-   },
-   {
-      categoryName: "Сад та город",
-      productName: "Набір вазонів та грунт для вирощування трав Supretto на підвіконня Білий",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-      price: 500
-   },
-   {
-      categoryName: "Алкогольні напої",
-      productName: "Вино Misilla Nero D'Avola Sicilia DOC красное сухое 0.75 л 13%",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-      price: 699
-   },
-   {
-      categoryName: "Аксессуари",
-      productName: "Фітнес браслет Xiaomi Mi Smart Band 7 Black",
-      picture: "https://img.ktc.ua/img/base/1/0/400130.jpg",
-      price: 1_799
-   },
-   {
-      categoryName: "Смартфон",
-      productName: "Apple Iphone 13 PRO 128GB Cірий",
-      picture: "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-      price: 16_999
-   },
-   {
-      categoryName: "Сад та город",
-      productName: "Набір вазонів та грунт для вирощування трав Supretto на підвіконня Білий",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-      price: 500
-   },
-   {
-      categoryName: "Алкогольні напої",
-      productName: "Вино Misilla Nero D'Avola Sicilia DOC красное сухое 0.75 л 13%",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-      price: 699
-   },
-   {
-      categoryName: "Аксессуари",
-      productName: "Фітнес браслет Xiaomi Mi Smart Band 7 Black",
-      picture: "https://img.ktc.ua/img/base/1/0/400130.jpg",
-      price: 1_799
-   },
-   {
-      categoryName: "Смартфон",
-      productName: "Apple Iphone 13 PRO 128GB Cірий",
-      picture: "https://itmag.ua/upload/iblock/a2c/piktjhio4tmj4z0kn2sjw3rert35ibiu/195u.jpg",
-      price: 16_999
-   },
-   {
-      categoryName: "Сад та город",
-      productName: "Набір вазонів та грунт для вирощування трав Supretto на підвіконня Білий",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/249084760.jpg",
-      price: 500
-   },
-   {
-      categoryName: "Алкогольні напої",
-      productName: "Вино Misilla Nero D'Avola Sicilia DOC красное сухое 0.75 л 13%",
-      picture: "https://content2.rozetka.com.ua/goods/images/big/273452464.jpg",
-      price: 699
-   },
-   {
-      categoryName: "Аксессуари",
-      productName: "Фітнес браслет Xiaomi Mi Smart Band 7 Black",
-      picture: "https://img.ktc.ua/img/base/1/0/400130.jpg",
-      price: 1_799
-   },
-];
 
 const ProductPage: FC = () => {
 
    const ref = useRef<HTMLDivElement>(null);
 
+   const [productList] = useProperty<Array<ProductModel>>([]);
+
    useEffect(() => {
+
+      ProductsEndpoints.getTopProducts(1).then((response) => {
+         productList.set(response.data.products);
+      });
 
       const startOffset = ref.current?.offsetTop ?? 0;
 
-      window.addEventListener("scroll", (event) => {
-         console.log(window.scrollY);
+      window.addEventListener("scroll", () => {
          if (ref.current) {
             let margin = window.scrollY - 1200;
             if (window.scrollY <= startOffset) {
@@ -387,8 +320,16 @@ const ProductPage: FC = () => {
                   <div className="border-black border rounded-3xl py-2 px-8 text-[20px] font-bold font-[Gotham]">Навушники</div>
                </div>
                <div className="flex flex-wrap justify-start mt-12 mb-32 gap-3">
-                  {productList.map((product, index) => (
-                     <Layout.ProductCard id={product.productName} key={index} {...product} />
+                  {productList.get.map((product, index) => (
+                     <Layout.ProductCard
+                        id={product.id}
+                        link={"/product/" + product.id}
+                        key={index}
+                        categoryName="Смартфон"
+                        productName={product.name}
+                        picture={product.images[0]}
+                        price={product.price}
+                     />
                   ))}
                </div>
             </Layout.Container>

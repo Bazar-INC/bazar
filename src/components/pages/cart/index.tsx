@@ -37,6 +37,7 @@ const CartPage: FC = () => {
                {products.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
+                     link={"/product/" + product.id}
                      key={index}
                      categoryName="Смартфон"
                      productName={product.name}
@@ -54,6 +55,7 @@ const CartPage: FC = () => {
             {products.get.map((product, index) => (
                <Layout.ProductCard
                   id={product.id}
+                  link={"/product/" + product.id}
                   key={index}
                   categoryName="Смартфон"
                   productName={product.name}
