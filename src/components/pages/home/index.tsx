@@ -60,6 +60,7 @@ const HomePage: FC = () => {
                {productList1.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
+                     link={"/product/" + product.id}
                      productName={product.name}
                      categoryName="Смартфон"
                      price={product.price}
@@ -82,6 +83,7 @@ const HomePage: FC = () => {
                {productList2.get.map((product, index) => (
                   <Layout.ProductCard
                      id={product.id}
+                     link={"/product/" + product.id}
                      productName={product.name}
                      categoryName="Смартфон"
                      price={product.price}

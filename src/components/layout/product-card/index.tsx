@@ -14,7 +14,7 @@ interface Props {
    categoryName: string;
    productName: string;
    price: number;
-   link?: string;
+   link: string;
 }
 
 function priceSeparateByThousands(price: number) {
