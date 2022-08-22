@@ -1,35 +1,35 @@
 import { FC, useEffect, useState } from "react";
-import { Icons } from "../../icons/icons";
-import { classes } from "../../../functions";
+import { Icons } from "../../../icons/icons";
+import { classes } from "../../../../functions";
 
 const menuItems = [
    {
       label: "Товари",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    },
    {
       label: "Категорії",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    },
    {
       label: "Фільтри",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    },
    {
       label: "Відгуки",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    },
    {
       label: "Питання та відповіді",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    },
    {
       label: "Налаштування",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    },
    {
       label: "Повернутися в BAZAR",
-      icon: <Icons.Cart />
+      icon: <Icons.Cart className="w-6" />
    }
 ];
 
@@ -40,19 +40,17 @@ interface Props {
 
 const Menu: FC<Props> = ({ active, setActive }) => {
    return (
-      <div className={classes("transition", "ease-in-out", "duration-200","fixed", "h-full", "gap-0", "columns-2", !active ? "-translate-x-[100%]" : "-translate-x-[0%]")}>
+      <div className={classes(" transition ease-in-out duration-200 fixed md:static h-full md:-translate-x-[0%]", !active ? "-translate-x-[100%]" : "-translate-x-[0%]")} onClick={e => e.stopPropagation()}>
          <div className=" h-full w-[300px] bg-[#2c2c2c] flex flex-col items-center">
             <img src="/brand_logo_2.png" className="mt-[70px]" />
             <div className="mt-[67px] space-y-[35px]">
                {menuItems.map((item, index) => (
-                  <div key={index} className="flex items-center">
+                  <div key={index} className="flex items-center cursor-pointer">
                      {item.icon}
-                     <span className="text-[15px] font-[Gotham] text-white font-bold ml-5">{item.label}</span>
+                     <span className="text-[15px] font-[Gotham] text-white hover:text-[#8F00F9] font-bold ml-5"  onClick={() => setActive(!active)}>{item.label}</span>
                   </div>
                ))}
             </div>
-         </div>
-         <div className="h-full right-0 " onClick={() => setActive(!active)}>
          </div>
       </div>
    );
