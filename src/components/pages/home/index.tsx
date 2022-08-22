@@ -13,7 +13,7 @@ interface CustomCardProps {
 
 const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
    return (
-      <div className="flex bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64 w-full sm:w-auto">
+      <div className="flex justify-between lg:justify-start bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64 w-full sm:w-auto">
          <div className="flex flex-col">
             <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">
                {badge}
@@ -22,7 +22,7 @@ const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
                {title}
             </Typography.Heading>
          </div>
-         <img className="ml-auto sm:ml-0 h-32 sm:h-64 2xl:h-96 sm:-mt-32 2xl:-mt-48" src={picture} />
+         <img className="ml-auto sm:ml-0 h-32 sm:h-56 2xl:h-96 sm:-mt-24 2xl:-mt-48" src={picture} />
       </div>
    );
 };
@@ -46,7 +46,7 @@ const HomePage: FC = () => {
          <Layout.Container className="px-0">
             <div className="flex gap-x-8">
                <div className="hidden lg:block w-[256px] xl:w-[286px] 2xl:w-[430px] h-2"></div>
-               <div className="flex-1 h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
+               <div className="flex-1 h-[256px] md:h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
          <img className="mt-20 mb-10 w-full h-[80px] object-contain" src="/banner.png" />
@@ -69,7 +69,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-24">
+            <div className="mt-24 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
@@ -91,7 +91,7 @@ const HomePage: FC = () => {
                ))}
             </div>
 
-            <div className="my-40 grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-24">
+            <div className="mt-24 sm:mt-32 mb-40 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
                <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
             </div>
