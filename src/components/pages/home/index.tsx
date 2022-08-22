@@ -49,7 +49,7 @@ const HomePage: FC = () => {
                <div className="flex-1 h-[256px] md:h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
             </div>
          </Layout.Container>
-         <img className="mt-20 mb-10 w-full h-[80px] object-contain" src="/banner.png" />
+         <img className="mt-20 mb-10 w-full h-[80px] object-cover" src="/banner.png" />
          <Layout.Container>
 
             <div className="flex items-center">
