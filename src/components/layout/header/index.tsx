@@ -63,7 +63,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
 
    return (
       <>
-         <Layout.Container className="h-[66px] 2xl:h-[100px] flex items-center gap-x-8 shadow-lg">
+         <Layout.Container className="h-[66px] 2xl:h-[100px] flex items-center gap-x-8 shadow-lg sm:shadow-none">
             <div className="flex items-center justify-between w-full sm:w-auto lg:w-[286px] 2xl:w-[430px] gap-x-5">
                <Link to="/home">
                   <img src="/brand_logo_1.png" className="w-32 lg:w-full" />
