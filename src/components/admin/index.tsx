@@ -17,7 +17,7 @@ const AdminPage: FC = () => {
       <div className="bg-[#F4F4F4] h-full flex" >
          <Menu active={menuActive} setActive={setMenuActive} />
          <div className="h-full flex-1">
-            <header className="h-[60px] w-full bg-white flex justify-between items-center px-5">
+            <header className="h-[60px] w-full bg-white flex justify-between items-center px-5 md:px-[70px]">
                {/* <div className="invisible ml-auto flex gap-x-5 items-center">
                   <span className="text-[35px] font-bold font-[Gotham]">Bazar Adm</span>
                   <img className="w-[60px] h-[60px] rounded-full" src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=456" />
@@ -44,8 +44,10 @@ const AdminPage: FC = () => {
                </div>
             </header>
 
-            <Products />
-         </div>
+            <div className="px-[20px] md:px-[70px]">
+               <Reviews />
+            </div>
+         </div> 
       </div>
    );
 };
