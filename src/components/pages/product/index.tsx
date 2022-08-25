@@ -4,6 +4,7 @@ import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
+import { HorizontalMenu } from "./components/horizontal-menu";
 
 const ProductPage: FC = () => {
 
@@ -101,17 +102,8 @@ const ProductPage: FC = () => {
             </div>
          </Layout.Container >
          <div className="bg-[#f4f4f4]">
+            <HorizontalMenu />
             <Layout.Container>
-               <div className="pt-10">
-                  <div className="bg-white h-[100px] rounded-xl px-12">
-                     <ul className="flex h-full font-[Gotham] text-[25px] font-bold items-center gap-x-12">
-                        <li className="border-[#00FF74] border-b-2 leading-[98px]">Все про товар</li>
-                        <li>Характеристики</li>
-                        <li>Питання та відповіді</li>
-                        <li>Відгуки</li>
-                     </ul>
-                  </div>
-               </div>
                <div className="flex mt-8 gap-x-8 items-start">
                   <div className=" flex-1 bg-white px-12 py-12 rounded-xl">
                      <Typography.Heading size="small">Опис</Typography.Heading>
