@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
+import { useParams } from "react-router-dom";
 import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
@@ -10,9 +11,17 @@ const ProductPage: FC = () => {
 
    const ref = useRef<HTMLDivElement>(null);
 
+   const { id } = useParams();
+
+   const [product] = useProperty<ProductModel | null>(null);
+
    const [productList] = useProperty<Array<ProductModel>>([]);
 
    useEffect(() => {
+
+      id && ProductsEndpoints.getProductById(id).then((response) => {
+         product.set(response.data);
+      });
 
       ProductsEndpoints.getTopProducts(1).then((response) => {
          productList.set(response.data.products);
@@ -44,9 +53,7 @@ const ProductPage: FC = () => {
                { label: 'Apple', route: '' },
             ]} />
             <div className="mt-5 flex justify-between">
-               <Typography.Heading>
-                  Apple Iphone 13 PRO 128GB Cірий
-               </Typography.Heading>
+               <Typography.Heading>{product.get?.name ?? ""}</Typography.Heading>
                <div>
                   <Layout.Badge color="#00ff74">Є в наявності</Layout.Badge>
                   <span className="ml-6 font-semibold">Код: 329493</span>
@@ -63,12 +70,9 @@ const ProductPage: FC = () => {
                <Layout.Badge additionalClasses="ml-6" color="#ffc700">98% в фонд Притули</Layout.Badge>
                <Layout.Badge additionalClasses="ml-6" color="#ffc700">1% на зарплату програмістам</Layout.Badge>
             </div>
-            <div className="mt-8 mb-20 flex justify-between">
-               <div>
-                  <img
-                     className="w-[600px] h-[600px] object-contain"
-                     src="https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/swappie-iphone-13-pro-max-gold.png?v=5"
-                  />
+            <div className="mt-8 mb-20 flex">
+               <div className="flex-1 flex items-center justify-center">
+                  <img className="w-[600px] h-[600px] object-contain" src={product.get?.images[0]} />
                </div>
                <div>
                   <div className="text-[20px] font-bold font-[Gotham]">Колір товару:  Сірий</div>
@@ -88,7 +92,7 @@ const ProductPage: FC = () => {
                </div>
                <div className="w-[480px]">
                   <div className="border-[#D9D9D9] border rounded-lg flex flex-col p-6">
-                     <Typography.Heading>16 999 грн</Typography.Heading>
+                     <Typography.Heading>{product.get?.price + " грн"}</Typography.Heading>
                      <span className="mt-2 mb-8">Кешбек 4 000</span>
                      <Layout.Button stretch>Купити</Layout.Button>
                      <div className="mt-4">
