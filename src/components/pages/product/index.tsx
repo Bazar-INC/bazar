@@ -40,43 +40,27 @@ const ProductPage: FC = () => {
             ]} />
             <div className="mt-5 flex justify-between">
                <Typography.Heading>{product.get?.name ?? ""}</Typography.Heading>
-               <div>
+               <div className="min-w-fit">
                   <Layout.Badge color="#00ff74">Є в наявності</Layout.Badge>
                   <span className="ml-6 font-semibold">Код: 329493</span>
                </div>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
                <Layout.Badge color="#00ff74">Від 1099 в міс.</Layout.Badge>
-               <Layout.Badge additionalClasses="ml-6" color="#8f00f9">Хіт продаж</Layout.Badge>
-               <span className="font-semibold ml-6">
+               <Layout.Badge color="#8f00f9">Хіт продаж</Layout.Badge>
+               <span className="font-semibold">
                   <span>50 ГБ в iCloud </span>
                   <span className="text-[#8f00f9]">безкоштовно</span>
                </span>
-               <Layout.Badge additionalClasses="ml-6" color="#ffc700">1% на ЗСУ</Layout.Badge>
-               <Layout.Badge additionalClasses="ml-6" color="#ffc700">98% в фонд Притули</Layout.Badge>
-               <Layout.Badge additionalClasses="ml-6" color="#ffc700">1% на зарплату програмістам</Layout.Badge>
+               <Layout.Badge color="#ffc700">1% на ЗСУ</Layout.Badge>
+               <Layout.Badge color="#ffc700">98% в фонд Притули</Layout.Badge>
+               <Layout.Badge color="#ffc700">1% на зарплату програмістам</Layout.Badge>
             </div>
-            <div className="mt-8 mb-20 flex">
+            <div className="mt-8 mb-20 flex flex-col md:flex-row gap-8">
                <div className="flex-1 flex items-center justify-center">
                   <img className="w-[600px] h-[600px] object-contain" src={product.get?.images[0]} />
                </div>
-               <div>
-                  <div className="text-[20px] font-bold font-[Gotham]">Колір товару:  Сірий</div>
-                  <div className="flex my-6 gap-x-8">
-                     <div className="w-16 h-16 bg-[#666A70] rounded-full"></div>
-                     <div className="w-16 h-16 bg-[#FFDCCC] rounded-full"></div>
-                     <div className="w-16 h-16 bg-[#7FC8F8] rounded-full"></div>
-                     <div className="w-16 h-16 bg-[#E9E6E6] rounded-full"></div>
-                  </div>
-                  <div className="text-[20px] font-bold font-[Gotham]">Об’єм пам’яті</div>
-                  <div className="flex flex-wrap gap-8 mt-2">
-                     <div className="border-[#D9D9D9] border-2 rounded-lg px-10 py-3 text-[25px] font-bold font-[Gotham]">1 ТБ</div>
-                     <div className="border-[#D9D9D9] border-2 rounded-lg px-10 py-3 text-[25px] font-bold font-[Gotham]">512 ГБ</div>
-                     <div className="border-[#D9D9D9] border-2 rounded-lg px-10 py-3 text-[25px] font-bold font-[Gotham]">256 ГБ</div>
-                     <div className="border-[#D9D9D9] border-2 rounded-lg px-10 py-3 text-[25px] font-bold font-[Gotham]">128 ГБ</div>
-                  </div>
-               </div>
-               <div className="w-[480px]">
+               <div className="w-full md:w-[330px] 2xl:w-[480px]">
                   <div className="border-[#D9D9D9] border rounded-lg flex flex-col p-6">
                      <Typography.Heading>{product.get?.price + " грн"}</Typography.Heading>
                      <span className="mt-2 mb-8">Кешбек 4 000</span>
@@ -94,8 +78,8 @@ const ProductPage: FC = () => {
          <div className="bg-[#f4f4f4]">
             <HorizontalMenu />
             <Layout.Container>
-               <div className="flex mt-8 gap-x-8 items-start">
-                  <div className=" flex-1 bg-white px-12 py-12 rounded-xl">
+               <div className="flex flex-col sm:flex-row mt-8 gap-8 items-start">
+                  <div className="overflow-hidden flex-1 bg-white px-12 py-12 rounded-xl">
                      <Typography.Heading size="small">Опис</Typography.Heading>
                      <p className="text-[20px] font-[Gotham] mt-10">
                         <span className="font-bold">iPhone 13</span>
@@ -241,7 +225,7 @@ const ProductPage: FC = () => {
                         </div>
                      </div>
                   </div>
-                  <div className="w-[480px]">
+                  <div className="w-full sm:w-[256px] lg:w-[314px] 2xl:w-[480px]">
                      <div ref={ref} className="bg-white rounded-xl p-8">
                         <Typography.Heading size="small">Характеристики</Typography.Heading>
                         <div className="mt-8">
@@ -270,7 +254,7 @@ const ProductPage: FC = () => {
                            </button>
                         </div>
                      </div>
-                     <div className="bg-white rounded-xl p-8 mt-6">
+                     <div className="hidden sm:block bg-white rounded-xl p-8 mt-6">
                         <Typography.Heading size="small">Відгуки</Typography.Heading>
                         <div>
                            <div>Відгук</div>

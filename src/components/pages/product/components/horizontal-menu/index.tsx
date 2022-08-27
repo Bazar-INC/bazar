@@ -16,7 +16,7 @@ const HorizontalMenu: FC = () => {
 
    return (
       <Layout.Container className="!pr-0">
-         <div className="py-10 overflow-x-scroll pr-4 sm:pr-8 lg:pr-16">
+         <div className="pt-10 overflow-x-scroll pr-4 sm:pr-8 lg:pr-16">
             <div className="bg-white w-full min-w-max h-[67px] 2xl:h-[100px] rounded-xl px-12">
                <ul className="flex h-full font-[Gotham] text-[17px] 2xl:text-[25px] font-bold items-center gap-x-8 2xl:gap-x-12">
                   {menuItems.get.map((item, index) => (
