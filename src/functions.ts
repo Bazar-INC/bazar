@@ -29,4 +29,18 @@ function isEmpty(str: string | null | undefined) {
    return false;
 }
 
-export { classes };
+function priceSeparateByThousands(price: number) {
+
+   let priceAsString = (price % 1000) + " ";
+
+   const result = (Math.floor(price / 1000) % 1000);
+
+   if (result > 0) {
+      priceAsString = result + " " + priceAsString;
+   }
+
+   return priceAsString;
+}
+
+
+export { classes, priceSeparateByThousands };
