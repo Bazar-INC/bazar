@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 interface Props {
    className?: string;
    hint?: string;
-   type: "text" | "phone";
+   type: "text" | "number" | "phone";
    maxLength?: number;
    disabled?: boolean;
    onChange(value: string): void;
@@ -17,7 +17,7 @@ const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange
 
       const newValue = event.target.value;
 
-      if (type == "phone") {
+      if (type == "phone" || type == "number") {
 
          if (/\D/g.test(newValue)) {
             return;
