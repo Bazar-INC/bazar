@@ -7,78 +7,89 @@ const reviewItems = [
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
    {
       product: {
          label: "Apple Iphone 13 PRO 128GB Сірий",
-         icon: <Icons.Search />
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
       },
       review: {
          name: "Анатолій Львович",
          text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
-         avatar: <Icons.Search />
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
+      }
+   },
+   {
+      product: {
+         label: "Apple Iphone 13 PRO 128GB Сірий",
+         image: "https://img.ktc.ua/img/base/1_505/6/363866.jpg"
+      },
+      review: {
+         name: "Анатолій Львович",
+         text: "Яка різниця між Apple Iphone 13 512GB Starlight (MLQD3) та Apple Iphone 13 512GB Starlight (MLQD3U/A) окрім ціни?",
+         avatar: "https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png"
       }
    },
 ];
@@ -94,23 +105,23 @@ const Reviews: FC = () => {
                <div key={index} className="flex flex-col lg:flex-row bg-white rounded-lg pl-[20px] pt-[24px] pb-[24px] pr-[20px] mb-[10px] md:mb-[30px]">
                   <div className="flex items-center justify-between">
                      <div className="flex lg:flex-col lg:w-[233px]">
-                        <div className="w-[40px] h-[40px] lg:w-full lg:h-full mr-[15px]">
-                           {item.product.icon}
+                        <div className="lg:w-full lg:h-full mr-[15px]">
+                           <img className="w-[40px] h-[40px] lg:w-[188px] lg:h-[188px]" src={item.product.image} />
                         </div>
-                        <Typography.Heading className="h-min my-auto lg:text-center">{item.product.label}</Typography.Heading>
+                        <span className="h-min my-auto lg:text-center font-[Gotham] font-bold text-[21px]">{item.product.label}</span>
                      </div>
                   </div>
-                  <div className="flex flex-col mt-[24px] lg:h-min lg:my-auto">
+                  <div className="flex flex-col mt-[24px] lg:h-min lg:my-auto ml-[45px]">
                      <div className="flex">
-                        <div className="w-[40px] h-[40px] mr-[15px]">
-                           {item.review.avatar}
+                        <div className="mr-[15px]">
+                           <img className="w-[40px] h-[40px]" src={item.review.avatar} />
                         </div>
-                        <Typography.Heading className="h-min my-auto">{item.review.name}</Typography.Heading>
+                        <span className="h-min my-auto font-[Gotham] font-bold text-[21px]">{item.review.name}</span>
                      </div>
 
-                     <div className="ml-[55px]">
-                        <Typography.Heading className="">{item.review.text}</Typography.Heading>
-                        <Layout.Button className="h-[40px] w-[178px]">Відповісти</Layout.Button>
+                     <div className="ml-[55px] lg:ml-0">
+                        <span className="font-[Gotham] font-extralight text-[21px]">{item.review.text}</span>
+                        <Layout.Button className="h-[40px] w-[178px] mt-[10px]">Відповісти</Layout.Button>
                      </div>
                   </div>
                   <div className="order-first ml-auto lg:order-none">
