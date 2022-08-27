@@ -2,6 +2,7 @@ import { FC, useEffect, useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
+import { priceSeparateByThousands } from "../../../functions";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
@@ -62,7 +63,7 @@ const ProductPage: FC = () => {
                </div>
                <div className="w-full md:w-[330px] 2xl:w-[480px]">
                   <div className="border-[#D9D9D9] border rounded-lg flex flex-col p-6">
-                     <Typography.Heading>{product.get?.price + " грн"}</Typography.Heading>
+                     <Typography.Heading>{priceSeparateByThousands(product.get?.price ?? 0) + " грн"}</Typography.Heading>
                      <span className="mt-2 mb-8">Кешбек 4 000</span>
                      <Layout.Button stretch>Купити</Layout.Button>
                      <div className="mt-4">
