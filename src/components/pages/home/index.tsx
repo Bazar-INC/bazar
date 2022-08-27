@@ -3,20 +3,25 @@ import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
+import { Sections } from "../../sections";
 import { Typography } from "../../typography";
 import { CustomCard } from "./components/custom-card";
 
 const HomePage: FC = () => {
 
-   const [productList1] = useProperty<Array<ProductModel>>([]);
-   const [productList2] = useProperty<Array<ProductModel>>([]);
+   const [products] = useProperty<{
+      hitSale: Array<ProductModel>; new: Array<ProductModel>
+   }>({
+      hitSale: [], new: [],
+   });
 
    useEffect(() => {
       ProductsEndpoints.getTopProducts(1).then((response) => {
-         productList1.set(response.data.products);
+         products.set((prev) => ({ ...prev, hitSale: response.data.products }));
       });
+
       ProductsEndpoints.getTopProducts(2).then((response) => {
-         productList2.set(response.data.products);
+         products.set((prev) => ({ ...prev, new: response.data.products, }));
       });
    }, []);
 
@@ -31,46 +36,22 @@ const HomePage: FC = () => {
          <img className="mt-20 mb-10 w-full h-[80px] object-cover" src="/banner.png" />
          <Layout.Container>
 
-            <div className="flex items-center">
-               <img src="/fire.png" />
-               <Typography.Heading className="mt-4">Хіти продаж</Typography.Heading>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
-               {productList1.get.map((product, index) => (
-                  <Layout.ProductCard
-                     id={product.id}
-                     link={"/product/" + product.id}
-                     productName={product.name}
-                     categoryName="Смартфон"
-                     price={product.price}
-                     picture={product.images[0]}
-                     key={index}
-                  />
-               ))}
-            </div>
+            <Sections.PromoProducts
+               name="Хіти продаж"
+               icon="/fire.png"
+               products={products.get.hitSale}
+            />
 
             <div className="mt-24 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
 
-            <div className="flex items-center mt-20">
-               <img src="/sound.png" />
-               <Typography.Heading className="mt-4 ml-2">Новинки</Typography.Heading>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
-               {productList2.get.map((product, index) => (
-                  <Layout.ProductCard
-                     id={product.id}
-                     link={"/product/" + product.id}
-                     productName={product.name}
-                     categoryName="Смартфон"
-                     price={product.price}
-                     picture={product.images[0]}
-                     key={index}
-                  />
-               ))}
-            </div>
+            <Sections.PromoProducts
+               name="Новинки"
+               icon="/sound.png"
+               products={products.get.new}
+            />
 
             <div className="mt-24 sm:mt-32 mb-40 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />

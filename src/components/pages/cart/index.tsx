@@ -4,6 +4,7 @@ import { ProductModel } from "../../../api/models/product";
 import { useAppSelector } from "../../../store/hooks";
 import { useProperty } from "../../hooks/property";
 import { Layout } from '../../layout/layout';
+import { Sections } from "../../sections";
 import { Typography } from "../../typography";
 
 const CartPage: FC = () => {
@@ -47,23 +48,11 @@ const CartPage: FC = () => {
                ))}
             </div>
          )}
-         <div className="flex items-center mt-20">
-            <img src="fire.png" />
-            <Typography.Heading>Хіти продаж</Typography.Heading>
-         </div>
-         <div className="flex justify-between mt-8">
-            {products.get.map((product, index) => (
-               <Layout.ProductCard
-                  id={product.id}
-                  link={"/product/" + product.id}
-                  key={index}
-                  categoryName="Смартфон"
-                  productName={product.name}
-                  picture={product.images[0]}
-                  price={product.price}
-               />
-            ))}
-         </div>
+         <Sections.PromoProducts
+            name="Хіти продаж"
+            icon="/fire.png"
+            products={products.get}
+         />
       </Layout.Container>
    );
 };
