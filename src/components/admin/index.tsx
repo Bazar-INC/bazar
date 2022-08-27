@@ -56,6 +56,8 @@ const AdminPage: FC = () => {
                   <Route path="filters" element={<Filters />}/>
                   <Route path="reviews" element={<Reviews />}/>
                   <Route path="asks" element={<Asks />}/>
+                  <Route path="new_product" element={<NewProduct />}/>
+                  <Route path="new_category" element={<NewCategory />}/>
                </Routes>
             </div>
          </div> 
