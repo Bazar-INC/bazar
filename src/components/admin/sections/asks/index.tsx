@@ -87,7 +87,7 @@ const Asks: FC = () => {
    return (
       <div className="w-full py-[20px]">
          <div className="flex">
-            <Typography.Heading className="w-[102px] h-[24px]">Питання та відповіді</Typography.Heading>
+            <Typography.Heading className="h-[24px]">Питання та відповіді</Typography.Heading>
          </div>
          <div className="mt-[30px]">
             {asksItems.map((item, index) => (
