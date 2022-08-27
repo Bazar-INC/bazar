@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { CategoriesEndpoints } from "../../../api/endpoints/categories";
 import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
@@ -20,17 +19,12 @@ const GoodsPage: FC = () => {
    const [filterString] = useProperty("");
 
    const breadCrumbsItems = [
-      { label: 'Головна', route: '' },
-      { label: 'Каталог', route: '' },
-      { label: categoryName.get, route: '' },
+      { label: 'Головна', route: "/home" },
+      { label: 'Каталог', route: "" },
+      { label: categoryName.get, route: category ?? "" },
    ];
 
-   useEffect(() => {
-
-      category && CategoriesEndpoints.getCategory(category).then(({ data }) => {
-         categoryName.set(data.name);
-      });
-
+   const loadProducts = () => {
       category && ProductsEndpoints.getProducts(category, "").then(({ data }) => {
 
          products.set(data.products);
@@ -45,8 +39,9 @@ const GoodsPage: FC = () => {
 
          totalPages.set(data.totalPages);
       });
+   };
 
-   }, [category]);
+   useEffect(loadProducts, [category]);
 
    useEffect(() => {
       category && ProductsEndpoints.getProducts(category, filterString.get).then(({ data }) => {
@@ -108,7 +103,7 @@ const GoodsPage: FC = () => {
             <Layout.BreadCrumbs items={breadCrumbsItems} />
             <Typography.Heading className="block mt-5">{categoryName.get}</Typography.Heading>
             <div className="flex gap-x-[100px] mt-14">
-               <div className="hidden md:block w-[400px]">
+               <div className="hidden md:block w-[244px] 2xl:w-[400px]">
                   <span>Фільтруй базар</span>
                   {filters.get.map((filter, index) => (
                      <React.Fragment key={index}>
