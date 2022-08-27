@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from "react-router-dom";
 import { accountActions } from "../../../features/account/reducer";
+import { priceSeparateByThousands } from "../../../functions";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { Icons } from '../../icons/icons';
 import { Typography } from "../../typography";
@@ -15,19 +16,6 @@ interface Props {
    productName: string;
    price: number;
    link: string;
-}
-
-function priceSeparateByThousands(price: number) {
-
-   let priceAsString = (price % 1000) + " ";
-
-   const result = (Math.floor(price / 1000) % 1000);
-
-   if (result > 0) {
-      priceAsString = result + " " + priceAsString;
-   }
-
-   return priceAsString;
 }
 
 const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price, link }) => {
