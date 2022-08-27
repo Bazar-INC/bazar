@@ -6,6 +6,11 @@ import { Menu } from "./components/menu";
 import { Typography } from "../typography";
 import { Products } from "./sections/products";
 import { Reviews } from "./sections/reviews";
+import { NewCategory } from "./sections/newCategory";
+import { NewProduct } from "./sections/newProduct";
+import { Categories } from "./sections/categories";
+import { Filters } from "./sections/filters";
+import { Asks } from "./sections/asks";
 
 
 
@@ -16,7 +21,7 @@ const AdminPage: FC = () => {
    return (
       <div className="bg-[#F4F4F4] h-full flex" >
          <Menu active={menuActive} setActive={setMenuActive} />
-         <div className="h-full flex-1">
+         <div className="h-full flex-1 md:pl-[300px]">
             <header className="h-[60px] w-full bg-white flex justify-between items-center px-5 md:px-[70px]">
                {/* <div className="invisible ml-auto flex gap-x-5 items-center">
                   <span className="text-[35px] font-bold font-[Gotham]">Bazar Adm</span>
@@ -45,7 +50,13 @@ const AdminPage: FC = () => {
             </header>
 
             <div className="px-[20px] md:px-[70px]">
-               <Reviews />
+               <Routes>
+                  <Route path="products" element={<Products />}/>
+                  <Route path="categories" element={<Categories />}/>
+                  <Route path="filters" element={<Filters />}/>
+                  <Route path="reviews" element={<Reviews />}/>
+                  <Route path="asks" element={<Asks />}/>
+               </Routes>
             </div>
          </div> 
       </div>
