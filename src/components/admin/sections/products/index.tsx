@@ -74,7 +74,7 @@ const Products: FC = () => {
                <div key={index} className="flex items-center justify-between bg-white rounded-lg  h-[70px] pl-[20px] pt-[10px] pb-[10px] pr-[10px] mb-[10px]">
                   <div className="flex">
                      {item.icon}
-                     <span className="text-[15px] font-[Gotham] text-black font-bold ml-5 w-[200px] md:w-[527px] h-[48px] md:h-[24px]">{item.label}</span>
+                     <span className="text-[15px] font-[Gotham] text-black font-bold ml-5 w-[200px] md:w-[527px] h-min my-auto">{item.label}</span>
                   </div>
 
                   <div className="flex">
