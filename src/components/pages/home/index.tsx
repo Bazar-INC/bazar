@@ -4,8 +4,9 @@ import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
 import { Sections } from "../../sections";
-import { Typography } from "../../typography";
 import { CustomCard } from "./components/custom-card";
+
+import SimpleImageSlider from "react-simple-image-slider";
 
 const HomePage: FC = () => {
 
@@ -25,12 +26,47 @@ const HomePage: FC = () => {
       });
    }, []);
 
+   const sliderContainer = document.getElementById("sliderContainer");
+
+   const [sliderSize] = useProperty({
+      width: sliderContainer?.clientWidth ?? 0,
+      height: sliderContainer?.clientHeight ?? 0,
+   });
+
+   useEffect(() => {
+      sliderSize.set({
+         width: sliderContainer?.clientWidth ?? 0,
+         height: sliderContainer?.clientHeight ?? 0,
+      });
+   }, [sliderContainer]);
+
+   useEffect(() => {
+
+
+      window.addEventListener("resize", () => {
+         const sliderContainer = document.getElementById("sliderContainer");
+         sliderSize.set({
+            width: sliderContainer?.clientWidth ?? 0,
+            height: sliderContainer?.clientHeight ?? 0,
+         });
+      });
+
+   }, []);
+
    return (
       <div className="py-8">
          <Layout.Container className="px-0">
             <div className="flex gap-x-8">
                <div className="hidden lg:block w-[256px] xl:w-[286px] 2xl:w-[430px] h-2"></div>
-               <div className="flex-1 h-[256px] md:h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
+               <div id="sliderContainer" className="overflow-hidden flex-1 h-[256px] md:h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black">
+                  <SimpleImageSlider
+                     width={sliderSize.get.width}
+                     height={sliderSize.get.height}
+                     images={["/promo_banner_1.png", "/promo_banner_2.png"]}
+                     showBullets={true}
+                     showNavs={true}
+                  />
+               </div>
             </div>
          </Layout.Container>
          <img className="mt-20 mb-10 w-full h-[80px] object-cover" src="/banner.png" />
