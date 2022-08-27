@@ -26,21 +26,7 @@ const ProductPage: FC = () => {
       ProductsEndpoints.getTopProducts(1).then((response) => {
          productList.set(response.data.products);
       });
-
-      const startOffset = ref.current?.offsetTop ?? 0;
-
-      window.addEventListener("scroll", () => {
-         if (ref.current) {
-            let margin = window.scrollY - 1200;
-            if (window.scrollY <= startOffset) {
-               margin = 0;
-            }
-            if (window.scrollY >= 5300) {
-               margin = 4040;
-            }
-            ref.current.style.marginTop = margin + "px";
-         }
-      });
+      
    }, []);
 
    return (
