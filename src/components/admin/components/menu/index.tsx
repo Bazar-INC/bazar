@@ -35,7 +35,7 @@ const menuItems = [
    },
    {
       label: "Повернутися в BAZAR",
-      icon: <Icons.Cart className="w-6" />,
+      icon: "",
       route: "/home"
    }
 ];
@@ -54,13 +54,12 @@ const Menu: FC<Props> = ({ active, setActive }) => {
                {menuItems.map((item, index) => (
                   <Link key={index} to={item.route??""} className="flex items-center cursor-pointer">
                      {item.icon}
-                     <span className="text-[15px] font-[Gotham] text-white hover:text-[#8F00F9] font-bold ml-5" onClick={() => setActive(!active)}>{item.label}</span>
+                     <span className={classes("text-[15px] font-[Gotham] text-white hover:text-[#8F00F9] font-bold", index==menuItems.length-1?"text-[15px] font-[Gotham] font-extralight text-[#7C7C7C] underline":"ml-5")} onClick={() => setActive(!active)}>{item.label}</span>
                   </Link>
                ))}
             </div>
          </div>
          <div className={classes("ml-[300px] h-full fixed w-full md:w-0", active ? "w-full" : "w-0")} onClick={() => setActive(!active)}>
-
          </div>
       </div>
    );
