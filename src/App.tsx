@@ -44,7 +44,7 @@ const App: FC = () => {
    return (
       <>
          <Routes>
-            <Route path="admin" element={<AdminPage />} />
+            <Route path="admin/*" element={<AdminPage />} />
             <Route path="*" element={
                <>
                   <div className="flex flex-col h-full">
