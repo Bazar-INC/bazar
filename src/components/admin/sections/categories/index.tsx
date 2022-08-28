@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Layout } from "../../../layout/layout";
 import { Icons } from "../../../icons/icons";
 import { Typography } from "../../../typography";
+import { Link } from "react-router-dom";
 
 const CategoriesList = [
    {
@@ -31,7 +32,7 @@ const Categories: FC = () => {
       <div className="w-full py-[20px]">
          <div className="flex justify-between">
             <Typography.Heading className="w-[93px] h-[24px]">Категорії</Typography.Heading>
-            <Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати категорію</Layout.Button>
+            <Link to="/admin/new_category"><Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати категорію</Layout.Button></Link>
          </div>
          <div className="mt-[30px]">
             {CategoriesList.map((item, index) => (
