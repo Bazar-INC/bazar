@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Icons } from "../../../icons/icons";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
@@ -83,9 +84,10 @@ const NewProduct: FC = () => {
                </div>
             </div>
 
-
-
-            <Layout.Button className="w-[220px] h-[44px] mt-[31px]">Опублікувати</Layout.Button>
+            <div className="flex flex-row">
+               <Layout.Button className="w-[220px] h-[44px] mt-[31px]">Опублікувати</Layout.Button>
+               <Link to="/admin/products"><Layout.Button className="w-[220px] h-[44px] mt-[31px] bg-[#9DA0A9] hover:bg-[#6e7178] ml-[60px]">Відмінити</Layout.Button></Link>
+            </div>
          </div>
       </div>
    );
