@@ -52,9 +52,9 @@ const Menu: FC<Props> = ({ active, setActive }) => {
             <img src="/brand_logo_2.png" className="mt-[70px]" />
             <div className="mt-[67px] space-y-[35px]">
                {menuItems.map((item, index) => (
-                  <Link key={index} to={item.route??""} className="flex items-center cursor-pointer">
+                  <Link key={index} to={item.route??""} className="flex items-center cursor-pointer text-white hover:text-[#8F00F9]">
                      {item.icon}
-                     <span className={classes("text-[15px] font-[Gotham] text-white hover:text-[#8F00F9] font-bold", index==menuItems.length-1?"text-[15px] font-[Gotham] font-extralight text-[#7C7C7C] underline":"ml-5")} onClick={() => setActive(!active)}>{item.label}</span>
+                     <span className={classes("text-[15px] font-[Gotham] font-bold", index==menuItems.length-1?"text-[15px] font-[Gotham] font-extralight text-[#7C7C7C] hover:text-[#8F00F9] underline":"ml-5")} onClick={() => setActive(!active)}>{item.label}</span>
                   </Link>
                ))}
             </div>
