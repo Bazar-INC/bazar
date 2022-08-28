@@ -98,7 +98,7 @@ const Reviews: FC = () => {
    return (
       <div className="w-full py-[20px]">
          <div className="flex">
-            <Typography.Heading className="w-[102px] h-[24px]">Відгуки</Typography.Heading>
+            <Typography.Heading className="h-min my-auto">Відгуки</Typography.Heading>
          </div>
          <div className="mt-[30px]">
             {reviewItems.map((item, index) => (
