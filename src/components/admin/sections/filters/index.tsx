@@ -20,7 +20,7 @@ const FiltersList = [
 
 const Filters: FC = () => {
    return (
-      <div className="w-full p-[20px]">
+      <div className="w-full py-[20px]">
          <div className="flex justify-between">
             <Typography.Heading className="w-[93px] h-[24px]">Фільтри</Typography.Heading>
             <Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати фільтр</Layout.Button>
