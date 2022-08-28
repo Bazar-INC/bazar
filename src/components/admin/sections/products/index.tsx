@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Layout } from "../../../layout/layout";
 import { Icons } from "../../../icons/icons";
 import { Typography } from "../../../typography";
+import { Link } from "react-router-dom";
 
 const ProductsList = [
    {
@@ -67,7 +68,7 @@ const Products: FC = () => {
       <div className="w-full p-[20px]">
          <div className="flex justify-between">
             <Typography.Heading className="w-[93px] h-[24px]">Товари</Typography.Heading>
-            <Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати товар</Layout.Button>
+            <Link to="/admin/new_product"><Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати товар</Layout.Button></Link>
          </div>
          <div className="mt-[30px]">
             {ProductsList.map((item, index) => (
