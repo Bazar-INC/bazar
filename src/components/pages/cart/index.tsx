@@ -1,29 +1,70 @@
 import { FC, useEffect } from 'react';
+import { AccountEndpoints } from "../../../api/endpoints/account";
 import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
-import { useAppSelector } from "../../../store/hooks";
+import { accountActions } from "../../../features/account/reducer";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useProperty } from "../../hooks/property";
 import { Layout } from '../../layout/layout';
-import { Sections } from "../../sections";
+// import { Sections } from "../../sections";
 import { Typography } from "../../typography";
 
 const CartPage: FC = () => {
 
+   const dispatch = useAppDispatch();
+
    const productsIds = useAppSelector(state => state.accountReducer.cart.products);
 
-   const [products] = useProperty<Array<ProductModel>>([]);
+   const [products] = useProperty<Array<{ product: ProductModel, count: number }>>([]);
 
    const setProductByIdsFromCart = () => {
       products.set([]);
 
-      productsIds.forEach((productId) => {
-         ProductsEndpoints.getProductById(productId).then((response) => {
-            products.set(prev => [...prev, response.data]);
+      productsIds.forEach((product) => {
+         ProductsEndpoints.getProductById(product.id).then((response) => {
+            products.set(prev => [
+               ...prev,
+               { product: response.data, count: product.count }
+            ]);
          });
       });
    };
 
-   useEffect(setProductByIdsFromCart, [productsIds]);
+   const incrementProductCount = (productId: string) => {
+
+      const index = products.get.findIndex(f => f.product.id === productId);
+
+      const { count, product } = products.get[index];
+
+      if (index !== -1) {
+         products.set([
+            ...products.get.slice(0, index),
+            { count: count + 1, product },
+            ...products.get.slice(index + 1),
+         ]);
+      }
+
+      dispatch(accountActions.addProductToCard(productId));
+   };
+
+   const decrementProductCount = (productId: string) => {
+
+      const index = products.get.findIndex(f => f.product.id === productId);
+
+      const { count, product } = products.get[index];
+
+      if (index !== -1) {
+         products.set([
+            ...products.get.slice(0, index),
+            { count: count - 1, product },
+            ...products.get.slice(index + 1),
+         ]);
+      }
+
+      dispatch(accountActions.addProductToCard(productId));
+   };
+
+   useEffect(setProductByIdsFromCart, []);
 
    const emptyCartPageView = (
       <div className="w-full flex flex-col items-center justify-center">
@@ -43,22 +84,23 @@ const CartPage: FC = () => {
                {products.get.map((product, index) => (
                   <div key={index} className="w-[591px] px-10 py-8 bg-white rounded-md flex justify-between items-center">
                      <div className="flex gap-x-4">
-                        <img className="w-20 h-20" src={product.images[0]} />
+                        <img className="w-20 h-20" src={product.product.images[0]} />
                         <div className="flex flex-col">
                            <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">Смартфон</span>
-                           <span className="text-[12px] mb-2">{product.name}</span>
+                           <span className="text-[12px] mb-2">{product.product.name}</span>
                         </div>
                      </div>
                      <div className="flex items-center gap-x-8">
                         <div className="flex gap-x-2">
-                           <button>-</button>
+                           <button onClick={() => decrementProductCount(product.product.id)}>-</button>
                            <Layout.Input
                               maxLength={2}
                               type="number"
                               className="w-8 h-8 rounded border-2 text-center leading-8"
                               onChange={() => console.log(1)}
+                              hardValue={product.count.toString()}
                            />
-                           <button>+</button>
+                           <button onClick={() => incrementProductCount(product.product.id)}>+</button>
                         </div>
                         <div>
                            <div className="flex mt-5 items-center">
@@ -112,11 +154,11 @@ const CartPage: FC = () => {
 
          {productsIds.length === 0 ? emptyCartPageView : fullCartPageView}
 
-         <Sections.PromoProducts
+         {/* <Sections.PromoProducts
             name="Хіти продаж"
             icon="/fire.png"
             products={products.get.slice(0, 4)}
-         />
+         /> */}
 
       </Layout.Container >
    );
