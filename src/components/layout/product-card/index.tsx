@@ -25,7 +25,7 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price,
    const products = useAppSelector(state => state.accountReducer.cart.products);
 
    const addToCart = () => {
-      if (!products.includes(id)) {
+      if (!products.some(w => w.id === id)) {
          dispatch(accountActions.addProductToCard(id));
       }
    };
