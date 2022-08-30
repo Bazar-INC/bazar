@@ -3,13 +3,14 @@ import { FC, useEffect, useState } from "react";
 interface Props {
    className?: string;
    hint?: string;
-   type: "text" | "phone";
+   type: "text" | "number" | "phone";
    maxLength?: number;
    disabled?: boolean;
    onChange(value: string): void;
+   hardValue?: string;
 }
 
-const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange }) => {
+const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange, hardValue }) => {
 
    const [value, setValue] = useState("");
 
@@ -17,7 +18,7 @@ const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange
 
       const newValue = event.target.value;
 
-      if (type == "phone") {
+      if (type == "phone" || type == "number") {
 
          if (/\D/g.test(newValue)) {
             return;
@@ -38,7 +39,7 @@ const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange
          type="text"
          className={className}
          placeholder={hint}
-         value={value}
+         value={hardValue ?? value}
          onChange={handleOnChange}
          maxLength={maxLength}
       />

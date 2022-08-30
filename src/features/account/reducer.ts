@@ -4,15 +4,16 @@ interface ProfileState {
    name: string;
 }
 
-type ProductsIds = Array<string>;
-
-interface Cart {
-   products: ProductsIds;
-}
+type ProductId = string;
 
 interface AccountState {
    profile: ProfileState | null;
-   cart: Cart;
+   cart: {
+      products: Array<{
+         id: ProductId,
+         count: number
+      }>
+   };
 }
 
 const initialState: AccountState = {
@@ -30,7 +31,23 @@ const accountSlice = createSlice({
          state.profile = profile;
       },
       addProductToCard(state, { payload: productId }: PayloadAction<string>) {
-         state.cart.products = [...state.cart.products, productId];
+
+         const index = state.cart.products.findIndex(w => w.id === productId);
+
+         const product = state.cart.products[index];
+
+         if (index === -1) {
+            state.cart.products = [
+               ...state.cart.products,
+               { id: productId, count: 1 }
+            ];
+         } else {
+            state.cart.products = [
+               ...state.cart.products.slice(0, index),
+               { id: product.id, count: product.count + 1 },
+               ...state.cart.products.slice(index + 1),
+            ];
+         }
       },
    }
 });

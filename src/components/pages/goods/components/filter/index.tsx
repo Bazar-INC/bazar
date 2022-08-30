@@ -21,14 +21,14 @@ const Filter: FC<FilterProps> = ({ title, options, onChange }) => {
 
    return (
       <div>
-         <span className="font-bold text-[20px]">{title}</span>
+         <span className="font-bold text-[15px] 2xl:text-[20px]">{title}</span>
          <Form onFinish={handleFinish} ref={ref}>
             <ol>
                {options.map((option, index) => (
                   <li className="mt-2.5" key={index}>
                      <label className="flex items-center">
                         <input onChange={handleCheck} name={option.value} className="w-[30px] h-[30px]" type="checkbox" />
-                        <span className="text-[15px] font-semibold ml-4">{option.name}</span>
+                        <span className="text-[13px] 2xl:text-[15px] font-semibold ml-4">{option.name}</span>
                      </label>
                   </li>
                ))}

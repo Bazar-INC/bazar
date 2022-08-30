@@ -3,41 +3,25 @@ import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
 import { useProperty } from "../../hooks/property";
 import { Layout } from "../../layout/layout";
-import { Typography } from "../../typography";
-
-interface CustomCardProps {
-   title: string;
-   badge: string;
-   picture: string;
-}
-
-const CustomCard: FC<CustomCardProps> = ({ title, badge, picture }) => {
-   return (
-      <div className="flex justify-between lg:justify-start bg-white px-8 2xl:px-12 py-8 2xl:py-16 rounded-xl h-40 2xl:h-64 w-full sm:w-auto">
-         <div className="flex flex-col">
-            <Layout.Badge color="#00ff74" additionalClasses="w-[145px]">
-               {badge}
-            </Layout.Badge>
-            <Typography.Heading className="mt-5 !text-[20px] !2xl:text-[30px]">
-               {title}
-            </Typography.Heading>
-         </div>
-         <img className="ml-auto sm:ml-0 h-32 sm:h-56 2xl:h-96 sm:-mt-24 2xl:-mt-48" src={picture} />
-      </div>
-   );
-};
+import { Sections } from "../../sections";
+import { CustomCard } from "./components/custom-card";
+import { Slider } from "./components/slider";
 
 const HomePage: FC = () => {
 
-   const [productList1] = useProperty<Array<ProductModel>>([]);
-   const [productList2] = useProperty<Array<ProductModel>>([]);
+   const [products] = useProperty<{
+      hitSale: Array<ProductModel>; new: Array<ProductModel>
+   }>({
+      hitSale: [], new: [],
+   });
 
    useEffect(() => {
       ProductsEndpoints.getTopProducts(1).then((response) => {
-         productList1.set(response.data.products);
+         products.set((prev) => ({ ...prev, hitSale: response.data.products }));
       });
+
       ProductsEndpoints.getTopProducts(2).then((response) => {
-         productList2.set(response.data.products);
+         products.set((prev) => ({ ...prev, new: response.data.products, }));
       });
    }, []);
 
@@ -46,52 +30,28 @@ const HomePage: FC = () => {
          <Layout.Container className="px-0">
             <div className="flex gap-x-8">
                <div className="hidden lg:block w-[256px] xl:w-[286px] 2xl:w-[430px] h-2"></div>
-               <div className="flex-1 h-[256px] md:h-[440px] 2xl:h-[608px] w-full sm:rounded-lg bg-black"></div>
+               <Slider />
             </div>
          </Layout.Container>
          <img className="mt-20 mb-10 w-full h-[80px] object-cover" src="/banner.png" />
          <Layout.Container>
 
-            <div className="flex items-center">
-               <img src="/fire.png" />
-               <Typography.Heading className="mt-4">Хіти продаж</Typography.Heading>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
-               {productList1.get.map((product, index) => (
-                  <Layout.ProductCard
-                     id={product.id}
-                     link={"/product/" + product.id}
-                     productName={product.name}
-                     categoryName="Смартфон"
-                     price={product.price}
-                     picture={product.images[0]}
-                     key={index}
-                  />
-               ))}
-            </div>
+            <Sections.PromoProducts
+               name="Хіти продаж"
+               icon="/fire.png"
+               products={products.get.hitSale}
+            />
 
             <div className="mt-24 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
 
-            <div className="flex items-center mt-20">
-               <img src="/sound.png" />
-               <Typography.Heading className="mt-4 ml-2">Новинки</Typography.Heading>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
-               {productList2.get.map((product, index) => (
-                  <Layout.ProductCard
-                     id={product.id}
-                     link={"/product/" + product.id}
-                     productName={product.name}
-                     categoryName="Смартфон"
-                     price={product.price}
-                     picture={product.images[0]}
-                     key={index}
-                  />
-               ))}
-            </div>
+            <Sections.PromoProducts
+               name="Новинки"
+               icon="/sound.png"
+               products={products.get.new}
+            />
 
             <div className="mt-24 sm:mt-32 mb-40 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
