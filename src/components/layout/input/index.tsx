@@ -7,9 +7,10 @@ interface Props {
    maxLength?: number;
    disabled?: boolean;
    onChange(value: string): void;
+   hardValue?: string;
 }
 
-const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange }) => {
+const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange, hardValue }) => {
 
    const [value, setValue] = useState("");
 
@@ -38,7 +39,7 @@ const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange
          type="text"
          className={className}
          placeholder={hint}
-         value={value}
+         value={hardValue ?? value}
          onChange={handleOnChange}
          maxLength={maxLength}
       />
