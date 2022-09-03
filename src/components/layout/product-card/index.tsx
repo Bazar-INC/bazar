@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Link } from "react-router-dom";
 import { accountActions } from "../../../features/account/reducer";
 import { priceSeparateByThousands } from "../../../functions";
+import { routes } from "../../../router-config";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { Icons } from '../../icons/icons';
 import { Typography } from "../../typography";
@@ -37,7 +38,7 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price,
          <img className="card-image" src={picture} />
          <div className="mt-6 flex flex-col items-start px-4">
             <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{categoryName}</span>
-            <Link to={link ?? ""} className="font-semibold hover:text-[#8F00F9] text-[13px] 2xl:text-[17px] h-12 overflow-clip">{productName}</Link>
+            <Link to={routes.Product.link(link)} className="font-semibold hover:text-[#8F00F9] text-[13px] 2xl:text-[17px] h-12 overflow-clip">{productName}</Link>
             <Layout.Badge additionalClasses="mt-4" color="#00ff74">Від 1099 в міс.</Layout.Badge>
             <Layout.Badge additionalClasses="mt-4" color="#8f00f9">Хіт продаж</Layout.Badge>
             <div className="flex mt-5 items-center">

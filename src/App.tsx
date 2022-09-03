@@ -16,6 +16,7 @@ import { GoodsPage } from './components/pages/goods';
 import { AdminPage } from "./components/admin";
 import { ProductPage } from "./components/pages/product";
 import { MobileMenu } from "./components/mobile/menu";
+import { routes } from "./router-config";
 
 const App: FC = () => {
 
@@ -49,9 +50,9 @@ const App: FC = () => {
                <>
                   <div className="flex flex-col h-full">
                      <div className="flex-[1_0_auto]">
-                        <Layout.Header fixMenu={location.pathname === "/home"} openSignModal={openSignModal} />
+                        <Layout.Header fixMenu={location.pathname === routes.Home.pathname} openSignModal={openSignModal} />
                         <Routes>
-                           <Route path="home" element={<HomePage />} />
+                           <Route path={routes.Home.path} element={<HomePage />} />
                            <Route path="cart" element={<CartPage />} />
                            <Route path="goods/:category" element={<GoodsPage />} />
                            <Route path="product/:id" element={<ProductPage />} />
