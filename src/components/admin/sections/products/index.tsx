@@ -1,69 +1,23 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Layout } from "../../../layout/layout";
-import { Icons } from "../../../icons/icons";
 import { Typography } from "../../../typography";
 import { Link } from "react-router-dom";
-
-const ProductsList = [
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-   {
-      label: "Apple Iphone 13 PRO 128GB Сірий",
-      icon: <Icons.Phone />
-   },
-];
+import { useProperty } from "../../../hooks/property";
+import { ProductModel } from "../../../../api/models/product";
+import { ProductsEndpoints } from "../../../../api/endpoints/products";
 
 const Products: FC = () => {
+
+   const [products] = useProperty<Array<ProductModel>>([]);
+
+   const loadProducts = () => {
+      ProductsEndpoints.getProducts("", "").then(({ data }) => {
+         products.set(data.products);
+      });
+   };
+
+   useEffect(loadProducts, []);
+
    return (
       <div className="w-full py-[20px]">
          <div className="flex justify-between">
@@ -71,11 +25,11 @@ const Products: FC = () => {
             <Link to="/admin/new_product"><Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати товар</Layout.Button></Link>
          </div>
          <div className="mt-[30px]">
-            {ProductsList.map((item, index) => (
+            {products.get.map((product, index) => (
                <div key={index} className="flex items-center justify-between bg-white rounded-lg  h-[70px] pl-[20px] pt-[10px] pb-[10px] pr-[10px] mb-[10px]">
                   <div className="flex">
-                     {item.icon}
-                     <span className="text-[15px] font-[Gotham] text-black font-bold ml-5 w-[200px] md:w-[527px] h-min my-auto">{item.label}</span>
+                     <img className="w-12 h-12" src={product.images[0]} />
+                     <span className="text-[15px] font-[Gotham] text-black font-bold ml-5 w-[200px] md:w-[527px] h-min my-auto">{product.name}</span>
                   </div>
 
                   <div className="flex">
