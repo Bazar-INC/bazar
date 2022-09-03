@@ -4,7 +4,7 @@ import { Icons } from "../../../icons/icons";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
-const NewProduct: FC = () => {
+const NewProductSection: FC = () => {
    return (
       <div className="w-full py-[20px] flex flex-col">
          <Typography.Heading>Новий товар</Typography.Heading>
@@ -15,8 +15,9 @@ const NewProduct: FC = () => {
                   <Layout.Input
                      type="text"
                      hint="Назва"
-                     className=" h-[50px] rounded-lg mt-[15px]"
-                     onChange={(value) => console.log(value)} />
+                     className="px-8 h-[50px] rounded-lg mt-[15px]"
+                     onChange={(value) => console.log(value)}
+                  />
                </div>
 
                <div className="ml-[40px] w-[150px] flex flex-col">
@@ -24,8 +25,9 @@ const NewProduct: FC = () => {
                   <Layout.Input
                      type="text"
                      hint="Ціна"
-                     className="h-[50px] rounded-lg mt-[15px]"
-                     onChange={(value) => console.log(value)} />
+                     className="px-8 h-[50px] rounded-lg mt-[15px]"
+                     onChange={(value) => console.log(value)}
+                  />
                </div>
             </div>
 
@@ -52,14 +54,14 @@ const NewProduct: FC = () => {
                <Layout.Input
                   type="text"
                   hint="Опис"
-                  className="w-full h-[200px] rounded-lg mt-[15px]"
+                  className="p-8 w-full h-[200px] rounded-lg mt-[15px]"
                   onChange={(value) => console.log(value)} />
             </div>
 
             <div className="flex flex-col md:flex-row">
                <div className=" md:w-full mt-[30px] md:ml-[50px] flex flex-col">
                   <span className=" text-[#949494] font-[Gotham] font-bold text-[15px]">Категорія</span>
-                  <select className="h-[50px] mt-[15px] rounded-lg">
+                  <select className="px-8 h-[50px] mt-[15px] rounded-lg">
                      <option>Телефони</option>
                      <option>Розетки</option>
                      <option>Навушники</option>
@@ -68,7 +70,7 @@ const NewProduct: FC = () => {
 
                <div className="mt-[30px] md:w-full flex flex-col md:order-first md:mr-[50px]">
                   <span className=" text-[#949494] font-[Gotham] font-bold text-[15px]">Фільтри</span>
-                  <select className="h-[50px] mt-[15px] rounded-lg">
+                  <select className="px-8 h-[50px] mt-[15px] rounded-lg">
                      <option>Марка</option>
                      <option>Память</option>
                   </select>
@@ -93,4 +95,4 @@ const NewProduct: FC = () => {
    );
 };
 
-export { NewProduct };
+export { NewProductSection };
