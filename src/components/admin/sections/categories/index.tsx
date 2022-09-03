@@ -30,7 +30,11 @@ const Categories: FC = () => {
       <div className="w-full py-[20px]">
          <div className="flex justify-between">
             <Typography.Heading className="h-min my-auto">Категорії</Typography.Heading>
-            <Link to="/admin/new_category"><Layout.Button className="w-[193px] md:w-[300px] md:h-[60px]">Додати категорію</Layout.Button></Link>
+            <Link to="/admin/new_category">
+               <Layout.Button className="">
+                  Додати категорію
+               </Layout.Button>
+            </Link>
          </div>
          <div className="mt-[30px]">
             {categories.get.map((category, index) => (

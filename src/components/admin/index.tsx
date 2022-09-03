@@ -1,12 +1,11 @@
 import { FC, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Icons } from "../icons/icons";
 import { Layout } from "../layout/layout";
 import { Menu } from "./components/menu";
 import { Typography } from "../typography";
 import { Products } from "./sections/products";
 import { Reviews } from "./sections/reviews";
-import { NewCategory } from "./sections/newCategory";
+import { NewCategorySection } from "./sections/new-category";
 import { NewProduct } from "./sections/newProduct";
 import { Categories } from "./sections/categories";
 import { Filters } from "./sections/filters";
@@ -57,7 +56,7 @@ const AdminPage: FC = () => {
                   <Route path="reviews" element={<Reviews />}/>
                   <Route path="asks" element={<Asks />}/>
                   <Route path="new_product" element={<NewProduct />}/>
-                  <Route path="new_category" element={<NewCategory />}/>
+                  <Route path="new_category" element={<NewCategorySection />}/>
                </Routes>
             </div>
          </div> 

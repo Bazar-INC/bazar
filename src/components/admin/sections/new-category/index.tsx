@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
-const NewCategory: FC = () => {
+const NewCategorySection: FC = () => {
    return (
       <div className="w-full py-[20px] flex flex-col">
          <Typography.Heading>Нова категорія</Typography.Heading>
@@ -33,8 +33,9 @@ const NewCategory: FC = () => {
                <Layout.Input
                   type="text"
                   hint="Назва"
-                  className="w-full h-[50px] rounded-lg mt-[15px]"
-                  onChange={(value) => console.log(value)} />
+                  className="w-full px-8 h-[50px] rounded-lg mt-[15px]"
+                  onChange={(value) => console.log(value)}
+               />
             </div>
 
             <div className="flex flex-col mt-[30px]">
@@ -42,14 +43,15 @@ const NewCategory: FC = () => {
                <Layout.Input
                   type="text"
                   hint="Код категорії"
-                  className="w-full h-[50px] rounded-lg mt-[15px]"
-                  onChange={(value) => console.log(value)} />
+                  className="w-full px-8 h-[50px] rounded-lg mt-[15px]"
+                  onChange={(value) => console.log(value)}
+               />
             </div>
 
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Батьківська категорія</span>
-                  <select className="h-[50px] w-full rounded-lg mt-[15px]">
+                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
                      <option value="">Електроніка</option>
                      <option value="">Товари для дому</option>
                      <option value="">Телевізори</option>
@@ -67,7 +69,7 @@ const NewCategory: FC = () => {
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Дочірні категорії</span>
-                  <select className="h-[50px] w-full rounded-lg mt-[15px]">
+                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
                      <option value="">Електроніка</option>
                      <option value="">Товари для дому</option>
                      <option value="">Телевізори</option>
@@ -85,7 +87,7 @@ const NewCategory: FC = () => {
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Фільтри</span>
-                  <select className="h-[50px] w-full rounded-lg mt-[15px]">
+                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
                      <option value="">Електроніка</option>
                      <option value="">Товари для дому</option>
                      <option value="">Телевізори</option>
@@ -109,6 +111,6 @@ const NewCategory: FC = () => {
    );
 };
 
-export { NewCategory };
+export { NewCategorySection };
 
 
