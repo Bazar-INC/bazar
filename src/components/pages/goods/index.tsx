@@ -27,6 +27,8 @@ const GoodsPage: FC = () => {
    const loadProducts = () => {
       category && ProductsEndpoints.getProducts(category, "").then(({ data }) => {
 
+         categoryName.set(data.categoryName);
+
          products.set(data.products);
 
          filters.set(
@@ -129,7 +131,7 @@ const GoodsPage: FC = () => {
                         <Layout.ProductCard
                            id={product.id}
                            key={index}
-                           categoryName="Смартфон"
+                           categoryName={product.categoryName}
                            productName={product.name}
                            picture={product.images[0]}
                            price={product.price}

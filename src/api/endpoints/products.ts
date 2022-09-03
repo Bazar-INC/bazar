@@ -14,6 +14,7 @@ interface ProductsResponse {
          code: string;
       }>
    }>;
+   categoryName: string;
 }
 
 const getTopProducts = (page: number) => {
