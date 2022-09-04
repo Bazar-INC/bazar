@@ -1,37 +1,37 @@
-import { FC, useEffect, useState } from "react";
-import { Icons } from "../../../icons/icons";
+import { FC } from "react";
 import { classes } from "../../../../functions";
 import { Link } from "react-router-dom";
+import { Icon } from "../../../ico/icon";
 
 const menuItems = [
    {
       label: "Товари",
-      icon: <Icons.Cart className="w-6" />,
+      icon: <Icon.Products className="h-5 hover:text-[#8F00F9]" />,
       route: "/admin/products"
    },
    {
       label: "Категорії",
-      icon: <Icons.Cart className="w-6" />,
+      icon: <Icon.Categories className="h-5 hover:text-[#8F00F9]" />,
       route: "/admin/categories"
    },
    {
       label: "Фільтри",
-      icon: <Icons.Cart className="w-6" />,
+      icon: <Icon.Filters className="h-5 hover:text-[#8F00F9]" />,
       route: "/admin/filters"
    },
    {
       label: "Відгуки",
-      icon: <Icons.Cart className="w-6" />,
+      icon: <Icon.Feedbacks className="h-5 hover:text-[#8F00F9]" />,
       route: "/admin/reviews"
    },
    {
       label: "Питання та відповіді",
-      icon: <Icons.Cart className="w-6" />,
+      icon: <Icon.QuestionsAndAnswers className="h-5 hover:text-[#8F00F9]" />,
       route: "/admin/asks"
    },
    {
       label: "Налаштування",
-      icon: <Icons.Cart className="w-6" />,
+      icon: <Icon.Settings className="h-5 hover:text-[#8F00F9]" />,
    },
    {
       label: "Повернутися в BAZAR",
@@ -52,15 +52,17 @@ const Menu: FC<Props> = ({ active, setActive }) => {
             <img src="/brand_logo_2.png" className="mt-[70px]" />
             <div className="mt-[67px] space-y-[35px]">
                {menuItems.map((item, index) => (
-                  <Link key={index} to={item.route??""} className="flex items-center cursor-pointer text-white hover:text-[#8F00F9]">
+                  <Link key={index} to={item.route ?? ""} className="flex items-center cursor-pointer text-white hover:text-[#8F00F9]">
                      {item.icon}
-                     <span className={classes("text-[15px] font-[Gotham] font-bold", index==menuItems.length-1?"text-[15px] font-[Gotham] font-extralight text-[#7C7C7C] hover:text-[#8F00F9] underline":"ml-5")} onClick={() => setActive(!active)}>{item.label}</span>
+                     <span className={classes("text-[15px] font-[Gotham] font-bold", index == menuItems.length - 1 ? "text-[15px] font-[Gotham] font-extralight text-[#7C7C7C] hover:text-[#8F00F9] underline" : "ml-5")} onClick={() => setActive(!active)}>{item.label}</span>
                   </Link>
                ))}
             </div>
          </div>
-         <div className={classes("ml-[300px] h-full fixed w-full md:w-0", active ? "w-full" : "w-0")} onClick={() => setActive(!active)}>
-         </div>
+         <div
+            className={classes("ml-[300px] h-full fixed w-full md:w-0", active ? "w-full" : "w-0")}
+            onClick={() => setActive(!active)}
+         />
       </div>
    );
 };
