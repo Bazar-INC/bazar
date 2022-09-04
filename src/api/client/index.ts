@@ -8,7 +8,7 @@ const createAxiosInstance = (baseUrl: string) => {
 
    const client = axios.create({
       baseURL: `${APP_ENV.REMOTE_HOST_NAME}/api/${baseUrl}`,
-      timeout: 5000
+      timeout: 10_000
    });
 
    client.interceptors.request.use(
@@ -42,6 +42,10 @@ class Client {
 
    post<TResponse>(url: string, data?: unknown) {
       return this.client.post<TResponse>(url, data);
+   }
+
+   put<TResponse>(url: string, data?: unknown) {
+      return this.client.put<TResponse>(url, data);
    }
 
    delete<TResponse>(url: string) {
