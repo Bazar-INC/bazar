@@ -1,9 +1,33 @@
-import { FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { stat } from "fs/promises";
+import { FC } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { CategoriesEndpoints } from "../../../../api/endpoints/categories";
+import { useProperty } from "../../../hooks/property";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
-const NewCategory: FC = () => {
+const NewCategorySection: FC = () => {
+
+   const [status] = useProperty<"new" | "saved">("new");
+
+   const [name] = useProperty("");
+   const [code] = useProperty("");
+
+   const saveCategory = () => {
+      CategoriesEndpoints.addCategory({
+         name: name.get,
+         code: code.get
+      }).then((response) => {
+         if (response.status === 200) {
+            status.set("saved");
+         }
+      });
+   };
+
+   if (status.get === "saved") {
+      return <Navigate to="/admin/categories" />;
+   }
+
    return (
       <div className="w-full py-[20px] flex flex-col">
          <Typography.Heading>Нова категорія</Typography.Heading>
@@ -33,8 +57,9 @@ const NewCategory: FC = () => {
                <Layout.Input
                   type="text"
                   hint="Назва"
-                  className="w-full h-[50px] rounded-lg mt-[15px]"
-                  onChange={(value) => console.log(value)} />
+                  className="w-full px-8 h-[50px] rounded-lg mt-[15px]"
+                  onChange={(value) => name.set(value)}
+               />
             </div>
 
             <div className="flex flex-col mt-[30px]">
@@ -42,14 +67,15 @@ const NewCategory: FC = () => {
                <Layout.Input
                   type="text"
                   hint="Код категорії"
-                  className="w-full h-[50px] rounded-lg mt-[15px]"
-                  onChange={(value) => console.log(value)} />
+                  className="w-full px-8 h-[50px] rounded-lg mt-[15px]"
+                  onChange={(value) => code.set(value)}
+               />
             </div>
 
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Батьківська категорія</span>
-                  <select className="h-[50px] w-full rounded-lg mt-[15px]">
+                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
                      <option value="">Електроніка</option>
                      <option value="">Товари для дому</option>
                      <option value="">Телевізори</option>
@@ -67,7 +93,7 @@ const NewCategory: FC = () => {
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Дочірні категорії</span>
-                  <select className="h-[50px] w-full rounded-lg mt-[15px]">
+                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
                      <option value="">Електроніка</option>
                      <option value="">Товари для дому</option>
                      <option value="">Телевізори</option>
@@ -85,7 +111,7 @@ const NewCategory: FC = () => {
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Фільтри</span>
-                  <select className="h-[50px] w-full rounded-lg mt-[15px]">
+                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
                      <option value="">Електроніка</option>
                      <option value="">Товари для дому</option>
                      <option value="">Телевізори</option>
@@ -101,7 +127,7 @@ const NewCategory: FC = () => {
             </div>
 
             <div className="flex flex-row">
-               <Layout.Button className="mt-[40px] w-[220px]">Опублікувати</Layout.Button>
+               <Layout.Button onClick={saveCategory} className="mt-[40px] w-[220px]">Опублікувати</Layout.Button>
                <Link to="/admin/categories"><Layout.Button className="mt-[40px] w-[220px] bg-[#9DA0A9] hover:bg-[#6e7178] ml-[60px]">Відмінити</Layout.Button></Link>
             </div>
          </div>
@@ -109,6 +135,6 @@ const NewCategory: FC = () => {
    );
 };
 
-export { NewCategory };
+export { NewCategorySection };
 
 

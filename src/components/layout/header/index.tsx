@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { routes } from "../../../router-config";
 import { useAppSelector } from '../../../store/hooks';
 import { Icons } from '../../icons/icons';
 import { Layout } from '../layout';
@@ -65,7 +66,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
       <>
          <Layout.Container className="h-[66px] 2xl:h-[100px] flex items-center gap-x-8 shadow-lg sm:shadow-none">
             <div className="flex items-center justify-between w-full sm:w-auto lg:w-[286px] 2xl:w-[430px] gap-x-5">
-               <Link to="/home">
+               <Link to={routes.Home.link()}>
                   <img src="/brand_logo_1.png" className="w-32 lg:w-full" />
                </Link>
                <div className="flex items-center 2xl:mr-12">
@@ -84,7 +85,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                <Link to="/compare" className="hidden sm:block">
                   <Icons.Compare className="w-8 2xl:w-10 text-[#696E7C]" />
                </Link>
-               <Link to="/cart" className="hidden sm:block">
+               <Link to={routes.Cart.link()} className="hidden sm:block">
                   <Icons.Cart className="w-6 2xl:w-8" />
                </Link>
                {profile ? (

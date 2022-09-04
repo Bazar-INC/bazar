@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Layout } from "../../../layout/layout";
 import { Icons } from "../../../icons/icons";
 import { Typography } from "../../../typography";
@@ -22,8 +22,8 @@ const Filters: FC = () => {
    return (
       <div className="w-full py-[20px]">
          <div className="flex justify-between">
-            <Typography.Heading className="h-min my-auto">Фільтри</Typography.Heading>
-            <Layout.Button className="w-[193px] md:w-[300px] h-[26px] md:h-[60px]">Додати фільтр</Layout.Button>
+            <Typography.Heading size="small">Фільтри</Typography.Heading>
+            <Layout.Button>Додати фільтр</Layout.Button>
          </div>
          <div className="mt-[30px]">
             {FiltersList.map((item, index) => (

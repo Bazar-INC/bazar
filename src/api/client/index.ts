@@ -43,6 +43,10 @@ class Client {
    post<TResponse>(url: string, data?: unknown) {
       return this.client.post<TResponse>(url, data);
    }
+
+   delete<TResponse>(url: string) {
+      return this.client.delete<TResponse>(url);
+   }
 }
 
 export { Client };

@@ -1,13 +1,12 @@
 import { FC, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Icons } from "../icons/icons";
 import { Layout } from "../layout/layout";
 import { Menu } from "./components/menu";
 import { Typography } from "../typography";
 import { Products } from "./sections/products";
 import { Reviews } from "./sections/reviews";
-import { NewCategory } from "./sections/newCategory";
-import { NewProduct } from "./sections/newProduct";
+import { NewCategorySection } from "./sections/new-category";
+import { NewProductSection } from "./sections/new-product";
 import { Categories } from "./sections/categories";
 import { Filters } from "./sections/filters";
 import { Asks } from "./sections/asks";
@@ -37,7 +36,8 @@ const AdminPage: FC = () => {
                      type="text"
                      hint="Пошук"
                      onChange={(value) => console.log(value)}
-                     className="border-[#9DA0A9] border-2 rounded-lg text-[20px] w-[240px] md:w-[450px]" />
+                     className="px-4 py-0.5 border-[#9DA0A9] border-2 rounded-lg text-[20px] w-[240px] md:w-[450px]"
+                  />
                </div>
                <div className="flex">
                   <Typography.Heading className="hidden md:block pr-[10px]" size="small">Admin</Typography.Heading>
@@ -51,16 +51,16 @@ const AdminPage: FC = () => {
 
             <div className="px-[20px] md:px-[70px]">
                <Routes>
-                  <Route path="products" element={<Products />}/>
-                  <Route path="categories" element={<Categories />}/>
-                  <Route path="filters" element={<Filters />}/>
-                  <Route path="reviews" element={<Reviews />}/>
-                  <Route path="asks" element={<Asks />}/>
-                  <Route path="new_product" element={<NewProduct />}/>
-                  <Route path="new_category" element={<NewCategory />}/>
+                  <Route path="products" element={<Products />} />
+                  <Route path="categories" element={<Categories />} />
+                  <Route path="filters" element={<Filters />} />
+                  <Route path="reviews" element={<Reviews />} />
+                  <Route path="asks" element={<Asks />} />
+                  <Route path="new_product" element={<NewProductSection />} />
+                  <Route path="new_category" element={<NewCategorySection />} />
                </Routes>
             </div>
-         </div> 
+         </div>
       </div>
    );
 };

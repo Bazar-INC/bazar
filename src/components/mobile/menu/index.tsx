@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { routes } from "../../../router-config";
 
 const menuItems = [
    {
       title: "Головна",
-      route: "/home",
+      route: routes.Home.link(),
       icon: (
          <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.84468 1.53968L2.36429 7.69999C2.13363 7.88995 2 8.17311 2 8.47193V18.5C2 19.0523 2.44772 19.5 3 19.5H6.5C7.05228 19.5 7.5 19.0523 7.5 18.5V12.5C7.5 11.9477 7.94772 11.5 8.5 11.5H12.5C13.0523 11.5 13.5 11.9477 13.5 12.5V18.5C13.5 19.0523 13.9477 19.5 14.5 19.5H17.5C18.0523 19.5 18.5 19.0523 18.5 18.5V8.45377C18.5 8.16541 18.3755 7.89108 18.1585 7.70119L11.1389 1.55903C10.7704 1.2366 10.2226 1.22841 9.84468 1.53968Z" stroke="white" strokeWidth="2" />
@@ -33,7 +34,7 @@ const menuItems = [
    },
    {
       title: "Корзина",
-      route: "/cart",
+      route: routes.Cart.link(),
       icon: (
          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1H3L4.1954 3.66828M7.33333 10.6725H14.2585C15.3354 10.6725 16.3296 10.0954 16.8636 9.16026L19.1457 5.16419C19.5264 4.49754 19.045 3.66828 18.2773 3.66828H4.1954M7.33333 10.6725L4.1954 3.66828M7.33333 10.6725C5.88889 12.1178 3.86667 15.0085 7.33333 15.0085C10.8 15.0085 16.1111 15.0085 18.3333 15.0085" stroke="white" strokeWidth="2" strokeLinecap="round" />

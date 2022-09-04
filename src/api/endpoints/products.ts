@@ -14,6 +14,7 @@ interface ProductsResponse {
          code: string;
       }>
    }>;
+   categoryName: string;
 }
 
 const getTopProducts = (page: number) => {
@@ -29,8 +30,13 @@ const getProductById = (id: string) => {
    return client.get<ProductModel>(`/${id}`);
 };
 
+const deleteProduct = (id: string) => {
+   return client.delete(`/delete/${id}`);
+};
+
 export const ProductsEndpoints = {
    getProducts,
    getProductById,
    getTopProducts,
+   deleteProduct,
 };

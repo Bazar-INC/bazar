@@ -1,70 +1,16 @@
-import { FC, useEffect } from 'react';
-import { AccountEndpoints } from "../../../api/endpoints/account";
-import { ProductsEndpoints } from "../../../api/endpoints/products";
-import { ProductModel } from "../../../api/models/product";
-import { accountActions } from "../../../features/account/reducer";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { useProperty } from "../../hooks/property";
+import { FC } from 'react';
 import { Layout } from '../../layout/layout';
+import { useLogic } from "./logic";
 // import { Sections } from "../../sections";
 import { Typography } from "../../typography";
 
 const CartPage: FC = () => {
 
-   const dispatch = useAppDispatch();
-
-   const productsIds = useAppSelector(state => state.accountReducer.cart.products);
-
-   const [products] = useProperty<Array<{ product: ProductModel, count: number }>>([]);
-
-   const setProductByIdsFromCart = () => {
-      products.set([]);
-
-      productsIds.forEach((product) => {
-         ProductsEndpoints.getProductById(product.id).then((response) => {
-            products.set(prev => [
-               ...prev,
-               { product: response.data, count: product.count }
-            ]);
-         });
-      });
-   };
-
-   const incrementProductCount = (productId: string) => {
-
-      const index = products.get.findIndex(f => f.product.id === productId);
-
-      const { count, product } = products.get[index];
-
-      if (index !== -1) {
-         products.set([
-            ...products.get.slice(0, index),
-            { count: count + 1, product },
-            ...products.get.slice(index + 1),
-         ]);
-      }
-
-      dispatch(accountActions.addProductToCard(productId));
-   };
-
-   const decrementProductCount = (productId: string) => {
-
-      const index = products.get.findIndex(f => f.product.id === productId);
-
-      const { count, product } = products.get[index];
-
-      if (index !== -1) {
-         products.set([
-            ...products.get.slice(0, index),
-            { count: count - 1, product },
-            ...products.get.slice(index + 1),
-         ]);
-      }
-
-      dispatch(accountActions.addProductToCard(productId));
-   };
-
-   useEffect(setProductByIdsFromCart, []);
+   const {
+      products,
+      incrementProductCount,
+      decrementProductCount,
+   } = useLogic();
 
    const emptyCartPageView = (
       <div className="w-full flex flex-col items-center justify-center">
@@ -152,7 +98,7 @@ const CartPage: FC = () => {
 
          <Typography.Heading>Оформлення замовлення</Typography.Heading>
 
-         {productsIds.length === 0 ? emptyCartPageView : fullCartPageView}
+         {products.get.length === 0 ? emptyCartPageView : fullCartPageView}
 
          {/* <Sections.PromoProducts
             name="Хіти продаж"
