@@ -31,7 +31,7 @@ const Products: FC = () => {
 
    return (
       <div className="w-full py-5">
-         <div className="flex justify-between items-center">
+         <div className="flex justify-between">
             <Typography.Heading size="small">Товари</Typography.Heading>
             <Link to="/admin/new_product">
                <Layout.Button>Додати товар</Layout.Button>

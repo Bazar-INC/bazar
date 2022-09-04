@@ -34,7 +34,7 @@ const Categories: FC = () => {
    return (
       <div className="w-full py-[20px]">
          <div className="flex justify-between">
-            <Typography.Heading className="h-min my-auto">Категорії</Typography.Heading>
+            <Typography.Heading size="small">Категорії</Typography.Heading>
             <Link to="/admin/new_category">
                <Layout.Button className="">
                   Додати категорію
