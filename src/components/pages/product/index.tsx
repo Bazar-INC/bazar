@@ -42,7 +42,7 @@ const ProductPage: FC = () => {
             </div>
             <div className="mt-8 mb-20 flex flex-col md:flex-row gap-8">
                <div className="flex-1 flex items-center justify-center">
-                  <img className="w-[600px] h-[600px] object-contain" src={product.get?.images[0]} />
+                  <img className="w-[600px] h-[600px] object-contain" src={product.get?.images?.at(0)} />
                </div>
                <div className="w-full md:w-[330px] 2xl:w-[480px]">
                   <div className="border-[#D9D9D9] border rounded-lg flex flex-col p-6">
@@ -272,12 +272,11 @@ const ProductPage: FC = () => {
                <div className="flex flex-wrap justify-start mt-12 mb-32 gap-3">
                   {productList.get.map((product, index) => (
                      <Layout.ProductCard
-                        id={product.id}
-                        link={"/product/" + product.id}
                         key={index}
+                        id={product.id}
                         categoryName="Смартфон"
                         productName={product.name}
-                        picture={product.images[0]}
+                        picture={product.images?.at(0)}
                         price={product.price}
                      />
                   ))}

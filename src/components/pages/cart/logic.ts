@@ -1,23 +1,23 @@
 import { useEffect } from "react";
-import { ProductsEndpoints } from "../../../api/endpoints/products";
-import { ProductModel } from "../../../api/models/product";
+import { Product } from "../../../api/data-objects/product";
+import { ProductEntity } from "../../../api/entities/product";
 import { accountActions } from "../../../features/account/reducer";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useProperty } from "../../hooks/property";
 
 const useLogic = () => {
-   
+
    const dispatch = useAppDispatch();
 
    const productsIds = useAppSelector(state => state.accountReducer.cart.products);
 
-   const [products] = useProperty<Array<{ product: ProductModel, count: number }>>([]);
+   const [products] = useProperty<Array<{ product: ProductEntity, count: number }>>([]);
 
    const setProductByIdsFromCart = () => {
       products.set([]);
 
       productsIds.forEach((product) => {
-         ProductsEndpoints.getProductById(product.id).then((response) => {
+         Product.find(product.id).then((response) => {
             products.set(prev => [
                ...prev,
                { product: response.data, count: product.count }

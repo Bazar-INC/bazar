@@ -11,15 +11,14 @@ import { Layout } from '../layout';
 import './index.css';
 
 interface Props {
-   id: string;
-   picture: string;
-   categoryName: string;
-   productName: string;
-   price: number;
-   link: string;
+   id?: string;
+   picture?: string;
+   categoryName?: string;
+   productName?: string;
+   price?: number;
 }
 
-const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price, link }) => {
+const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price }) => {
 
    const dispatch = useAppDispatch();
 
@@ -27,18 +26,18 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price,
 
    const addToCart = () => {
       if (!products.some(w => w.id === id)) {
-         dispatch(accountActions.addProductToCard(id));
+         id && dispatch(accountActions.addProductToCard(id));
       }
    };
 
-   const preparePrice = priceSeparateByThousands(price) + "грн";
+   const preparePrice = priceSeparateByThousands(price ?? 0) + "грн";
 
    return (
       <div className="card-product">
          <img className="card-image" src={picture} />
          <div className="mt-6 flex flex-col items-start px-4">
             <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{categoryName}</span>
-            <Link to={routes.Product.link(link)} className="font-semibold hover:text-[#8F00F9] text-[13px] 2xl:text-[17px] h-12 overflow-clip">{productName}</Link>
+            <Link to={routes.Product.link(id)} className="font-semibold hover:text-[#8F00F9] text-[13px] 2xl:text-[17px] h-12 overflow-clip">{productName}</Link>
             <Layout.Badge additionalClasses="mt-4" color="#00ff74">Від 1099 в міс.</Layout.Badge>
             <Layout.Badge additionalClasses="mt-4" color="#8f00f9">Хіт продаж</Layout.Badge>
             <div className="flex mt-5 items-center">

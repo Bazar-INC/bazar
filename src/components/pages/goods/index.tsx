@@ -49,9 +49,8 @@ const GoodsPage: FC = () => {
                            key={index}
                            categoryName={product.categoryName}
                            productName={product.name}
-                           picture={product.images[0]}
+                           picture={product.images?.at(0)}
                            price={product.price}
-                           link={"/product/" + product.id}
                         />
                      ))}
                   </div>

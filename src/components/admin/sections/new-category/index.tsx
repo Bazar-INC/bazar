@@ -1,7 +1,6 @@
-import { stat } from "fs/promises";
 import { FC } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { CategoriesEndpoints } from "../../../../api/endpoints/categories";
+import { Category } from "../../../../api/data-objects/category";
 import { useProperty } from "../../../hooks/property";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
@@ -14,10 +13,7 @@ const NewCategorySection: FC = () => {
    const [code] = useProperty("");
 
    const saveCategory = () => {
-      CategoriesEndpoints.addCategory({
-         name: name.get,
-         code: code.get
-      }).then((response) => {
+      Category.add({ name: name.get, code: code.get, }).then((response) => {
          if (response.status === 200) {
             status.set("saved");
          }

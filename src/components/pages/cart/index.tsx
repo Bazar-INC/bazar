@@ -30,7 +30,7 @@ const CartPage: FC = () => {
                {products.get.map((product, index) => (
                   <div key={index} className="w-[591px] px-10 py-8 bg-white rounded-md flex justify-between items-center">
                      <div className="flex gap-x-4">
-                        <img className="w-20 h-20" src={product.product.images[0]} />
+                        <img className="w-20 h-20" src={product.product.images?.at(0)} />
                         <div className="flex flex-col">
                            <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">Смартфон</span>
                            <span className="text-[12px] mb-2">{product.product.name}</span>
@@ -38,7 +38,7 @@ const CartPage: FC = () => {
                      </div>
                      <div className="flex items-center gap-x-8">
                         <div className="flex gap-x-2">
-                           <button onClick={() => decrementProductCount(product.product.id)}>-</button>
+                           <button onClick={() => product.product.id && decrementProductCount(product.product.id)}>-</button>
                            <Layout.Input
                               maxLength={2}
                               type="number"
@@ -46,7 +46,7 @@ const CartPage: FC = () => {
                               onChange={() => console.log(1)}
                               hardValue={product.count.toString()}
                            />
-                           <button onClick={() => incrementProductCount(product.product.id)}>+</button>
+                           <button onClick={() => product.product.id && incrementProductCount(product.product.id)}>+</button>
                         </div>
                         <div>
                            <div className="flex mt-5 items-center">

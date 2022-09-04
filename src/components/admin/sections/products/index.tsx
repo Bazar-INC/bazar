@@ -3,26 +3,22 @@ import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 import { Link } from "react-router-dom";
 import { useProperty } from "../../../hooks/property";
-import { ProductModel } from "../../../../api/models/product";
-import { ProductsEndpoints } from "../../../../api/endpoints/products";
 import { ListItem } from "../../components/list-item";
+import { ProductEntity } from "../../../../api/entities/product";
+import { Product } from "../../../../api/data-objects/product";
 
 const Products: FC = () => {
 
-   const [products] = useProperty<Array<ProductModel>>([]);
+   const [products] = useProperty<Array<ProductEntity>>([]);
 
    const loadProducts = () => {
-      ProductsEndpoints.getProducts("", "").then(({ data }) => {
-         products.set(data.products);
-      });
+      Product.get({}).then(({ data }) => products.set(data.products));
    };
 
    useEffect(loadProducts, []);
 
    const deleteProduct = (id: string) => {
-      ProductsEndpoints.deleteProduct(id).then(() => {
-         loadProducts();
-      });
+      Product.delete(id).then(() => loadProducts());
    };
 
    const editProduct = (id: string) => {
@@ -42,9 +38,9 @@ const Products: FC = () => {
                <ListItem
                   key={index}
                   text={product.name}
-                  onEdit={() => editProduct(product.id)}
-                  onDelete={() => deleteProduct(product.id)}
-                  extra={<img className="w-12 h-12 object-contain" src={product.images[0]} />}
+                  onEdit={() => product.id && editProduct(product.id)}
+                  onDelete={() => product.id && deleteProduct(product.id)}
+                  extra={<img className="w-12 h-12 object-contain" src={product.images?.at(0)} />}
                />
             ))}
          </div>
