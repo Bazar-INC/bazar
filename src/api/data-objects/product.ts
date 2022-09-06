@@ -64,7 +64,7 @@ const Product = {
          paramsString = "?" + paramsString.substring(1);
       }
 
-      return client.get<Array<ProductEntity>>("/ids" + paramsString);
+      return client.get<GetProductsResponse>("/ids" + paramsString);
    }
 };
 
