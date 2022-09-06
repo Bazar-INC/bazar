@@ -39,6 +39,8 @@ function priceSeparateByThousands(price: number) {
       priceAsString = result + " " + priceAsString;
    }
 
+   return String(price).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ');
+
    return priceAsString;
 }
 
