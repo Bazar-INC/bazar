@@ -14,13 +14,12 @@ const useLogic = () => {
    const [products] = useProperty<Array<{ product: ProductEntity, count: number }>>([]);
 
    const setProductByIdsFromCart = () => {
-      products.set([]);
-
       Product.findMany(cartProducts.map(p => p.id)).then(({ data }) => {
-         console.log(data);
+
+         products.set([]);
 
          cartProducts.forEach((product) => {
-            
+
             const prod = data.products.find(f => f.id === product.id);
             if (prod) {
                products.set(prev => [...prev, { product: prod, count: product.count }]);
@@ -53,14 +52,21 @@ const useLogic = () => {
       const { count, product } = products.get[index];
 
       if (index !== -1) {
-         products.set([
-            ...products.get.slice(0, index),
-            { count: count - 1, product },
-            ...products.get.slice(index + 1),
-         ]);
+         if (count === 1) {
+            products.set([
+               ...products.get.slice(0, index),
+               ...products.get.slice(index + 1),
+            ]);
+         } else {
+            products.set([
+               ...products.get.slice(0, index),
+               { count: count - 1, product },
+               ...products.get.slice(index + 1),
+            ]);
+         }
       }
 
-      dispatch(accountActions.addProductToCard(productId));
+      dispatch(accountActions.removeProductFromCart(productId));
    };
 
    useEffect(setProductByIdsFromCart, []);

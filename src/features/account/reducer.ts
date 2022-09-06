@@ -49,6 +49,28 @@ const accountSlice = createSlice({
             ];
          }
       },
+      removeProductFromCart(state, { payload: productId }: PayloadAction<string>) {
+
+         const index = state.cart.products.findIndex(w => w.id === productId);
+
+         if (index !== -1) {
+
+            const product = state.cart.products[index];
+
+            if (product.count === 1) {
+               state.cart.products = [
+                  ...state.cart.products.slice(0, index),
+                  ...state.cart.products.slice(index + 1),
+               ];
+            } else {
+               state.cart.products = [
+                  ...state.cart.products.slice(0, index),
+                  { id: product.id, count: product.count - 1 },
+                  ...state.cart.products.slice(index + 1),
+               ];
+            }
+         }
+      },
    }
 });
 
