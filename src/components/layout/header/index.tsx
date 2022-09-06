@@ -62,6 +62,8 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
 
    const profile = useAppSelector(state => state.accountReducer.profile);
 
+   const cart = useAppSelector(state => state.accountReducer.cart);
+
    return (
       <>
          <Layout.Container className="h-[66px] 2xl:h-[100px] flex items-center gap-x-8 shadow-lg sm:shadow-none">
@@ -85,8 +87,11 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                <Link to="/compare" className="hidden sm:block">
                   <Icons.Compare className="w-8 2xl:w-10 text-[#696E7C]" />
                </Link>
-               <Link to={routes.Cart.link()} className="hidden sm:block">
+               <Link to={routes.Cart.link()} className="hidden sm:block relative">
                   <Icons.Cart className="w-6 2xl:w-8" />
+                  <div className="absolute w-3.5 h-3.5 bg-[#00FF74] -top-1 -right-2 rounded-full text-[12px] font-semibold leading-3 text-center">
+                     {cart.products.length}
+                  </div>
                </Link>
                {profile ? (
                   <div className="min-w-[56px] h-14 items-center border-2 rounded border-[#8f00f9] p-1">
