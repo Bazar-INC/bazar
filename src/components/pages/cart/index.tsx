@@ -3,6 +3,7 @@ import { Layout } from '../../layout/layout';
 import { useLogic } from "./logic";
 // import { Sections } from "../../sections";
 import { Typography } from "../../typography";
+import { priceSeparateByThousands } from "../../../functions";
 
 const CartPage: FC = () => {
 
@@ -53,7 +54,9 @@ const CartPage: FC = () => {
                               <span className="line-through text-[#70706d] font-semibold text-[10px]">17 999</span>
                               <span className="bg-[#d4ffe7] rounded ml-2 font-semibold text-[10px] text-[#1d1d1d] px-2.5">-1000</span>
                            </div>
-                           <Typography.Heading size="small" className="text-[17px]">17 000 грн</Typography.Heading>
+                           <Typography.Heading size="small" className="text-[17px]">
+                              {`${priceSeparateByThousands(product.product.price ?? 0)} грн`}
+                           </Typography.Heading>
                         </div>
                         <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path d="M3.08789 5.74219V16.857C3.08789 19.6184 5.32647 21.857 8.08789 21.857H12.8598C15.6212 21.857 17.8598 19.6184 17.8598 16.857V5.74219" stroke="#70706D" strokeWidth="2" />
@@ -65,6 +68,15 @@ const CartPage: FC = () => {
                ))}
             </div>
             <Layout.Button className="my-8">Далі</Layout.Button>
+            <div className="border border-[#9DA0A9] rounded py-6 px-12">
+               <Typography.Heading className="text-[#9DA0A9]" size="small">Отримувач</Typography.Heading>
+            </div>
+            <div className="border border-[#9DA0A9] rounded py-6 px-12 mt-6">
+               <Typography.Heading className="text-[#9DA0A9]" size="small">Спосіб отримання</Typography.Heading>
+            </div>
+            <div className="border border-[#9DA0A9] rounded py-6 px-12 mt-6">
+               <Typography.Heading className="text-[#9DA0A9]" size="small">Оплата</Typography.Heading>
+            </div>
          </div>
          <div className="w-full">
             <div className="border-[#9DA0A9] border rounded w-full p-8">
@@ -82,10 +94,16 @@ const CartPage: FC = () => {
                   <span className="text-[#9DA0A9] font-[Intro]">3 000 ГРН</span>
                </div>
                <div className="flex justify-between items-center mt-4 border-t border-[#9DA0A9] pt-8">
-                  <Typography.Heading>За 2 товари</Typography.Heading>
+                  <Typography.Heading>{`За ${products.get.reduce((sum, v) => sum + v.count, 0)} товари`}</Typography.Heading>
                   <div className="flex flex-col items-end">
                      <Typography.Heading className="text-[#9DA0A9] !text-[13px] line-through">12 000 Грн</Typography.Heading>
-                     <Typography.Heading size="small">17 000 Грн</Typography.Heading>
+                     <Typography.Heading size="small">
+                        {`${priceSeparateByThousands(products.get.reduce((sum, p) => {
+                           if (p.product.price) {
+                              return sum + p.count * p.product.price;
+                           }
+                           return 0;
+                        }, 0))} грн`}</Typography.Heading>
                   </div>
                </div>
             </div>
