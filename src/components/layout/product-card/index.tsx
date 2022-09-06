@@ -30,7 +30,7 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price 
       }
    };
 
-   const preparePrice = priceSeparateByThousands(price ?? 0) + "грн";
+   const preparePrice = priceSeparateByThousands(price ?? 0) + " грн";
 
    return (
       <div className="card-product">
@@ -46,7 +46,7 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price 
             </div>
             <Typography.Heading size="small">{preparePrice}</Typography.Heading>
             <div className="w-full flex mt-5">
-               <Layout.Button onClick={addToCart} stretch>Купити</Layout.Button>
+               <Layout.Button onClick={addToCart} stretch>Додати в корзину</Layout.Button>
                <Icons.Compare className="text-[#8f00f9] ml-5 2xl:ml-7 w-10 2xl:w-16 cursor-pointer" />
             </div>
          </div>
