@@ -9,19 +9,22 @@ const useLogic = () => {
 
    const dispatch = useAppDispatch();
 
-   const productsIds = useAppSelector(state => state.accountReducer.cart.products);
+   const cartProducts = useAppSelector(state => state.accountReducer.cart.products);
 
    const [products] = useProperty<Array<{ product: ProductEntity, count: number }>>([]);
 
    const setProductByIdsFromCart = () => {
       products.set([]);
 
-      productsIds.forEach((product) => {
-         Product.find(product.id).then((response) => {
-            products.set(prev => [
-               ...prev,
-               { product: response.data, count: product.count }
-            ]);
+      Product.findMany(cartProducts.map(p => p.id)).then(({ data }) => {
+         console.log(data);
+
+         cartProducts.forEach((product) => {
+            
+            const prod = data.products.find(f => f.id === product.id);
+            if (prod) {
+               products.set(prev => [...prev, { product: prod, count: product.count }]);
+            }
          });
       });
    };
@@ -64,7 +67,6 @@ const useLogic = () => {
 
    return {
       products,
-      productsIds,
       incrementProductCount,
       decrementProductCount,
    };
