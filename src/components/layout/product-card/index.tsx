@@ -24,9 +24,17 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price 
 
    const products = useAppSelector(state => state.accountReducer.cart.products);
 
+   const isInCart = products.some(w => w.id === id);
+
    const addToCart = () => {
-      if (!products.some(w => w.id === id)) {
+      if (!isInCart) {
          id && dispatch(accountActions.addProductToCard(id));
+      }
+   };
+
+   const removeFromCart = () => {
+      if (isInCart) {
+         id && dispatch(accountActions.removeProductFromCart(id));
       }
    };
 
@@ -46,7 +54,14 @@ const ProductCard: FC<Props> = ({ id, picture, categoryName, productName, price 
             </div>
             <Typography.Heading size="small">{preparePrice}</Typography.Heading>
             <div className="w-full flex mt-5">
-               <Layout.Button onClick={addToCart} stretch>Додати в корзину</Layout.Button>
+               <Layout.Button onClick={isInCart ? removeFromCart : addToCart} stretch>
+                  {isInCart ? (
+                     "Забрати"
+                  ) : (
+                     "Додати в корзину"
+                  )}
+
+               </Layout.Button>
                <Icons.Compare className="text-[#8f00f9] ml-5 2xl:ml-7 w-10 2xl:w-16 cursor-pointer" />
             </div>
          </div>

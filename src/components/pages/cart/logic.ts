@@ -13,6 +13,8 @@ const useLogic = () => {
 
    const [products] = useProperty<Array<{ product: ProductEntity, count: number }>>([]);
 
+   const [mode] = useProperty<"products" | "receiver" | "address" | "pay">("products");
+
    const setProductByIdsFromCart = () => {
       Product.findMany(cartProducts.map(p => p.id)).then(({ data }) => {
 
@@ -75,6 +77,7 @@ const useLogic = () => {
       products,
       incrementProductCount,
       decrementProductCount,
+      mode,
    };
 };
 
