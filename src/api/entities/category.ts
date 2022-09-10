@@ -5,6 +5,7 @@ interface CategoryEntity {
    image?: string,
    icon?: string,
    parentCode?: string,
+   parentId?: string,
    children?: string[]
 }
 
