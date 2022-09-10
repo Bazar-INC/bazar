@@ -7,9 +7,7 @@ import { useLogic } from "./logic";
 
 const HomePage: FC = () => {
 
-   const {
-      products,
-   } = useLogic();
+   const { hitSaleProducts, newProducts } = useLogic();
 
    return (
       <div className="py-8">
@@ -25,7 +23,7 @@ const HomePage: FC = () => {
             <Sections.PromoProducts
                name="Хіти продаж"
                icon="/fire.png"
-               products={products.get.hitSale}
+               products={hitSaleProducts.get}
             />
 
             <div className="mt-24 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
@@ -36,7 +34,7 @@ const HomePage: FC = () => {
             <Sections.PromoProducts
                name="Новинки"
                icon="/sound.png"
-               products={products.get.new}
+               products={newProducts.get}
             />
 
             <div className="mt-24 sm:mt-32 mb-40 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">

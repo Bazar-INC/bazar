@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ProductsEndpoints } from "../../../api/endpoints/products";
-import { ProductModel } from "../../../api/models/product";
+import { Product } from "../../../api/data-objects/product";
+import { ProductEntity } from "../../../api/entities/product";
 import { useProperty } from "../../hooks/property";
 
 const useLogic = () => {
@@ -10,17 +10,17 @@ const useLogic = () => {
 
    const { id } = useParams();
 
-   const [product] = useProperty<ProductModel | null>(null);
+   const [product] = useProperty<ProductEntity | null>(null);
 
-   const [productList] = useProperty<Array<ProductModel>>([]);
+   const [productList] = useProperty<Array<ProductEntity>>([]);
 
    useEffect(() => {
 
-      id && ProductsEndpoints.getProductById(id).then((response) => {
+      id && Product.find(id).then((response) => {
          product.set(response.data);
       });
 
-      ProductsEndpoints.getTopProducts(1).then((response) => {
+      Product.get({ perPage: 4 }).then((response) => {
          productList.set(response.data.products);
       });
 

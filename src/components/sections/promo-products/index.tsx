@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { ProductModel } from "../../../api/models/product";
+import { ProductEntity } from "../../../api/entities/product";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
 interface Props {
    name: string;
    icon: string;
-   products: Array<ProductModel>;
+   products: Array<ProductEntity>;
 }
 
 const PromoProducts: FC<Props> = ({ icon, name, products }) => {
@@ -20,11 +20,10 @@ const PromoProducts: FC<Props> = ({ icon, name, products }) => {
             {products.map((product, index) => (
                <Layout.ProductCard
                   id={product.id}
-                  link={"/product/" + product.id}
                   productName={product.name}
                   categoryName="Смартфон"
                   price={product.price}
-                  picture={product.images[0]}
+                  picture={product.images?.at(0)}
                   key={index}
                />
             ))}

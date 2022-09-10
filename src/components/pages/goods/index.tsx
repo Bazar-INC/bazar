@@ -1,4 +1,5 @@
 import { FC, Fragment } from "react";
+import { APP_ENV } from "../../../env";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { Filter } from "./components/filter";
@@ -49,9 +50,8 @@ const GoodsPage: FC = () => {
                            key={index}
                            categoryName={product.categoryName}
                            productName={product.name}
-                           picture={product.images[0]}
+                           picture={`${APP_ENV.REMOTE_HOST_NAME}/cdn/${product.images?.at(0)?.image}`}
                            price={product.price}
-                           link={"/product/" + product.id}
                         />
                      ))}
                   </div>

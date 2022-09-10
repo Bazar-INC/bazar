@@ -1,0 +1,15 @@
+.item-menu:hover .sub-menu {
+   display: block;
+}
+
+.sub-menu:hover {
+   display: block;
+}
+
+.sub-menu-item:hover .sub-sub-menu {
+   display: block;
+}
+
+.sub-sub-menu:hover {
+   display: block;
+}
