@@ -1,10 +1,39 @@
-import { FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { Category } from "../../../../api/data-objects/category";
+import { Product } from "../../../../api/data-objects/product";
+import { CategoryEntity } from "../../../../api/entities/category";
+import { useProperty } from "../../../hooks/property";
 import { Icons } from "../../../icons/icons";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
 const NewProductSection: FC = () => {
+
+   const [categories] = useProperty<CategoryEntity[]>([]);
+
+   useEffect(() => {
+      Category.get().then((response) => {
+         categories.set(response.data.categories);
+      });
+   }, []);
+
+   const [name] = useProperty("");
+   const [price] = useProperty(0);
+   const [category] = useProperty<string | undefined>(undefined);
+
+   const [status] = useProperty<"new" | "saved">("new");
+
+   const save = () => {
+      Product.add({ name: name.get, price: price.get, categoryId: category.get }).then(() => {
+         status.set("saved");
+      });
+   };
+
+   if (status.get === "saved") {
+      return <Navigate to="/admin/products" />;
+   }
+
    return (
       <div className="w-full py-[20px] flex flex-col">
          <Typography.Heading>Новий товар</Typography.Heading>
@@ -16,7 +45,7 @@ const NewProductSection: FC = () => {
                      type="text"
                      hint="Назва"
                      className="px-8 h-[50px] rounded-lg mt-[15px]"
-                     onChange={(value) => console.log(value)}
+                     onChange={(value) => name.set(value)}
                   />
                </div>
 
@@ -26,7 +55,7 @@ const NewProductSection: FC = () => {
                      type="text"
                      hint="Ціна"
                      className="px-8 h-[50px] rounded-lg mt-[15px]"
-                     onChange={(value) => console.log(value)}
+                     onChange={(value) => price.set(Number.parseInt(value))}
                   />
                </div>
             </div>
@@ -61,10 +90,11 @@ const NewProductSection: FC = () => {
             <div className="flex flex-col md:flex-row">
                <div className=" md:w-full mt-[30px] md:ml-[50px] flex flex-col">
                   <span className=" text-[#949494] font-[Gotham] font-bold text-[15px]">Категорія</span>
-                  <select className="px-8 h-[50px] mt-[15px] rounded-lg">
-                     <option>Телефони</option>
-                     <option>Розетки</option>
-                     <option>Навушники</option>
+                  <select onChange={(e) => category.set(e.target.value)} className="px-8 h-[50px] mt-[15px] rounded-lg">
+                     <option>Choose category</option>
+                     {categories.get.map((category, index) => (
+                        <option key={index} value={category.id}>{category.name}</option>
+                     ))}
                   </select>
                </div>
 
@@ -87,7 +117,7 @@ const NewProductSection: FC = () => {
             </div>
 
             <div className="flex flex-row">
-               <Layout.Button className="w-[220px] h-[44px] mt-[31px]">Опублікувати</Layout.Button>
+               <Layout.Button onClick={save} className="w-[220px] h-[44px] mt-[31px]">Опублікувати</Layout.Button>
                <Link to="/admin/products"><Layout.Button className="w-[220px] h-[44px] mt-[31px] bg-[#9DA0A9] hover:bg-[#6e7178] ml-[60px]">Відмінити</Layout.Button></Link>
             </div>
          </div>
