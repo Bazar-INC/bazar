@@ -23,7 +23,7 @@ const PromoProducts: FC<Props> = ({ icon, name, products }) => {
                   productName={product.name}
                   categoryName="Смартфон"
                   price={product.price}
-                  picture={product.images?.at(0)}
+                  picture={product.images?.at(0)?.image}
                   key={index}
                />
             ))}

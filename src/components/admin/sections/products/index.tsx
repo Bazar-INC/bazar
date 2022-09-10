@@ -40,7 +40,7 @@ const Products: FC = () => {
                   text={product.name}
                   onEdit={() => product.id && editProduct(product.id)}
                   onDelete={() => product.id && deleteProduct(product.id)}
-                  extra={<img className="w-12 h-12 object-contain" src={product.images?.at(0)} />}
+                  extra={<img className="w-12 h-12 object-contain" src={product.images?.at(0)?.image} />}
                />
             ))}
          </div>
