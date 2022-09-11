@@ -20,20 +20,18 @@ const HorizontalMenu: FC<Props> = ({ className }) => {
    const [active] = useProperty(0);
 
    return (
-      <Layout.Container className={className}>
-         <div className="overflow-x-scroll md:overflow-x-hidden overflow-y-hidden">
-            <div className="bg-white w-full min-w-max h-[67px] 2xl:h-[100px] rounded-xl px-12">
-               <ul className="flex h-full font-[Gotham] text-[17px] 2xl:text-[25px] font-bold items-center gap-x-8 2xl:gap-x-12">
-                  {menuItems.get.map((item, index) => (
-                     <li onClick={() => active.set(index)} key={index} className={classes(
-                        "min-w-fit leading-[66px] 2xl:leading-[98px] border-[#00FF74] cursor-pointer",
-                        active.get === index ? "border-b-4" : ""
-                     )}>{item}</li>
-                  ))}
-               </ul>
-            </div>
+      <div className="overflow-x-scroll md:overflow-x-hidden overflow-y-hidden">
+         <div className="bg-white w-full min-w-max h-[67px] 2xl:h-[100px] rounded-xl px-12">
+            <ul className="flex h-full font-[Gotham] text-[17px] 2xl:text-[25px] font-bold items-center gap-x-8 2xl:gap-x-12">
+               {menuItems.get.map((item, index) => (
+                  <li onClick={() => active.set(index)} key={index} className={classes(
+                     "min-w-fit leading-[66px] 2xl:leading-[98px] border-[#00FF74] cursor-pointer",
+                     active.get === index ? "border-b-4" : ""
+                  )}>{item}</li>
+               ))}
+            </ul>
          </div>
-      </Layout.Container>
+      </div>
    );
 };
 
