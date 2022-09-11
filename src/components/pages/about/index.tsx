@@ -3,8 +3,8 @@ import { FC } from 'react'
 const About: FC = () => {
    return (
       <div className='flex flex-col w-full h-full'>
-         <div className='flex flex-col md:flex-row md:mx-[30px] md:mt-[80px]'>
-            <div className=' flex justify-center md:justify-end mt-[30px]'>
+         <div className='flex flex-col md:flex-row md:mx-[50px] lg:mx-[80px] md:mt-[80px]'>
+            <div className=' flex justify-center md:justify-end mt-[30px] md:mr-[30px] lg:mr-[50px]'>
                <span className='font-[Intro] font-bold text-[30px]'>ПРО BAZAR</span>
             </div>
 
@@ -25,9 +25,9 @@ const About: FC = () => {
             <img className='w-full h-[100px] object-cover' src='/banner2.png' />
          </div>
 
-         <div className='md:mx-[30px]'>
+         <div className=' md:mx-[50px] lg:mx-[80px]'>
             <div className=''>
-               <span className='font-[Intro] font-bold text-[40px] mx-[20px] my-[80px] md:ml-0 block'>
+               <span className='font-[Intro] font-bold text-[40px] mx-[20px] my-[80px] md:my-[100px] md:ml-0 block'>
                   Майбутнє вже тут. Ми — твій інтернет Базар.
                </span>
             </div>
@@ -69,7 +69,7 @@ const About: FC = () => {
             </div>
 
             <div className=''>
-               <span className='font-[Intro] font-bold text-[40px] mx-[30px] my-[80px] block text-right'>
+               <span className='font-[Intro] font-bold text-[40px] mx-[30px] md:my-[100px] my-[80px] block text-right'>
                   Твій комфорт - наша головна мета
                </span>
             </div>
