@@ -50,7 +50,7 @@ const GoodsPage: FC = () => {
                            key={index}
                            categoryName={product.categoryName}
                            productName={product.name}
-                           picture={`${APP_ENV.REMOTE_HOST_NAME}/cdn/${product.images?.at(0)?.image}`}
+                           picture={`${APP_ENV.REMOTE_HOST_NAME}/cdn/products/images/${product.images?.at(0)?.image}`}
                            price={product.price}
                         />
                      ))}
