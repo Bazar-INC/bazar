@@ -1,12 +1,10 @@
 import { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../../api/data-objects/product";
-import { ProductEntity } from "../../../api/entities/product";
 import { ProductModel } from "../../../api/models/product";
 import { ProductsAPI } from "../../../api/services/products";
 import { useProperty } from "../../hooks/property";
 
-const useLogic = () => {
+export const useLogic = () => {
 
    const ref = useRef<HTMLDivElement>(null);
 
@@ -14,7 +12,7 @@ const useLogic = () => {
 
    const [product] = useProperty<ProductModel | null>(null);
 
-   const [productList] = useProperty<Array<ProductEntity>>([]);
+   const [productList] = useProperty<Array<ProductModel>>([]);
 
    useEffect(() => {
 
@@ -22,10 +20,9 @@ const useLogic = () => {
          product.set(response.data);
       });
 
-      Product.get({ perPage: 4 }).then((response) => {
-         productList.set(response.data.products);
+      ProductsAPI.getProducts({ perPage: 4 }).then(({ data }) => {
+         productList.set(data.products);
       });
-
    }, []);
 
    return {
@@ -34,5 +31,3 @@ const useLogic = () => {
       ref,
    };
 };
-
-export { useLogic };
