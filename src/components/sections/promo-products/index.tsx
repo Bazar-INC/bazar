@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ProductEntity } from "../../../api/entities/product";
+import { ProductModel } from "../../../api/models/product";
 import { APP_ENV } from "../../../env";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
@@ -7,7 +7,7 @@ import { Typography } from "../../typography";
 interface Props {
    name: string;
    icon: string;
-   products: Array<ProductEntity>;
+   products: Array<ProductModel>;
 }
 
 const PromoProducts: FC<Props> = ({ icon, name, products }) => {
