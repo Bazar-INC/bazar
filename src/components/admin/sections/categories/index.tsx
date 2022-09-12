@@ -4,27 +4,23 @@ import { Typography } from "../../../typography";
 import { Link, useNavigate } from "react-router-dom";
 import { useProperty } from "../../../hooks/property";
 import { ListItem } from "../../components/list-item";
-import { CategoryEntity } from "../../../../api/entities/category";
-import { Category } from "../../../../api/data-objects/category";
+import { CategoryModel } from "../../../../api/models/category";
+import { CategoriesAPI } from "../../../../api/services/categories";
 
 const Categories: FC = () => {
 
    const navigate = useNavigate();
 
-   const [categories] = useProperty<Array<CategoryEntity>>([]);
+   const [categories] = useProperty<Array<CategoryModel>>([]);
 
    const loadCategories = () => {
-      Category.get().then(({ data }) => categories.set(data.categories));
+      CategoriesAPI.getCategories().then(({ data }) => categories.set(data.categories));
    };
 
    useEffect(loadCategories, []);
 
    const deleteCategory = (id: string) => {
-      Category.delete(id).then(() => loadCategories());
-   };
-
-   const changeCategory = (id: string) => {
-      console.log(id);
+      CategoriesAPI.deleteCategory(id).then(() => loadCategories());
    };
 
    return (

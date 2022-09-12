@@ -1,20 +1,20 @@
 import { FC, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { Category } from "../../../../api/data-objects/category";
-import { Product } from "../../../../api/data-objects/product";
-import { CategoryEntity } from "../../../../api/entities/category";
+import { CategoryModel } from "../../../../api/models/category";
+import { CategoriesAPI } from "../../../../api/services/categories";
+import { ProductsAPI } from "../../../../api/services/products";
 import { useProperty } from "../../../hooks/property";
 import { Icons } from "../../../icons/icons";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
-const NewProductSection: FC = () => {
+export const NewProductSection: FC = () => {
 
-   const [categories] = useProperty<CategoryEntity[]>([]);
+   const [categories] = useProperty<CategoryModel[]>([]);
 
    useEffect(() => {
-      Category.get().then((response) => {
-         categories.set(response.data.categories);
+      CategoriesAPI.getCategories().then(({ data }) => {
+         categories.set(data.categories);
       });
    }, []);
 
@@ -25,9 +25,8 @@ const NewProductSection: FC = () => {
    const [status] = useProperty<"new" | "saved">("new");
 
    const save = () => {
-      Product.add({ name: name.get, price: price.get, categoryId: category.get }).then(() => {
-         status.set("saved");
-      });
+      ProductsAPI.addProduct({ name: name.get, price: price.get, categoryId: category.get })
+         .then(() => status.set("saved"));
    };
 
    if (status.get === "saved") {
@@ -124,5 +123,3 @@ const NewProductSection: FC = () => {
       </div>
    );
 };
-
-export { NewProductSection };

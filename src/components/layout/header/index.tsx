@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Category } from "../../../api/data-objects/category";
-import { CategoryEntity } from "../../../api/entities/category";
+import { CategoryModel } from "../../../api/models/category";
+import { CategoriesAPI } from "../../../api/services/categories";
 import { routes } from "../../../router-config";
 import { useAppSelector } from '../../../store/hooks';
 import { useProperty } from "../../hooks/property";
@@ -69,12 +69,10 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
 
    const cart = useAppSelector(state => state.accountReducer.cart);
 
-   const [categories] = useProperty<CategoryEntity[]>([]);
+   const [categories] = useProperty<CategoryModel[]>([]);
 
    useEffect(() => {
-      Category.get().then((response) => {
-         categories.set(response.data.categories);
-      });
+      CategoriesAPI.getCategories().then(({ data }) => categories.set(data.categories));
    }, []);
 
    return (

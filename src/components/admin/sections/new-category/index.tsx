@@ -1,17 +1,17 @@
 import { FC, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { Category } from "../../../../api/data-objects/category";
-import { CategoryEntity } from "../../../../api/entities/category";
+import { CategoryModel } from "../../../../api/models/category";
+import { CategoriesAPI } from "../../../../api/services/categories";
 import { useProperty } from "../../../hooks/property";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
 const NewCategorySection: FC = () => {
 
-   const [categories] = useProperty<CategoryEntity[]>([]);
+   const [categories] = useProperty<CategoryModel[]>([]);
 
    useEffect(() => {
-      Category.get().then((response) => {
+      CategoriesAPI.getCategories().then((response) => {
          categories.set(response.data.categories);
       });
    }, []);
@@ -24,10 +24,12 @@ const NewCategorySection: FC = () => {
    const [parent] = useProperty<string | undefined>(undefined);
 
    const saveCategory = () => {
-      Category.add({
+      CategoriesAPI.addCategory({
          name: name.get,
          code: code.get,
-         parentId: parent.get
+         parentId: parent.get,
+         imageName: undefined,
+         image: undefined
       }).then((response) => {
          if (response.status === 200) {
             status.set("saved");
