@@ -44,9 +44,28 @@ const getProducts = (payload: GetProductsPayload) => {
    return client.get<GetProductsResponse>(paramsString);
 };
 
+interface GetProductByIdsResponse {
+   products: Array<ProductModel>;
+}
+
+const getProductsByIds = (ids: Array<string>) => {
+   let paramsString = "";
+
+   for (const id of ids) {
+      paramsString += "&productsIds=" + id;
+   }
+
+   if (paramsString.length > 0) {
+      paramsString = "?" + paramsString.substring(1);
+   }
+
+   return client.get<GetProductByIdsResponse>("/ids" + paramsString);
+};
+
 const ProductsAPI = {
+   getProducts,
    getProductById,
-   getProducts
+   getProductsByIds,
 };
 
 export { ProductsAPI };
