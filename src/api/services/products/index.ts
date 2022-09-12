@@ -62,10 +62,26 @@ const getProductsByIds = (ids: Array<string>) => {
    return client.get<GetProductByIdsResponse>("/ids" + paramsString);
 };
 
+interface AddProductPayload {
+   name: string;
+   price: number;
+   categoryId?: string;
+}
+
+const addProduct = (payload: AddProductPayload) => {
+   return client.post("/add", payload);
+};
+
+const deleteProduct = (id: string) => {
+   return client.delete("/delete/" + id);
+};
+
 const ProductsAPI = {
    getProducts,
    getProductById,
    getProductsByIds,
+   addProduct,
+   deleteProduct,
 };
 
 export { ProductsAPI };

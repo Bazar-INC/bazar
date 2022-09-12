@@ -28,6 +28,10 @@ const updateCategory = (payload: UpdateCategoryPayload) => {
    return client.put("/edit", payload);
 };
 
+const deleteCategory = (id: string) => {
+   return client.delete("/delete/" + id);
+};
+
 interface GetCategoriesResponse {
    categories: Array<CategoryModel>;
 }
@@ -43,6 +47,7 @@ const getCategoryById = (id: string) => {
 const CategoriesAPI = {
    addCategory,
    updateCategory,
+   deleteCategory,
    getCategories,
    getCategoryById,
 };
