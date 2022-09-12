@@ -1,13 +1,15 @@
 import { FC, useEffect } from "react";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useProperty } from "../../../hooks/property";
 import { ListItem } from "../../components/list-item";
 import { CategoryEntity } from "../../../../api/entities/category";
 import { Category } from "../../../../api/data-objects/category";
 
 const Categories: FC = () => {
+
+   const navigate = useNavigate();
 
    const [categories] = useProperty<Array<CategoryEntity>>([]);
 
@@ -40,7 +42,7 @@ const Categories: FC = () => {
                <ListItem
                   key={index}
                   text={category.name}
-                  onEdit={() => category.id && changeCategory(category.id)}
+                  onEdit={() => navigate("/admin/category/" + category.id)}
                   onDelete={() => category.id && deleteCategory(category.id)}
                />
             ))}

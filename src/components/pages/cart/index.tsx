@@ -32,7 +32,7 @@ const CartPage: FC = () => {
                <div className="flex gap-x-4">
                   <img className="w-20 h-20" src={product.product.images?.at(0)?.image} />
                   <div className="flex flex-col">
-                     <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">Смартфон</span>
+                     <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{product.product.categoryName}</span>
                      <span className="text-[12px] mb-2">{product.product.name}</span>
                   </div>
                </div>
@@ -48,7 +48,7 @@ const CartPage: FC = () => {
                      />
                      <button onClick={() => product.product.id && incrementProductCount(product.product.id)}>+</button>
                   </div>
-                  <div>
+                  <div className="w-[100px]">
                      <div className="flex mt-5 items-center">
                         <span className="line-through text-[#70706d] font-semibold text-[10px]">17 999</span>
                         <span className="bg-[#d4ffe7] rounded ml-2 font-semibold text-[10px] text-[#1d1d1d] px-2.5">-1000</span>

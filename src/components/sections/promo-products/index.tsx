@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { ProductEntity } from "../../../api/entities/product";
+import { APP_ENV } from "../../../env";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
@@ -23,7 +24,7 @@ const PromoProducts: FC<Props> = ({ icon, name, products }) => {
                   productName={product.name}
                   categoryName="Смартфон"
                   price={product.price}
-                  picture={product.images?.at(0)?.image}
+                  picture={APP_ENV.REMOTE_HOST_NAME + "/cdn/products/images/" + product.images?.at(0)?.image}
                   key={index}
                />
             ))}
