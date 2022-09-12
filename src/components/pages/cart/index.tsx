@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import { Layout } from '../../layout/layout';
-import { useLogic } from "./logic";
-// import { Sections } from "../../sections";
 import { Typography } from "../../typography";
 import { classes, priceSeparateByThousands } from "../../../functions";
+import { useLogic } from "./logic";
 
 const CartPage: FC = () => {
 
@@ -198,17 +197,8 @@ const CartPage: FC = () => {
 
    return (
       <Layout.Container className="pt-10 pb-20">
-
          <Typography.Heading>Оформлення замовлення</Typography.Heading>
-
          {products.get.length === 0 ? emptyCartPageView : fullCartPageView}
-
-         {/* <Sections.PromoProducts
-            name="Хіти продаж"
-            icon="/fire.png"
-            products={products.get.slice(0, 4)}
-         /> */}
-
       </Layout.Container >
    );
 };
