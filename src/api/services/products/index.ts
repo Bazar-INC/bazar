@@ -1,4 +1,5 @@
 import { Client } from "../../client";
+import { FilterModel } from "../../models/filter";
 import { ProductModel } from "../../models/product";
 
 const client = new Client("products");
@@ -21,8 +22,8 @@ interface GetProductsPayload {
 
 interface GetProductsResponse {
    products: Array<ProductModel>;
-   totalPage: number;
-   filters: [];
+   filters: Array<FilterModel>;
+   totalPages: number;
    minPrice: number;
    maxPrice: number;
    categoryName: string;
