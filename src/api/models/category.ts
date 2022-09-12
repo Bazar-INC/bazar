@@ -3,6 +3,7 @@ interface CategoryModel {
    name: string;
    code: string;
    parentId: string;
+   parentCode: string;
 }
 
 export type { CategoryModel };
