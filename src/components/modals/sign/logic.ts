@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { AccountEndpoints } from "../../../api/endpoints/account";
-import { AuthEndpoints } from "../../../api/endpoints/auth";
+import { AuthAPI } from "../../../api/services/auth";
+import { MeAPI } from "../../../api/services/me";
 import { accountActions } from "../../../features/account/reducer";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { tokenStorage } from "../../../tokenStorage";
@@ -54,7 +54,7 @@ const useLogic = () => {
 
       loading.set(true);
       try {
-         await AuthEndpoints.loginRequest(phone.get);
+         await AuthAPI.loginRequest(phone.get);
       } catch (error) {
          showTimeoutError.set(true);
          return;
@@ -75,7 +75,7 @@ const useLogic = () => {
       loading.set(true);
 
       try {
-         const confirmResponse = await AuthEndpoints.loginConfirm(phone.get, code.get);
+         const confirmResponse = await AuthAPI.loginConfirm(phone.get, code.get);
          tokenStorage.set(confirmResponse.data.token);
       } catch {
          showTimeoutError.set(true);
@@ -88,7 +88,7 @@ const useLogic = () => {
       loading.set(true);
 
       try {
-         const profileResponse = await AccountEndpoints.getProfile();
+         const profileResponse = await MeAPI.getProfile();
          dispatch(accountActions.setProfile(profileResponse.data));
       } catch {
          showTimeoutError.set(true);
