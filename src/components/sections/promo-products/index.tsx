@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ProductModel } from "../../../api/models/product";
-import { APP_ENV } from "../../../env";
+import { getProductImageUrl } from "../../../image-source";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
@@ -24,7 +24,7 @@ const PromoProducts: FC<Props> = ({ icon, name, products }) => {
                   productName={product.name}
                   categoryName="Смартфон"
                   price={product.price}
-                  picture={APP_ENV.REMOTE_HOST_NAME + "/cdn/products/images/" + product.images?.at(0)?.image}
+                  picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                   key={index}
                />
             ))}

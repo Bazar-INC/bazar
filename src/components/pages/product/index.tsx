@@ -4,7 +4,7 @@ import { Layout } from "../../layout/layout";
 import { useLogic } from "./logic";
 import { Typography } from "../../typography";
 import { HorizontalMenu } from "./components/horizontal-menu";
-import { APP_ENV } from "../../../env";
+import { getProductImageUrl } from "../../../image-source";
 
 const ProductPage: FC = () => {
 
@@ -43,7 +43,7 @@ const ProductPage: FC = () => {
             </div>
             <div className="mt-8 mb-20 flex flex-col md:flex-row gap-8">
                <div className="flex-1 flex items-center justify-center">
-                  <img className="w-[600px] h-[600px] object-contain" src={`${APP_ENV.REMOTE_HOST_NAME}/cdn/products/images/${product.get?.images.at(0)?.image}`} />
+                  <img className="w-[600px] h-[600px] object-contain" src={getProductImageUrl(product.get?.images.at(0)?.image ?? "")} />
                </div>
                <div className="w-full md:w-[330px] 2xl:w-[480px]">
                   <div className="border-[#D9D9D9] border rounded-lg flex flex-col p-6">
@@ -279,7 +279,7 @@ const ProductPage: FC = () => {
                         id={product.id}
                         categoryName="Смартфон"
                         productName={product.name}
-                        picture={product.images?.at(0)?.image}
+                        picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                         price={product.price}
                      />
                   ))}

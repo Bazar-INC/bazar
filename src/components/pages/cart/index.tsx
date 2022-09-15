@@ -3,6 +3,7 @@ import { Layout } from '../../layout/layout';
 import { Typography } from "../../typography";
 import { classes, priceSeparateByThousands } from "../../../functions";
 import { useLogic } from "./logic";
+import { getProductImageUrl } from "../../../image-source";
 
 const CartPage: FC = () => {
 
@@ -29,7 +30,7 @@ const CartPage: FC = () => {
          {products.get.map((product, index) => (
             <div key={index} className="w-[591px] px-10 py-8 bg-white rounded-md flex justify-between items-center">
                <div className="flex gap-x-4">
-                  <img className="w-20 h-20" src={product.product.images?.at(0)?.image} />
+                  <img className="w-20 h-20" src={getProductImageUrl(product.product.images?.at(0)?.image ?? "")} />
                   <div className="flex flex-col">
                      <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{product.product.categoryName}</span>
                      <span className="text-[12px] mb-2">{product.product.name}</span>
