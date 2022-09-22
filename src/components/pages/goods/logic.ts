@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../../api/data-objects/product";
-import { ProductEntity } from "../../../api/entities/product";
+import { ProductModel } from "../../../api/models/product";
+import { ProductsAPI } from "../../../api/services/products";
 import { useProperty } from "../../hooks/property";
 
 const useLogic = () => {
 
    const { category } = useParams();
 
-   const [products] = useProperty<Array<ProductEntity>>([]);
+   const [products] = useProperty<Array<ProductModel>>([]);
    const [totalPages] = useProperty(0);
    const [filters] = useProperty<Array<{ title: string; code: string; options: Array<{ name: string; value: string; }>; }>>([]);
 
@@ -22,26 +22,10 @@ const useLogic = () => {
    ];
 
    useEffect(() => {
-      Product.get({ category }).then((response) => {
-         categoryName.set(response.data.categoryName);
-         products.set(response.data.products);
-
-         filters.set(
-            response.data.filters.map((f) => ({
-               title: f.name,
-               code: f.code,
-               options: f.options.map((o) => ({ name: o.value, value: o.code }))
-            }))
-         );
-
-         totalPages.set(response.data.totalPages);
-      });
-   }, [category]);
-
-   useEffect(() => {
-      Product.get({ category, filterString: filterString.get }).then(({ data }) => {
+      ProductsAPI.getProducts({ category }).then(({ data }) => {
+         categoryName.set(data.categoryName);
          products.set(data.products);
-
+         totalPages.set(data.totalPages);
          filters.set(
             data.filters.map((f) => ({
                title: f.name,
@@ -49,8 +33,20 @@ const useLogic = () => {
                options: f.options.map((o) => ({ name: o.value, value: o.code }))
             }))
          );
+      });
+   }, [category]);
 
+   useEffect(() => {
+      ProductsAPI.getProducts({ category, filterString: filterString.get }).then(({ data }) => {
+         products.set(data.products);
          totalPages.set(data.totalPages);
+         filters.set(
+            data.filters.map((f) => ({
+               title: f.name,
+               code: f.code,
+               options: f.options.map((o) => ({ name: o.value, value: o.code }))
+            }))
+         );
       });
    }, [filterString.get]);
 

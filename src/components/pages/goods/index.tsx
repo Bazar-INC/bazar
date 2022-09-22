@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import { APP_ENV } from "../../../env";
+import { getProductImageUrl } from "../../../image-source";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { Filter } from "./components/filter";
@@ -50,7 +50,7 @@ const GoodsPage: FC = () => {
                            key={index}
                            categoryName={product.categoryName}
                            productName={product.name}
-                           picture={`${APP_ENV.REMOTE_HOST_NAME}/cdn/${product.images?.at(0)?.image}`}
+                           picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                            price={product.price}
                         />
                      ))}

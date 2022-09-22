@@ -4,21 +4,21 @@ import { Typography } from "../../../typography";
 import { Link } from "react-router-dom";
 import { useProperty } from "../../../hooks/property";
 import { ListItem } from "../../components/list-item";
-import { ProductEntity } from "../../../../api/entities/product";
-import { Product } from "../../../../api/data-objects/product";
+import { ProductsAPI } from "../../../../api/services/products";
+import { ProductModel } from "../../../../api/models/product";
 
 const Products: FC = () => {
 
-   const [products] = useProperty<Array<ProductEntity>>([]);
+   const [products] = useProperty<Array<ProductModel>>([]);
 
    const loadProducts = () => {
-      Product.get({}).then(({ data }) => products.set(data.products));
+      ProductsAPI.getProducts({}).then(({ data }) => products.set(data.products));
    };
 
    useEffect(loadProducts, []);
 
    const deleteProduct = (id: string) => {
-      Product.delete(id).then(() => loadProducts());
+      ProductsAPI.deleteProduct(id).then(() => loadProducts());
    };
 
    const editProduct = (id: string) => {

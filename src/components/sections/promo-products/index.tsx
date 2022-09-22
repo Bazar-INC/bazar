@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { ProductEntity } from "../../../api/entities/product";
+import { ProductModel } from "../../../api/models/product";
+import { getProductImageUrl } from "../../../image-source";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
 interface Props {
    name: string;
    icon: string;
-   products: Array<ProductEntity>;
+   products: Array<ProductModel>;
 }
 
 const PromoProducts: FC<Props> = ({ icon, name, products }) => {
@@ -23,7 +24,7 @@ const PromoProducts: FC<Props> = ({ icon, name, products }) => {
                   productName={product.name}
                   categoryName="Смартфон"
                   price={product.price}
-                  picture={product.images?.at(0)?.image}
+                  picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                   key={index}
                />
             ))}

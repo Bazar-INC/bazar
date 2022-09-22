@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Layout } from '../../layout/layout';
-import { useLogic } from "./logic";
-// import { Sections } from "../../sections";
 import { Typography } from "../../typography";
 import { classes, priceSeparateByThousands } from "../../../functions";
+import { useLogic } from "./logic";
+import { getProductImageUrl } from "../../../image-source";
 
 const CartPage: FC = () => {
 
@@ -30,9 +30,9 @@ const CartPage: FC = () => {
          {products.get.map((product, index) => (
             <div key={index} className="w-[591px] px-10 py-8 bg-white rounded-md flex justify-between items-center">
                <div className="flex gap-x-4">
-                  <img className="w-20 h-20" src={product.product.images?.at(0)?.image} />
+                  <img className="w-20 h-20" src={getProductImageUrl(product.product.images?.at(0)?.image ?? "")} />
                   <div className="flex flex-col">
-                     <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">Смартфон</span>
+                     <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{product.product.categoryName}</span>
                      <span className="text-[12px] mb-2">{product.product.name}</span>
                   </div>
                </div>
@@ -48,7 +48,7 @@ const CartPage: FC = () => {
                      />
                      <button onClick={() => product.product.id && incrementProductCount(product.product.id)}>+</button>
                   </div>
-                  <div>
+                  <div className="w-[100px]">
                      <div className="flex mt-5 items-center">
                         <span className="line-through text-[#70706d] font-semibold text-[10px]">17 999</span>
                         <span className="bg-[#d4ffe7] rounded ml-2 font-semibold text-[10px] text-[#1d1d1d] px-2.5">-1000</span>
@@ -198,17 +198,8 @@ const CartPage: FC = () => {
 
    return (
       <Layout.Container className="pt-10 pb-20">
-
          <Typography.Heading>Оформлення замовлення</Typography.Heading>
-
          {products.get.length === 0 ? emptyCartPageView : fullCartPageView}
-
-         {/* <Sections.PromoProducts
-            name="Хіти продаж"
-            icon="/fire.png"
-            products={products.get.slice(0, 4)}
-         /> */}
-
       </Layout.Container >
    );
 };

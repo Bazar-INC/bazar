@@ -10,6 +10,7 @@ import { NewProductSection } from "./sections/new-product";
 import { Categories } from "./sections/categories";
 import { Filters } from "./sections/filters";
 import { Asks } from "./sections/asks";
+import { CategoryRecord } from "./sections/category";
 
 
 
@@ -58,6 +59,9 @@ const AdminPage: FC = () => {
                   <Route path="asks" element={<Asks />} />
                   <Route path="new_product" element={<NewProductSection />} />
                   <Route path="new_category" element={<NewCategorySection />} />
+
+                  <Route path="category" element={<CategoryRecord />} />
+                  <Route path="category/:id" element={<CategoryRecord />} />
                </Routes>
             </div>
          </div>

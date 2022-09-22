@@ -4,7 +4,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { useProperty } from './components/hooks/property';
 import { useAppDispatch } from './store/hooks';
 
-import { AccountEndpoints } from './api/endpoints/account';
 import { accountActions } from './features/account/reducer';
 
 import { Layout } from './components/layout/layout';
@@ -17,6 +16,7 @@ import { AdminPage } from "./components/admin";
 import { ProductPage } from "./components/pages/product";
 import { MobileMenu } from "./components/mobile/menu";
 import { routes } from "./router-config";
+import { MeAPI } from "./api/services/me";
 
 const App: FC = () => {
 
@@ -24,8 +24,8 @@ const App: FC = () => {
 
    useEffect(() => {
 
-      AccountEndpoints.getProfile().then((response) => {
-         dispatch(accountActions.setProfile(response.data));
+      MeAPI.getProfile().then(({ data }) => {
+         dispatch(accountActions.setProfile(data));
       });
 
    }, []);

@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC } from "react";
 import { priceSeparateByThousands } from "../../../functions";
 import { Layout } from "../../layout/layout";
 import { useLogic } from "./logic";
 import { Typography } from "../../typography";
 import { HorizontalMenu } from "./components/horizontal-menu";
+import { getProductImageUrl } from "../../../image-source";
 
 const ProductPage: FC = () => {
 
@@ -17,10 +18,10 @@ const ProductPage: FC = () => {
       <div className="bg-white pt-8">
          <Layout.Container>
             <Layout.BreadCrumbs items={[
-               { label: 'Головна', route: '' },
-               { label: 'Каталог', route: '' },
-               { label: 'Смартфон', route: '' },
-               { label: 'Apple', route: '' },
+               { label: "Головна", route: "" },
+               { label: "Каталог", route: "" },
+               { label: "Смартфон", route: "" },
+               { label: "Apple", route: "" },
             ]} />
             <div className="mt-5 flex justify-between">
                <Typography.Heading>{product.get?.name ?? ""}</Typography.Heading>
@@ -42,11 +43,13 @@ const ProductPage: FC = () => {
             </div>
             <div className="mt-8 mb-20 flex flex-col md:flex-row gap-8">
                <div className="flex-1 flex items-center justify-center">
-                  <img className="w-[600px] h-[600px] object-contain" src={product.get?.images?.at(0)?.image} />
+                  <img className="w-[600px] h-[600px] object-contain" src={getProductImageUrl(product.get?.images.at(0)?.image ?? "")} />
                </div>
                <div className="w-full md:w-[330px] 2xl:w-[480px]">
                   <div className="border-[#D9D9D9] border rounded-lg flex flex-col p-6">
-                     <Typography.Heading>{priceSeparateByThousands(product.get?.price ?? 0) + " грн"}</Typography.Heading>
+                     <Typography.Heading>
+                        {priceSeparateByThousands(product.get?.price ?? 0) + " грн"}
+                     </Typography.Heading>
                      <span className="mt-2 mb-8">Кешбек 4 000</span>
                      <Layout.Button stretch>Купити</Layout.Button>
                      <div className="mt-4">
@@ -276,7 +279,7 @@ const ProductPage: FC = () => {
                         id={product.id}
                         categoryName="Смартфон"
                         productName={product.name}
-                        picture={product.images?.at(0)?.image}
+                        picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                         price={product.price}
                      />
                   ))}
