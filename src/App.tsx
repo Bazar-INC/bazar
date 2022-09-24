@@ -16,6 +16,8 @@ import { AdminPage } from "./components/admin";
 import { ProductPage } from "./components/pages/product";
 import { MobileMenu } from "./components/mobile/menu";
 import { routes } from "./router-config";
+import { AboutPage } from "./components/pages/about";
+import { DeliveryAndPaymentPage } from "./components/pages/delivery-and-payment";
 import { MeAPI } from "./api/services/me";
 
 const App: FC = () => {
@@ -56,6 +58,8 @@ const App: FC = () => {
                            <Route path="cart" element={<CartPage />} />
                            <Route path="goods/:category" element={<GoodsPage />} />
                            <Route path="product/:id" element={<ProductPage />} />
+                           <Route path="about" element={<AboutPage />} />
+                           <Route path="delivery-and-payment" element={<DeliveryAndPaymentPage />} />
                         </Routes>
                      </div>
                      <Layout.Footer className="mt-auto pb-40" />
