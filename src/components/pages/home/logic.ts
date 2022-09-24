@@ -1,29 +1,20 @@
 import { useEffect } from "react";
-import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
+import { ProductsAPI } from "../../../api/services/products";
 import { useProperty } from "../../hooks/property";
 
-const useLogic = () => {
+export const useLogic = () => {
 
-   const [products] = useProperty<{
-      hitSale: Array<ProductModel>; new: Array<ProductModel>
-   }>({
-      hitSale: [], new: [],
-   });
+   const [hitSaleProducts] = useProperty<Array<ProductModel>>([]);
+   const [newProducts] = useProperty<Array<ProductModel>>([]);
 
    useEffect(() => {
-      ProductsEndpoints.getTopProducts(1).then((response) => {
-         products.set((prev) => ({ ...prev, hitSale: response.data.products }));
-      });
+      ProductsAPI.getProducts({ perPage: 4 })
+         .then(({ data }) => hitSaleProducts.set(data.products));
 
-      ProductsEndpoints.getTopProducts(2).then((response) => {
-         products.set((prev) => ({ ...prev, new: response.data.products, }));
-      });
+      ProductsAPI.getProducts({ perPage: 4, page: 2, orderBy: "date", order: "desc" })
+         .then(({ data }) => newProducts.set(data.products));
    }, []);
 
-   return {
-      products,
-   };
+   return { hitSaleProducts, newProducts };
 };
-
-export { useLogic };

@@ -1,55 +1,60 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { CategoryModel } from "../../../api/models/category";
+import { CategoriesAPI } from "../../../api/services/categories";
 import { routes } from "../../../router-config";
 import { useAppSelector } from '../../../store/hooks';
+import { useProperty } from "../../hooks/property";
 import { Icons } from '../../icons/icons';
 import { Layout } from '../layout';
 
+import "./index.css";
+
 const catalogMenuItems = [
    {
-      title: "Технiка для дому",
+      title: "Ноутбуки та комп’ютери",
       icon: <Icons.Controller />,
-      route: "/goods/home_appliances"
+      code: "computers_notebooks"
    },
    {
-      title: "Техніка та електроніка",
-      icon: <Icons.Controller />,
-      route: "/goods/technique_and_electronics"
-   },
-   {
-      title: "Мобільні телефони",
+      title: "Смартфони, ТВ і Електроніка",
       icon: <Icons.Phone />,
-      route: "/goods/mobile_phones"
+      code: "telefony_tv_i_ehlektronika"
    },
    {
-      title: "Ноутбуки та Планшети",
+      title: "Товари для геймерів",
       icon: <Icons.Controller />,
-      route: "/goods/laptops_and_tablets"
+      code: "game_zone"
    },
    {
-      title: "ТВ та Вiдображення",
-      icon: <Icons.Controller />,
-      route: "/goods/tb_and_presentation"
+      title: "Побутова техніка",
+      icon: <Icons.Phone />,
+      code: "household_appliances"
    },
    {
-      title: "Навушники та Колонки",
+      title: "Товари для дому",
       icon: <Icons.Controller />,
-      route: "/goods/home_appliances"
+      code: "tovary_dlya_doma"
    },
    {
       title: "Інструменти та автотовари",
-      icon: <Icons.Controller />,
-      route: "/goods/cars"
+      icon: <Icons.Phone />,
+      code: "instrumenty_i_avtotovary"
    },
    {
       title: "Сантехніка та ремонт",
-      icon: <Icons.Controller />,
-      route: "/goods/plumbing"
+      icon: <Icons.Phone />,
+      code: "santekhnika_i_remont"
    },
    {
-      title: "Ще 15 категорій",
-      icon: <Icons.Dots />,
-      route: ""
+      title: "Дача, сад, город",
+      icon: <Icons.Phone />,
+      code: "dacha_sad_ogorod"
+   },
+   {
+      title: "Спорт і захоплення",
+      icon: <Icons.Phone />,
+      code: "sport_i_uvlecheniya"
    },
 ];
 
@@ -61,6 +66,14 @@ interface Props {
 const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
 
    const profile = useAppSelector(state => state.accountReducer.profile);
+
+   const cart = useAppSelector(state => state.accountReducer.cart);
+
+   const [categories] = useProperty<CategoryModel[]>([]);
+
+   useEffect(() => {
+      CategoriesAPI.getCategories().then(({ data }) => categories.set(data.categories));
+   }, []);
 
    return (
       <>
@@ -85,8 +98,11 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                <Link to="/compare" className="hidden sm:block">
                   <Icons.Compare className="w-8 2xl:w-10 text-[#696E7C]" />
                </Link>
-               <Link to={routes.Cart.link()} className="hidden sm:block">
+               <Link to={routes.Cart.link()} className="hidden sm:block relative">
                   <Icons.Cart className="w-6 2xl:w-8" />
+                  <div className="absolute w-3.5 h-3.5 bg-[#00FF74] -top-1 -right-2 rounded-full text-[12px] font-semibold leading-3 text-center">
+                     {cart.products.length}
+                  </div>
                </Link>
                {profile ? (
                   <div className="min-w-[56px] h-14 items-center border-2 rounded border-[#8f00f9] p-1">
@@ -114,7 +130,32 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                         <Icons.AlignLeft className="w-6 h-6 2xl:w-9 2xl:h-9" />
                      </span>
                      <span className="text-[14px] 2xl:text-[21px] font-bold 2xl:font-semibold text-white leading-[48px] h-[48px] 2xl:h-[70px] 2xl:leading-[70px] cursor-pointer">Каталог товарів</span>
-                     <div className={`hidden ${fixMenu && "lg:block"} group-hover:block absolute top-full bg-white w-[256px] xl:w-[286px] 2xl:w-[430px] p-5 space-y-0 2xl:space-y-3 shadow-2xl rounded-b`}>
+                     <div className={`hidden ${fixMenu && "lg:flex"} group-hover:flex absolute bg-white top-full flex z-50`}>
+                        <div className="w-[286px] py-5">
+                           {catalogMenuItems.map((item, index) => (
+                              <div key={index} className="cursor-pointer item-menu flex items-center h-12 2xl:h-14 px-5">
+                                 <img className="w-6 h-6 object-contain" src={`/catalog/${item.code}.png`} />
+                                 {/* <div className="w-6 h-6 2xl:h-9 2xl:w-9 flex items-center justify-center">{item.icon}</div> */}
+                                 <span className="text-[12px] 2xl:text-[19px] font-bold 2xl:font-semibold ml-4">{item.title}</span>
+                                 <div className="hidden sub-menu bg-white border-l absolute left-full h-full top-0 w-[286px] py-5">
+                                    {categories.get.filter(f => f.parentCode === item.code).map((category, index) => (
+                                       <div key={index} className="cursor-pointer sub-menu-item flex items-center h-12 2xl:h-14 px-5">
+                                          <span className="text-[12px] 2xl:text-[19px] font-bold 2xl:font-semibold ml-4">{category.name}</span>
+                                          <div className="hidden sub-sub-menu bg-white border-l absolute h-full left-full top-0 w-[286px] py-5">
+                                             {categories.get.filter(f => f.parentCode === category.code).map((category, index) => (
+                                                <Link to={`/goods/${category.code}`} key={index} className="flex items-center h-12 2xl:h-14 px-5">
+                                                   <span className="text-[12px] 2xl:text-[19px] font-bold 2xl:font-semibold">{category.name}</span>
+                                                </Link>
+                                             ))}
+                                          </div>
+                                       </div>
+                                    ))}
+                                 </div>
+                              </div>
+                           ))}
+                        </div>
+                     </div>
+                     {/* <div className={`hidden ${fixMenu && "lg:block"} group-hover:block absolute top-full bg-white w-[256px] xl:w-[286px] 2xl:w-[430px] p-5 space-y-0 2xl:space-y-3 shadow-2xl rounded-b`}>
                         {catalogMenuItems.map((item, index) => (
                            <Link to={item.route} key={index} className="flex items-center h-12 2xl:h-14">
                               <div className="w-6 h-6 2xl:h-9 2xl:w-9 flex justify-center">
@@ -123,7 +164,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                               <span className="text-[12px] 2xl:text-[19px] font-bold 2xl:font-semibold ml-4">{item.title}</span>
                            </Link>
                         ))}
-                     </div>
+                     </div> */}
                   </div>
                   <div className="text-white font-bold 2xl:font-semibold text-[11px] lg:text-[13px] 2xl:text-[20px] space-x-5 lg:space-x-8 2xl:space-x-12 ml-4 md:ml-8">
                      <span className="">Про нас</span>

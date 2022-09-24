@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { ProductModel } from "../../../api/models/product";
+import { getProductImageUrl } from "../../../image-source";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 
@@ -20,11 +21,10 @@ const PromoProducts: FC<Props> = ({ icon, name, products }) => {
             {products.map((product, index) => (
                <Layout.ProductCard
                   id={product.id}
-                  link={"/product/" + product.id}
                   productName={product.name}
                   categoryName="Смартфон"
                   price={product.price}
-                  picture={product.images[0]}
+                  picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                   key={index}
                />
             ))}

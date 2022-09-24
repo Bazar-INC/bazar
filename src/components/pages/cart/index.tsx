@@ -1,8 +1,35 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Layout } from '../../layout/layout';
-import { useLogic } from "./logic";
-// import { Sections } from "../../sections";
 import { Typography } from "../../typography";
+import { classes, priceSeparateByThousands } from "../../../functions";
+import { useLogic } from "./logic";
+import { getProductImageUrl } from "../../../image-source";
+import { ReceiverOrderSection } from "./order/sections/receiver";
+
+interface LocalSectionProps {
+   name: string;
+   children?: ReactNode;
+   onClick: () => void;
+   active: boolean;
+   containerStyles?: string;
+}
+
+const LocalSection: FC<LocalSectionProps> = ({ name, children, onClick, active, containerStyles }) => {
+   return (
+      <div>
+         <div className="border border-[#9DA0A9] rounded py-6 px-12">
+            <Typography.Heading
+               size="small"
+               className={classes(active ? "text-[#000000]" : "text-[#9DA0A9]")}
+            >
+               {name}
+            </Typography.Heading>
+            <div className={containerStyles}>{active && children}</div>
+         </div>
+         {active && <Layout.Button onClick={onClick} className="my-8">Далі</Layout.Button>}
+      </div>
+   );
+};
 
 const CartPage: FC = () => {
 
@@ -10,6 +37,7 @@ const CartPage: FC = () => {
       products,
       incrementProductCount,
       decrementProductCount,
+      mode,
    } = useLogic();
 
    const emptyCartPageView = (
@@ -23,50 +51,65 @@ const CartPage: FC = () => {
       </div>
    );
 
+   const productsViewSection = (
+      <div className="flex flex-col gap-y-8">
+         {products.get.map((product, index) => (
+            <div key={index} className="w-[591px] px-10 py-8 bg-white rounded-md flex justify-between items-center">
+               <div className="flex gap-x-4">
+                  <img className="w-20 h-20" src={getProductImageUrl(product.product.images?.at(0)?.image ?? "")} />
+                  <div className="flex flex-col">
+                     <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">{product.product.categoryName}</span>
+                     <span className="text-[12px] mb-2">{product.product.name}</span>
+                  </div>
+               </div>
+               <div className="flex items-center gap-x-8">
+                  <div className="flex gap-x-2">
+                     <button onClick={() => product.product.id && decrementProductCount(product.product.id)}>-</button>
+                     <Layout.Input
+                        maxLength={2}
+                        type="number"
+                        className="w-8 h-8 rounded border-2 text-center leading-8"
+                        onChange={() => console.log(1)}
+                        hardValue={product.count.toString()}
+                     />
+                     <button onClick={() => product.product.id && incrementProductCount(product.product.id)}>+</button>
+                  </div>
+                  <div className="w-[100px]">
+                     <div className="flex mt-5 items-center">
+                        <span className="line-through text-[#70706d] font-semibold text-[10px]">17 999</span>
+                        <span className="bg-[#d4ffe7] rounded ml-2 font-semibold text-[10px] text-[#1d1d1d] px-2.5">-1000</span>
+                     </div>
+                     <Typography.Heading size="small" className="text-[17px]">
+                        {`${priceSeparateByThousands(product.product.price ?? 0)} грн`}
+                     </Typography.Heading>
+                  </div>
+                  <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M3.08789 5.74219V16.857C3.08789 19.6184 5.32647 21.857 8.08789 21.857H12.8598C15.6212 21.857 17.8598 19.6184 17.8598 16.857V5.74219" stroke="#70706D" strokeWidth="2" />
+                     <path d="M15.8457 5.74219L15.8457 4.71348C15.8457 3.05663 14.5026 1.71348 12.8457 1.71348L8.10249 1.71348C6.44563 1.71348 5.10249 3.05663 5.10249 4.71348L5.10249 5.74219" stroke="#70706D" strokeWidth="2" />
+                     <path d="M1.07422 5.74219L19.8748 5.74219" stroke="#70706D" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+               </div>
+            </div>
+         ))}
+      </div>
+   );
+
    const fullCartPageView = (
       <div className="mt-12 flex gap-x-24">
-         <div>
-            <div className="flex flex-col gap-y-8">
-               {products.get.map((product, index) => (
-                  <div key={index} className="w-[591px] px-10 py-8 bg-white rounded-md flex justify-between items-center">
-                     <div className="flex gap-x-4">
-                        <img className="w-20 h-20" src={product.product.images[0]} />
-                        <div className="flex flex-col">
-                           <span className="font-[Intro] text-[#61615f] text-[15px] mb-2">Смартфон</span>
-                           <span className="text-[12px] mb-2">{product.product.name}</span>
-                        </div>
-                     </div>
-                     <div className="flex items-center gap-x-8">
-                        <div className="flex gap-x-2">
-                           <button onClick={() => decrementProductCount(product.product.id)}>-</button>
-                           <Layout.Input
-                              maxLength={2}
-                              type="number"
-                              className="w-8 h-8 rounded border-2 text-center leading-8"
-                              onChange={() => console.log(1)}
-                              hardValue={product.count.toString()}
-                           />
-                           <button onClick={() => incrementProductCount(product.product.id)}>+</button>
-                        </div>
-                        <div>
-                           <div className="flex mt-5 items-center">
-                              <span className="line-through text-[#70706d] font-semibold text-[10px]">17 999</span>
-                              <span className="bg-[#d4ffe7] rounded ml-2 font-semibold text-[10px] text-[#1d1d1d] px-2.5">-1000</span>
-                           </div>
-                           <Typography.Heading size="small" className="text-[17px]">17 000 грн</Typography.Heading>
-                        </div>
-                        <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path d="M3.08789 5.74219V16.857C3.08789 19.6184 5.32647 21.857 8.08789 21.857H12.8598C15.6212 21.857 17.8598 19.6184 17.8598 16.857V5.74219" stroke="#70706D" strokeWidth="2" />
-                           <path d="M15.8457 5.74219L15.8457 4.71348C15.8457 3.05663 14.5026 1.71348 12.8457 1.71348L8.10249 1.71348C6.44563 1.71348 5.10249 3.05663 5.10249 4.71348L5.10249 5.74219" stroke="#70706D" strokeWidth="2" />
-                           <path d="M1.07422 5.74219L19.8748 5.74219" stroke="#70706D" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                     </div>
-                  </div>
-               ))}
-            </div>
-            <Layout.Button className="my-8">Далі</Layout.Button>
+         <div className="w-[600px] max-w-[600px] min-w-[600px] space-y-6">
+            {mode.get === "products" && (
+               <>
+                  {productsViewSection}
+                  <Layout.Button onClick={() => mode.set("receiver")} className="my-8">Далі</Layout.Button>
+               </>
+            )}
+
+            <ReceiverOrderSection active={mode.get === "receiver"} onFinish={() => mode.set("address")} />
+
+            <LocalSection name="Спосіб отримання" onClick={() => mode.set("pay")} active={mode.get === "address"} />
+            <LocalSection name="Оплата" onClick={() => mode.set("products")} active={mode.get === "pay"} />
          </div>
-         <div className="w-full">
+         <div className="ml-auto w-[620px]">
             <div className="border-[#9DA0A9] border rounded w-full p-8">
                <div className="flex gap-x-5">
                   <Layout.Input
@@ -82,10 +125,16 @@ const CartPage: FC = () => {
                   <span className="text-[#9DA0A9] font-[Intro]">3 000 ГРН</span>
                </div>
                <div className="flex justify-between items-center mt-4 border-t border-[#9DA0A9] pt-8">
-                  <Typography.Heading>За 2 товари</Typography.Heading>
+                  <Typography.Heading>{`За ${products.get.reduce((sum, v) => sum + v.count, 0)} товари`}</Typography.Heading>
                   <div className="flex flex-col items-end">
                      <Typography.Heading className="text-[#9DA0A9] !text-[13px] line-through">12 000 Грн</Typography.Heading>
-                     <Typography.Heading size="small">17 000 Грн</Typography.Heading>
+                     <Typography.Heading size="small">
+                        {`${priceSeparateByThousands(products.get.reduce((sum, p) => {
+                           if (p.product.price) {
+                              return sum + p.count * p.product.price;
+                           }
+                           return 0;
+                        }, 0))} грн`}</Typography.Heading>
                   </div>
                </div>
             </div>
@@ -95,17 +144,8 @@ const CartPage: FC = () => {
 
    return (
       <Layout.Container className="pt-10 pb-20">
-
          <Typography.Heading>Оформлення замовлення</Typography.Heading>
-
-         {products.get.length === 0 ? emptyCartPageView : fullCartPageView}
-
-         {/* <Sections.PromoProducts
-            name="Хіти продаж"
-            icon="/fire.png"
-            products={products.get.slice(0, 4)}
-         /> */}
-
+         {products.get.length === 1 ? emptyCartPageView : fullCartPageView}
       </Layout.Container >
    );
 };

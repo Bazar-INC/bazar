@@ -3,7 +3,10 @@ interface ProductModel {
    name: string;
    price: number;
    categoryName: string;
-   images: Array<string>;
+   images: Array<{
+      image: string;
+      order: number;
+   }>;
 }
 
 export type { ProductModel };

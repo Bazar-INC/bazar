@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
 
 interface Props {
-   text: string;
-   onEdit: () => void;
-   onDelete: () => void;
+   text?: string;
+   onEdit?: () => void;
+   onDelete?: () => void;
    extra?: ReactNode;
 }
 

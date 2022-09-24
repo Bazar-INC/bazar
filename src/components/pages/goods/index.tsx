@@ -1,4 +1,5 @@
 import { FC, Fragment } from "react";
+import { getProductImageUrl } from "../../../image-source";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { Filter } from "./components/filter";
@@ -49,9 +50,8 @@ const GoodsPage: FC = () => {
                            key={index}
                            categoryName={product.categoryName}
                            productName={product.name}
-                           picture={product.images[0]}
+                           picture={getProductImageUrl(product.images?.at(0)?.image ?? "")}
                            price={product.price}
-                           link={"/product/" + product.id}
                         />
                      ))}
                   </div>

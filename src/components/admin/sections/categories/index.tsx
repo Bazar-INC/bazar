@@ -1,34 +1,26 @@
 import { FC, useEffect } from "react";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useProperty } from "../../../hooks/property";
-import { CategoryModel } from "../../../../api/models/category";
-import { CategoriesEndpoints } from "../../../../api/endpoints/categories";
 import { ListItem } from "../../components/list-item";
+import { CategoryModel } from "../../../../api/models/category";
+import { CategoriesAPI } from "../../../../api/services/categories";
 
 const Categories: FC = () => {
+
+   const navigate = useNavigate();
 
    const [categories] = useProperty<Array<CategoryModel>>([]);
 
    const loadCategories = () => {
-
-      CategoriesEndpoints.getAllCategories().then((response) => {
-         categories.set(response.data.categories);
-      });
-
+      CategoriesAPI.getCategories().then(({ data }) => categories.set(data.categories));
    };
 
    useEffect(loadCategories, []);
 
    const deleteCategory = (id: string) => {
-      CategoriesEndpoints.deleteCategory(id).then(() => {
-         loadCategories();
-      });
-   };
-
-   const changeCategory = (id: string) => {
-      console.log(id);
+      CategoriesAPI.deleteCategory(id).then(() => loadCategories());
    };
 
    return (
@@ -46,8 +38,8 @@ const Categories: FC = () => {
                <ListItem
                   key={index}
                   text={category.name}
-                  onEdit={() => changeCategory(category.id)}
-                  onDelete={() => deleteCategory(category.id)}
+                  onEdit={() => navigate("/admin/category/" + category.id)}
+                  onDelete={() => category.id && deleteCategory(category.id)}
                />
             ))}
          </div>

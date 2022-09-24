@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
+import { ProductsAPI } from "../../../api/services/products";
 import { useProperty } from "../../hooks/property";
 
 const useLogic = () => {
@@ -21,13 +21,11 @@ const useLogic = () => {
       { label: categoryName.get, route: category ?? "" },
    ];
 
-   const loadProducts = () => {
-      category && ProductsEndpoints.getProducts(category, "").then(({ data }) => {
-
+   useEffect(() => {
+      ProductsAPI.getProducts({ category }).then(({ data }) => {
          categoryName.set(data.categoryName);
-
          products.set(data.products);
-
+         totalPages.set(data.totalPages);
          filters.set(
             data.filters.map((f) => ({
                title: f.name,
@@ -35,18 +33,13 @@ const useLogic = () => {
                options: f.options.map((o) => ({ name: o.value, value: o.code }))
             }))
          );
-
-         totalPages.set(data.totalPages);
       });
-   };
-
-   useEffect(loadProducts, [category]);
+   }, [category]);
 
    useEffect(() => {
-      category && ProductsEndpoints.getProducts(category, filterString.get).then(({ data }) => {
-
+      ProductsAPI.getProducts({ category, filterString: filterString.get }).then(({ data }) => {
          products.set(data.products);
-
+         totalPages.set(data.totalPages);
          filters.set(
             data.filters.map((f) => ({
                title: f.name,
@@ -54,15 +47,12 @@ const useLogic = () => {
                options: f.options.map((o) => ({ name: o.value, value: o.code }))
             }))
          );
-
-         totalPages.set(data.totalPages);
       });
    }, [filterString.get]);
 
    const [selectedFilters] = useProperty<{ [key: string]: { [key: string]: boolean } }>({});
 
    useEffect(() => {
-
       let result = "";
 
       for (const filterKey of Object.keys(selectedFilters.get)) {

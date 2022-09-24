@@ -1,22 +1,35 @@
-import { stat } from "fs/promises";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { CategoriesEndpoints } from "../../../../api/endpoints/categories";
+import { CategoryModel } from "../../../../api/models/category";
+import { CategoriesAPI } from "../../../../api/services/categories";
 import { useProperty } from "../../../hooks/property";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 
 const NewCategorySection: FC = () => {
 
+   const [categories] = useProperty<CategoryModel[]>([]);
+
+   useEffect(() => {
+      CategoriesAPI.getCategories().then((response) => {
+         categories.set(response.data.categories);
+      });
+   }, []);
+
    const [status] = useProperty<"new" | "saved">("new");
 
    const [name] = useProperty("");
    const [code] = useProperty("");
 
+   const [parent] = useProperty<string | undefined>(undefined);
+
    const saveCategory = () => {
-      CategoriesEndpoints.addCategory({
+      CategoriesAPI.addCategory({
          name: name.get,
-         code: code.get
+         code: code.get,
+         parentId: parent.get,
+         imageName: undefined,
+         image: undefined
       }).then((response) => {
          if (response.status === 200) {
             status.set("saved");
@@ -75,10 +88,11 @@ const NewCategorySection: FC = () => {
             <div className="flex flex-row mt-[30px]">
                <div className="flex flex-col w-full mr-[20px]">
                   <span className="text-[#949494] font-[Gotham] font-bold text-[20px]">Батьківська категорія</span>
-                  <select className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
-                     <option value="">Електроніка</option>
-                     <option value="">Товари для дому</option>
-                     <option value="">Телевізори</option>
+                  <select onChange={(e) => parent.set(e.target.value)} className="px-8 h-[50px] w-full rounded-lg mt-[15px]">
+                     <option>Choose category</option>
+                     {categories.get.map((category, index) => (
+                        <option key={index} value={category.id}>{category.name}</option>
+                     ))}
                   </select>
                </div>
                <div className="flex flex-col w-[65px]">

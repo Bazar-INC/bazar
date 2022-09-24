@@ -1,10 +1,10 @@
 import { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ProductsEndpoints } from "../../../api/endpoints/products";
 import { ProductModel } from "../../../api/models/product";
+import { ProductsAPI } from "../../../api/services/products";
 import { useProperty } from "../../hooks/property";
 
-const useLogic = () => {
+export const useLogic = () => {
 
    const ref = useRef<HTMLDivElement>(null);
 
@@ -16,14 +16,13 @@ const useLogic = () => {
 
    useEffect(() => {
 
-      id && ProductsEndpoints.getProductById(id).then((response) => {
+      id && ProductsAPI.getProductById(id).then((response) => {
          product.set(response.data);
       });
 
-      ProductsEndpoints.getTopProducts(1).then((response) => {
-         productList.set(response.data.products);
+      ProductsAPI.getProducts({ perPage: 4 }).then(({ data }) => {
+         productList.set(data.products);
       });
-
    }, []);
 
    return {
@@ -32,5 +31,3 @@ const useLogic = () => {
       ref,
    };
 };
-
-export { useLogic };

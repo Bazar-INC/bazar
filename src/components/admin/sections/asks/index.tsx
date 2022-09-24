@@ -1,5 +1,4 @@
-import { FC, useEffect, useState } from "react";
-import { Icons } from "../../../icons/icons";
+import { FC } from "react";
 import { Layout } from "../../../layout/layout";
 import { Typography } from "../../../typography";
 

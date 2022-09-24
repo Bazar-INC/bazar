@@ -30,16 +30,7 @@ function isEmpty(str: string | null | undefined) {
 }
 
 function priceSeparateByThousands(price: number) {
-
-   let priceAsString = (price % 1000) + " ";
-
-   const result = (Math.floor(price / 1000) % 1000);
-
-   if (result > 0) {
-      priceAsString = result + " " + priceAsString;
-   }
-
-   return priceAsString;
+   return String(price).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ');
 }
 
 
