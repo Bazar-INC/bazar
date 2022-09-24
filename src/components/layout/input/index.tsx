@@ -1,7 +1,9 @@
 import { FC, useEffect, useState } from "react";
+import { classes } from "../../../functions";
 
 interface Props {
    className?: string;
+   prefix?: string;
    hint?: string;
    type: "text" | "number" | "phone";
    maxLength?: number;
@@ -10,13 +12,19 @@ interface Props {
    hardValue?: string;
 }
 
-const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange, hardValue }) => {
+const Input: FC<Props> = ({ className, hint, prefix, type, maxLength, disabled, onChange, hardValue }) => {
 
    const [value, setValue] = useState("");
 
    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
       const newValue = event.target.value;
+
+      if (type == "phone") {
+         if (newValue.length > 9) {
+            return;
+         }
+      }
 
       if (type == "phone" || type == "number") {
 
@@ -34,15 +42,18 @@ const Input: FC<Props> = ({ className, hint, type, maxLength, disabled, onChange
    }, [value]);
 
    return (
-      <input
-         disabled={disabled}
-         type="text"
-         className={className}
-         placeholder={hint}
-         value={hardValue ?? value}
-         onChange={handleOnChange}
-         maxLength={maxLength}
-      />
+      <div className={classes(className, "flex w-[230px]")}>
+         <div className="">{prefix}</div>
+         <input
+            className="bg-transparent outline-none"
+            disabled={disabled}
+            type="text"
+            placeholder={hint}
+            value={hardValue ?? value}
+            onChange={handleOnChange}
+            maxLength={maxLength}
+         />
+      </div>
    );
 };
 
