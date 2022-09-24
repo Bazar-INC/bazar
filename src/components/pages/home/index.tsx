@@ -26,7 +26,7 @@ const HomePage: FC = () => {
                products={hitSaleProducts.get}
             />
 
-            <div className="mt-24 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
+            <div className="mt-24 mb-8 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
                <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
