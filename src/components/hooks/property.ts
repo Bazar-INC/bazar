@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-type PropertyReturnResult<T> = [{ get: T, set: React.Dispatch<React.SetStateAction<T>> }];
+type PropertyReturnResult<T> = [{ get: T, set: React.Dispatch<React.SetStateAction<T>>, is: (value: T) => boolean; }];
 
 const useProperty = <TValue>(initialValue: TValue): PropertyReturnResult<TValue> => {
 
@@ -8,7 +8,8 @@ const useProperty = <TValue>(initialValue: TValue): PropertyReturnResult<TValue>
 
    return [{
       get: value,
-      set: setValue
+      set: setValue,
+      is: (other: TValue) => value === other,
    }];
 };
 
