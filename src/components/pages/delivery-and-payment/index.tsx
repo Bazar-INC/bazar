@@ -1,16 +1,14 @@
-import { FC } from "react";
-import { text } from "stream/consumers";
+import { FC, useEffect } from "react";
 import { classes } from "../../../functions";
 import { useProperty } from "../../hooks/property";
-import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { DropDown } from "./components/dropdown";
 
 interface Props {
-   className: string
+   onChange: (index: number) => void;
 }
 
-const HorizontalMenu: FC<Props> = ({ className }) => {
+const HorizontalMenu: FC<Props> = ({ onChange }) => {
 
    const [menuItems] = useProperty([
       "Доставка",
@@ -18,6 +16,10 @@ const HorizontalMenu: FC<Props> = ({ className }) => {
    ]);
 
    const [active] = useProperty(0);
+
+   useEffect(() => {
+      onChange(active.get);
+   }, [active.get]);
 
    return (
       <div className="overflow-x-scroll md:overflow-x-hidden overflow-y-hidden">
@@ -35,7 +37,7 @@ const HorizontalMenu: FC<Props> = ({ className }) => {
    );
 };
 
-const DeliveryAndPayment: FC = () => {
+const DeliveryAndPaymentPage: FC = () => {
 
    const aboutTextList = [
       {
@@ -116,63 +118,71 @@ const DeliveryAndPayment: FC = () => {
       },
    ];
 
+   const [menu] = useProperty(0);
+
    return (
       <div className="flex flex-col m-[20px] space-y-[20px]">
          <Typography.Heading>способи оплати та доставки</Typography.Heading>
-         <HorizontalMenu className="w-full" />
+         <HorizontalMenu onChange={menu.set} />
 
          <div className="md:flex md:w-full md:justify-center">
             <div className="md:w-[880px] md:space-y-[20px]">
-               <div>
-                  <Typography.Heading>Як діє доставка до точок видачі Bazar?</Typography.Heading>
-               </div>
-               <div className="space-y-[5px]">
-                  {aboutTextList.map((item, index) => (
-                     <DropDown key={index} label={item.label} text={item.text} />
-                  ))}
-               </div>
+               {menu.get === 0 && (
+                  <>
+                     <div>
+                        <Typography.Heading>Як діє доставка до точок видачі Bazar?</Typography.Heading>
+                     </div>
+                     <div className="space-y-[5px]">
+                        {aboutTextList.map((item, index) => (
+                           <DropDown key={index} label={item.label} text={item.text} />
+                        ))}
+                     </div>
 
-               <div>
-                  <Typography.Heading>Як діє кур’єрська доставка?</Typography.Heading>
-               </div>
-               <div className="space-y-[5px]">
-                  {aboutTextListTwo.map((item, index) => (
-                     <DropDown key={index} label={item.label} text={item.text} />
-                  ))}
-               </div>
+                     <div>
+                        <Typography.Heading>{"Як діє кур'єрська доставка ?"}</Typography.Heading>
+                     </div>
+                     <div className="space-y-[5px]">
+                        {aboutTextListTwo.map((item, index) => (
+                           <DropDown key={index} label={item.label} text={item.text} />
+                        ))}
+                     </div>
+                  </>
+               )}
 
+               {menu.get === 1 && (
+                  <>
+                     <div>
+                        <Typography.Heading>Оплата при доставці</Typography.Heading>
+                     </div>
+                     <div className="space-y-[5px]">
+                        {paymentTextList.map((item, index) => (
+                           <DropDown key={index} label={item.label} text={item.text} />
+                        ))}
+                     </div>
 
-               {/* ------------------------ Payment block ------------------------ */}
-               <div>
-                  <Typography.Heading>Оплата при доставці</Typography.Heading>
-               </div>
-               <div className="space-y-[5px]">
-                  {paymentTextList.map((item, index) => (
-                     <DropDown key={index} label={item.label} text={item.text} />
-                  ))}
-               </div>
+                     <div>
+                        <Typography.Heading>Оплата онлайн</Typography.Heading>
+                     </div>
+                     <div className="space-y-[5px]">
+                        {paymentTextListTwo.map((item, index) => (
+                           <DropDown key={index} label={item.label} text={item.text} />
+                        ))}
+                     </div>
 
-               <div>
-                  <Typography.Heading>Оплата онлайн</Typography.Heading>
-               </div>
-               <div className="space-y-[5px]">
-                  {paymentTextListTwo.map((item, index) => (
-                     <DropDown key={index} label={item.label} text={item.text} />
-                  ))}
-               </div>
-
-               <div>
-                  <Typography.Heading>Кредитування та розстрочка</Typography.Heading>
-               </div>
-               <div className="space-y-[5px]">
-                  {paymentTextListThree.map((item, index) => (
-                     <DropDown key={index} label={item.label} text={item.text} />
-                  ))}
-               </div>
+                     <div>
+                        <Typography.Heading>Кредитування та розстрочка</Typography.Heading>
+                     </div>
+                     <div className="space-y-[5px]">
+                        {paymentTextListThree.map((item, index) => (
+                           <DropDown key={index} label={item.label} text={item.text} />
+                        ))}
+                     </div>
+                  </>
+               )}
             </div>
          </div>
       </div>
    );
 };
 
-export { DeliveryAndPayment };
+export { DeliveryAndPaymentPage };
