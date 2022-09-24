@@ -3,7 +3,6 @@ import { priceSeparateByThousands } from "../../../functions";
 import { Layout } from "../../layout/layout";
 import { useLogic } from "./logic";
 import { Typography } from "../../typography";
-import { HorizontalMenu } from "./components/horizontal-menu";
 import { getProductImageUrl } from "../../../image-source";
 
 const ProductPage: FC = () => {
@@ -63,7 +62,12 @@ const ProductPage: FC = () => {
             </div>
          </Layout.Container >
          <div className="bg-[#f4f4f4]">
-            <HorizontalMenu />
+            <Layout.HorizontalMenu items={[
+               "Все про товар",
+               "Характеристики",
+               "Питання та відповіді",
+               "Відгуки",
+            ]} onChange={(index) => console.log(index)} />
             <Layout.Container>
                <div className="flex flex-col sm:flex-row mt-8 gap-8 items-start">
                   <div className="overflow-hidden flex-1 bg-white px-12 py-12 rounded-xl">
