@@ -1,9 +1,35 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Layout } from '../../layout/layout';
 import { Typography } from "../../typography";
 import { classes, priceSeparateByThousands } from "../../../functions";
 import { useLogic } from "./logic";
 import { getProductImageUrl } from "../../../image-source";
+import { ReceiverOrderSection } from "./order/sections/receiver";
+
+interface LocalSectionProps {
+   name: string;
+   children?: ReactNode;
+   onClick: () => void;
+   active: boolean;
+   containerStyles?: string;
+}
+
+const LocalSection: FC<LocalSectionProps> = ({ name, children, onClick, active, containerStyles }) => {
+   return (
+      <div>
+         <div className="border border-[#9DA0A9] rounded py-6 px-12">
+            <Typography.Heading
+               size="small"
+               className={classes(active ? "text-[#000000]" : "text-[#9DA0A9]")}
+            >
+               {name}
+            </Typography.Heading>
+            <div className={containerStyles}>{active && children}</div>
+         </div>
+         {active && <Layout.Button onClick={onClick} className="my-8">Далі</Layout.Button>}
+      </div>
+   );
+};
 
 const CartPage: FC = () => {
 
@@ -68,81 +94,9 @@ const CartPage: FC = () => {
       </div>
    );
 
-   const receiverViewSection = (
-      <div className="border border-[#9DA0A9] rounded py-6 px-12">
-         <Typography.Heading
-            className={classes(mode.get === "receiver" ? "text-[#000000]" : "text-[#9DA0A9]")}
-            size="small"
-         >
-            Отримувач
-         </Typography.Heading>
-         {mode.get === "receiver" && (
-            <>
-               <div className="flex gap-x-10">
-                  <div className="flex flex-col">
-                     <span className="bold">Ім&apos;я</span>
-                     <Layout.Input
-                        type="text"
-                        hint="Володимир"
-                        className="px-4 py-2 bg-transparent mt-2 border-2 rounded border-[#9DA0A9]"
-                        onChange={() => console.log(1)}
-                     />
-                  </div>
-                  <div className="flex flex-col">
-                     <span className="bold">Прізвище</span>
-                     <Layout.Input
-                        type="text"
-                        hint="Яворський"
-                        className="px-4 py-2 bg-transparent mt-2 border-2 rounded border-[#9DA0A9]"
-                        onChange={() => console.log(1)}
-                     />
-                  </div>
-               </div>
-               <div className="flex gap-x-10 mt-6">
-                  <div className="flex flex-col">
-                     <span className="bold">Номер телефону</span>
-                     <Layout.Input
-                        type="text"
-                        hint="+38 (0__) __-__-___"
-                        className="px-4 py-2 bg-transparent mt-2 border-2 rounded border-[#9DA0A9]"
-                        onChange={() => console.log(1)}
-                     />
-                  </div>
-                  <div className="flex flex-col">
-                     <span className="bold">Е-mail</span>
-                     <Layout.Input
-                        type="text"
-                        hint="shop@bazar.com"
-                        className="px-4 py-2 bg-transparent mt-2 border-2 rounded border-[#9DA0A9]"
-                        onChange={() => console.log(1)}
-                     />
-                  </div>
-               </div>
-               <Layout.Button onClick={() => mode.set("address")} className="my-8">Далі</Layout.Button>
-            </>
-         )}
-      </div>
-   );
-
-   const addressViewSection = (
-      <>
-         <div className="border border-[#9DA0A9] rounded py-6 px-12 mt-6">
-            <Typography.Heading
-               className={classes(mode.get === "address" ? "text-[#000000]" : "text-[#9DA0A9]")}
-               size="small"
-            >
-               Спосіб отримання
-            </Typography.Heading>
-         </div>
-         {mode.get === "address" && (
-            <Layout.Button onClick={() => mode.set("pay")} className="my-8">Далі</Layout.Button>
-         )}
-      </>
-   );
-
    const fullCartPageView = (
       <div className="mt-12 flex gap-x-24">
-         <div className="w-[600px]">
+         <div className="w-[600px] max-w-[600px] min-w-[600px] space-y-6">
             {mode.get === "products" && (
                <>
                   {productsViewSection}
@@ -150,18 +104,10 @@ const CartPage: FC = () => {
                </>
             )}
 
-            {receiverViewSection}
+            <ReceiverOrderSection active={mode.get === "receiver"} onFinish={() => mode.set("address")} />
 
-            {addressViewSection}
-
-            <div className="border border-[#9DA0A9] rounded py-6 px-12 mt-6">
-               <Typography.Heading
-                  className={classes(mode.get === "pay" ? "text-[#000000]" : "text-[#9DA0A9]")}
-                  size="small"
-               >
-                  Оплата
-               </Typography.Heading>
-            </div>
+            <LocalSection name="Спосіб отримання" onClick={() => mode.set("pay")} active={mode.get === "address"} />
+            <LocalSection name="Оплата" onClick={() => mode.set("products")} active={mode.get === "pay"} />
          </div>
          <div className="ml-auto w-[620px]">
             <div className="border-[#9DA0A9] border rounded w-full p-8">
@@ -199,7 +145,7 @@ const CartPage: FC = () => {
    return (
       <Layout.Container className="pt-10 pb-20">
          <Typography.Heading>Оформлення замовлення</Typography.Heading>
-         {products.get.length === 0 ? emptyCartPageView : fullCartPageView}
+         {products.get.length === 1 ? emptyCartPageView : fullCartPageView}
       </Layout.Container >
    );
 };
