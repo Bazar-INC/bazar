@@ -167,10 +167,8 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                      </div> */}
                   </div>
                   <div className="text-white font-bold 2xl:font-semibold text-[11px] lg:text-[13px] 2xl:text-[20px] space-x-5 lg:space-x-8 2xl:space-x-12 ml-4 md:ml-8">
-                     <span className="">Про нас</span>
-                     <span className="">Довідковий центр</span>
-                     <span>Доставка та оплата</span>
-                     <span className="hidden md:inline">Партнерам</span>
+                     <Link to="/about">Про нас</Link>
+                     <Link to="/delivery-and-payment">Доставка та оплата</Link>
                   </div>
                   <div className="ml-auto">
                      <span className="hidden lg:block text-white font-bold 2xl:font-semibold text-[11px] lg:text-[13px] 2xl:text-[20px]">Покупцям</span>
