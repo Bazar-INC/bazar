@@ -9,10 +9,10 @@ export const useLogic = () => {
    const [newProducts] = useProperty<Array<ProductModel>>([]);
 
    useEffect(() => {
-      ProductsAPI.getProducts({ perPage: 4 })
+      ProductsAPI.getProducts({ perPage: 4, orderBy: "date", order: "asc" })
          .then(({ data }) => hitSaleProducts.set(data.products));
 
-      ProductsAPI.getProducts({ perPage: 4, page: 2, orderBy: "date", order: "desc" })
+      ProductsAPI.getProducts({ perPage: 4, orderBy: "date", order: "desc" })
          .then(({ data }) => newProducts.set(data.products));
    }, []);
 
