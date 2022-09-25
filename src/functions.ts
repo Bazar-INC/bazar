@@ -44,4 +44,4 @@ function targetClick(event: React.MouseEvent, callback: () => void) {
    }
 }
 
-export { classes, priceSeparateByThousands, targetClick };
+export { classes, priceSeparateByThousands, targetClick, isEmpty };
