@@ -1,4 +1,4 @@
-function classes(...classNames: Array<string | null | undefined>) {
+function classes(...classNames: Array<string | null | undefined | false>) {
    const WHITE_SPACE = ' ';
 
    let classes = '';
@@ -13,12 +13,16 @@ function classes(...classNames: Array<string | null | undefined>) {
    return classes;
 }
 
-function isEmpty(str: string | null | undefined) {
+function isEmpty(str: string | null | undefined | false) {
    if (str === undefined) {
       return true;
    }
 
    if (str === null) {
+      return true;
+   }
+
+   if (str === false) {
       return true;
    }
 
@@ -33,5 +37,11 @@ function priceSeparateByThousands(price: number) {
    return String(price).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ');
 }
 
+function targetClick(event: React.MouseEvent, callback: () => void) {
+   // Prevent click on child elements
+   if (event.target === event.currentTarget) {
+      callback();
+   }
+}
 
-export { classes, priceSeparateByThousands };
+export { classes, priceSeparateByThousands, targetClick };
