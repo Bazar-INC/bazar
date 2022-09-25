@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CategoryModel } from "../../../api/models/category";
 import { CategoriesAPI } from "../../../api/services/categories";
+import { classes } from "../../../functions";
 import { routes } from "../../../router-config";
 import { useAppSelector } from '../../../store/hooks';
 import { useProperty } from "../../hooks/property";
@@ -60,14 +61,17 @@ const catalogMenuItems = [
 
 interface Props {
    openSignModal(): void;
+   openCityModal(): void;
    fixMenu?: boolean;
 }
 
-const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
+const Header: FC<Props> = ({ openSignModal, openCityModal, fixMenu }) => {
 
    const profile = useAppSelector(state => state.accountReducer.profile);
 
    const cart = useAppSelector(state => state.accountReducer.cart);
+
+   const city = useAppSelector(state => state.accountReducer.city);
 
    const [categories] = useProperty<CategoryModel[]>([]);
 
@@ -82,9 +86,9 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                <Link to={routes.Home.link()}>
                   <img src="/brand_logo_1.png" className="w-32 lg:w-full" />
                </Link>
-               <div className="flex items-center 2xl:mr-12">
+               <div onClick={openCityModal} className="flex items-center 2xl:mr-12 cursor-pointer">
                   <Icons.Location className="w-4 2xl:w-6" />
-                  <span className="ml-2 text-[16px] 2xl:text-[25px] text-[#696E7C]">Рівне</span>
+                  <span className="ml-2 text-[16px] 2xl:text-[25px] text-[#696E7C]">{city?.name}</span>
                </div>
             </div>
             <div className="ml-auto sm:flex-1 flex items-center gap-x-5 lg:gap-x-10">
@@ -130,7 +134,7 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                         <Icons.AlignLeft className="w-6 h-6 2xl:w-9 2xl:h-9" />
                      </span>
                      <span className="text-[14px] 2xl:text-[21px] font-bold 2xl:font-semibold text-white leading-[48px] h-[48px] 2xl:h-[70px] 2xl:leading-[70px] cursor-pointer">Каталог товарів</span>
-                     <div className={`hidden ${fixMenu && "lg:flex"} group-hover:flex absolute bg-white top-full flex z-50`}>
+                     <div className={classes("hidden", fixMenu && "lg:flex", "group-hover:flex absolute bg-white top-full flex z-10")}>
                         <div className="w-[286px] py-5">
                            {catalogMenuItems.map((item, index) => (
                               <div key={index} className="cursor-pointer item-menu flex items-center h-12 2xl:h-14 px-5">
@@ -155,16 +159,6 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                            ))}
                         </div>
                      </div>
-                     {/* <div className={`hidden ${fixMenu && "lg:block"} group-hover:block absolute top-full bg-white w-[256px] xl:w-[286px] 2xl:w-[430px] p-5 space-y-0 2xl:space-y-3 shadow-2xl rounded-b`}>
-                        {catalogMenuItems.map((item, index) => (
-                           <Link to={item.route} key={index} className="flex items-center h-12 2xl:h-14">
-                              <div className="w-6 h-6 2xl:h-9 2xl:w-9 flex justify-center">
-                                 {item.icon}
-                              </div>
-                              <span className="text-[12px] 2xl:text-[19px] font-bold 2xl:font-semibold ml-4">{item.title}</span>
-                           </Link>
-                        ))}
-                     </div> */}
                   </div>
                   <div className="text-white font-bold 2xl:font-semibold text-[11px] lg:text-[13px] 2xl:text-[20px] space-x-5 lg:space-x-8 2xl:space-x-12 ml-4 md:ml-8">
                      <Link to="/about">Про нас</Link>

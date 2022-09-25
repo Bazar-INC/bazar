@@ -42,6 +42,16 @@ const App: FC = () => {
       signModalIsOpen.set(false);
    };
 
+   const [cityModalIsOpen] = useProperty(false);
+
+   const openCityModal = () => {
+      cityModalIsOpen.set(true);
+   };
+
+   const closeCityModal = () => {
+      cityModalIsOpen.set(false);
+   };
+
    const location = useLocation();
 
    return (
@@ -52,7 +62,11 @@ const App: FC = () => {
                <>
                   <div className="flex flex-col h-full">
                      <div className="flex-[1_0_auto]">
-                        <Layout.Header fixMenu={location.pathname === routes.Home.pathname} openSignModal={openSignModal} />
+                        <Layout.Header
+                           fixMenu={location.pathname === routes.Home.pathname}
+                           openSignModal={openSignModal}
+                           openCityModal={openCityModal}
+                        />
                         <Routes>
                            <Route path={routes.Home.path} element={<HomePage />} />
                            <Route path="cart" element={<CartPage />} />
@@ -68,6 +82,7 @@ const App: FC = () => {
             } />
          </Routes>
          <Modals.Sign open={signModalIsOpen.get} onClose={closeSignModal} />
+         <Modals.City open={cityModalIsOpen.get} onClose={closeCityModal} />
       </>
    );
 };

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TownModel } from "../../api/models/town";
 
 interface ProfileState {
    name: string;
@@ -8,6 +9,10 @@ type ProductId = string;
 
 interface AccountState {
    profile: ProfileState | null;
+   city?: {
+      id: string,
+      name: string,
+   },
    cart: {
       products: Array<{
          id: ProductId,
@@ -29,6 +34,9 @@ const accountSlice = createSlice({
    reducers: {
       setProfile(state, { payload: profile }: PayloadAction<ProfileState>) {
          state.profile = profile;
+      },
+      setCity(state, { payload: city }: PayloadAction<TownModel>) {
+         state.city = city;
       },
       addProductToCard(state, { payload: productId }: PayloadAction<string>) {
 
