@@ -6,6 +6,7 @@ import { Footer } from "./footer";
 import { Header } from "./header";
 import { HorizontalMenu } from "./horizontal-menu";
 import { Input } from "./input";
+import { Loader } from "./loader";
 import { ProductCard } from './product-card';
 
 const Layout = {
@@ -17,6 +18,7 @@ const Layout = {
    Header,
    HorizontalMenu,
    Input,
+   Loader,
    ProductCard
 };
 

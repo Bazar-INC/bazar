@@ -15,7 +15,11 @@ const useLogic = () => {
 
    const [mode] = useProperty<"products" | "receiver" | "address" | "pay">("products");
 
+   const [loading] = useProperty(false);
+
    const setProductByIdsFromCart = () => {
+
+      loading.set(true);
 
       ProductsAPI.getProductsByIds(cartProducts.map(p => p.id)).then(({ data }) => {
          products.set([]);
@@ -25,6 +29,8 @@ const useLogic = () => {
             if (prod) {
                products.set(prev => [...prev, { product: prod, count: product.count }]);
             }
+
+            loading.set(false);
          });
       });
    };
@@ -77,6 +83,7 @@ const useLogic = () => {
       incrementProductCount,
       decrementProductCount,
       mode,
+      isLoading: loading.get
    };
 };
 

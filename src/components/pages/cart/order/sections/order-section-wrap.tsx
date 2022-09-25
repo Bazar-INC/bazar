@@ -9,9 +9,10 @@ interface OrderSectionWrapProps {
    onClick: () => void;
    active: boolean;
    containerStyles?: string;
+   valid?: boolean;
 }
 
-const OrderSectionWrap: FC<OrderSectionWrapProps> = ({ name, children, onClick, active, containerStyles }) => {
+const OrderSectionWrap: FC<OrderSectionWrapProps> = ({ name, children, onClick, active, containerStyles, valid = true }) => {
    return (
       <div>
          <div className="border border-[#9DA0A9] rounded py-6 px-12">
@@ -23,7 +24,12 @@ const OrderSectionWrap: FC<OrderSectionWrapProps> = ({ name, children, onClick, 
             </Typography.Heading>
             <div className={containerStyles}>{active && children}</div>
          </div>
-         {active && <Layout.Button onClick={onClick} className="my-8">Далі</Layout.Button>}
+         {active && <Layout.Button
+            onClick={() => valid && onClick()}
+            className={classes("my-8", !valid && "!bg-gray-300 hover:!bg-gray-300")}
+         >
+            Далі
+         </Layout.Button>}
       </div>
    );
 };

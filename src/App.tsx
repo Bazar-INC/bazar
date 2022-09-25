@@ -69,7 +69,7 @@ const App: FC = () => {
                         />
                         <Routes>
                            <Route path={routes.Home.path} element={<HomePage />} />
-                           <Route path="cart" element={<CartPage />} />
+                           <Route path="cart" element={<CartPage openCityModal={openCityModal} />} />
                            <Route path="goods/:category" element={<GoodsPage />} />
                            <Route path="product/:id" element={<ProductPage />} />
                            <Route path="about" element={<AboutPage />} />

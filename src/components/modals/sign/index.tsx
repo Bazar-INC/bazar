@@ -38,17 +38,15 @@ const Sign: FC<Props> = ({ open, onClose }) => {
          <div className="m-auto px-16 h-[520px] bg-white rounded-3xl flex flex-col items-center justify-center">
             <Typography.Heading>Вхід в аккаунт</Typography.Heading>
             <span className="text-lg mt-5">Введіть ваш номер телефону</span>
-            <div className="relative">
-               <Layout.Input
-                  disabled={!isEnterModePhone || loading.get}
-                  onChange={phone.set}
-                  type="phone"
-                  hint="000-000-000"
-                  maxLength={9}
-                  className="border-[#9DA0A9] border-2 rounded-lg w-[360px] mt-2 py-4 pl-[154px] text-[20px]"
-               />
-               <span className="pointer-events-none absolute left-[94px] top-1/2 -translate-y-1/2 mt-[3px] text-[20px] text-black">(+380)</span>
-            </div>
+            <Layout.Input
+               disabled={!isEnterModePhone || loading.get}
+               onChange={phone.set}
+               type="phone"
+               hint="000-000-000"
+               maxLength={9}
+               prefix="(+380)"
+               className="border-[#9DA0A9] border-2 rounded-lg w-[360px] mt-2 py-4 text-[20px]"
+            />
             {isEnterModeCode && (
                <>
                   <span className="text-lg mt-2">Введіть код з смс:</span>

@@ -1,10 +1,14 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { Layout } from '../../layout/layout';
 import { Typography } from "../../typography";
 import { classes, priceSeparateByThousands } from "../../../functions";
 import { useLogic } from "./logic";
 import { getProductImageUrl } from "../../../image-source";
 import { ReceiverOrderSection } from "./order/sections/receiver";
+import { Icons } from "../../icons/icons";
+import { useAppSelector } from "../../../store/hooks";
+import { OrdersAPI } from "../../../api/services/orders";
+import { useProperty } from "../../hooks/property";
 
 interface LocalSectionProps {
    name: string;
@@ -12,9 +16,10 @@ interface LocalSectionProps {
    onClick: () => void;
    active: boolean;
    containerStyles?: string;
+   noButton?: boolean;
 }
 
-const LocalSection: FC<LocalSectionProps> = ({ name, children, onClick, active, containerStyles }) => {
+const LocalSection: FC<LocalSectionProps> = ({ name, children, onClick, active, containerStyles, noButton = false }) => {
    return (
       <div>
          <div className="border border-[#9DA0A9] rounded py-6 px-12">
@@ -26,19 +31,37 @@ const LocalSection: FC<LocalSectionProps> = ({ name, children, onClick, active, 
             </Typography.Heading>
             <div className={containerStyles}>{active && children}</div>
          </div>
-         {active && <Layout.Button onClick={onClick} className="my-8">Далі</Layout.Button>}
+         {!noButton && active && <Layout.Button onClick={onClick} className="my-8">Далі</Layout.Button>}
       </div>
    );
 };
 
-const CartPage: FC = () => {
+const CartPage: FC<{ openCityModal(): void }> = ({ openCityModal }) => {
 
    const {
       products,
       incrementProductCount,
       decrementProductCount,
       mode,
+      isLoading,
    } = useLogic();
+
+   const [phone] = useProperty("");
+
+   const city = useAppSelector(state => state.accountReducer.city);
+
+   const createOrder = () => {
+      OrdersAPI.createOrder({
+         orders: products.get.map(c => ({ productId: c.product.id, count: c.count })),
+         phone: phone.get
+      });
+   };
+
+   useEffect(() => {
+      if (mode.get === "pay") {
+         createOrder();
+      }
+   }, [mode]);
 
    const emptyCartPageView = (
       <div className="w-full flex flex-col items-center justify-center">
@@ -48,6 +71,13 @@ const CartPage: FC = () => {
             <br />
             <span className="text-[20px] 2xl:text-[30px]">Та з базару ніхто не йде з пустими руками, обери щось з каталогу</span>
          </div>
+      </div>
+   );
+
+   const loadingView = (
+      <div className="flex justify-between items-center">
+         <span>Пліз очікуйте ...</span>
+         <Layout.Loader />
       </div>
    );
 
@@ -68,9 +98,10 @@ const CartPage: FC = () => {
                      <Layout.Input
                         maxLength={2}
                         type="number"
-                        className="w-8 h-8 rounded border-2 text-center leading-8"
+                        className="!w-8 rounded border-2 text-center leading-8"
                         onChange={() => console.log(1)}
                         hardValue={product.count.toString()}
+                        textCenter
                      />
                      <button onClick={() => product.product.id && incrementProductCount(product.product.id)}>+</button>
                   </div>
@@ -104,10 +135,50 @@ const CartPage: FC = () => {
                </>
             )}
 
-            <ReceiverOrderSection active={mode.get === "receiver"} onFinish={() => mode.set("address")} />
+            <ReceiverOrderSection active={mode.get === "receiver"} onFinish={(values) => {
+               mode.set("address");
+               phone.set(values.phone);
+            }} />
 
-            <LocalSection name="Спосіб отримання" onClick={() => mode.set("pay")} active={mode.get === "address"} />
-            <LocalSection name="Оплата" onClick={() => mode.set("products")} active={mode.get === "pay"} />
+            <LocalSection name="Спосіб отримання" onClick={() => mode.set("pay")} active={mode.get === "address"}>
+               <div onClick={openCityModal} className="cursor-pointer px-5 py-4 mt-4 border-2 rounded border-[#9DA0A9] flex items-center">
+                  <Icons.Location className="w-6 h-6" />
+                  <div className="ml-4 flex flex-col">
+                     <span className="text-[#9DA0A9] text-[15px]">Місто</span>
+                     <span className="text-black text-[20px] font-bold">{city?.name}</span>
+                  </div>
+                  <svg className="ml-auto" width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M0.999999 0.999999L1 13L8 7L0.999999 0.999999Z" fill="#9DA0A9" stroke="#9DA0A9" strokeWidth="2" strokeLinejoin="round" />
+                  </svg>
+               </div>
+
+               <div className="px-5 py-1 border-2 border-[#9DA0A9] mt-4 rounded">
+                  <label className="cursor-pointer">
+                     <input type="radio" name="df" id="" />
+                     <span className="ml-2">Самовивіз з нашої точки видачі</span>
+                  </label>
+               </div>
+               <div className="px-5 py-1 border-2 border-[#9DA0A9] mt-4 rounded">
+                  <label className="cursor-pointer">
+                     <input type="radio" name="df" id="" />
+                     <span className="ml-2">Кур’єр на вашу адресу</span>
+                  </label>
+               </div>
+               <div className="px-5 py-1 border-2 border-[#9DA0A9] mt-4 rounded">
+                  <label className="cursor-pointer">
+                     <input type="radio" name="df" id="" />
+                     <span className="ml-2">Самовивіз з нової пошти</span>
+                  </label>
+               </div>
+
+            </LocalSection>
+
+            <LocalSection name="Оплата" onClick={() => mode.set("products")} active={mode.get === "pay"} noButton>
+               <div className="flex justify-between items-center">
+                  <span className="text-sm">Обробка замовлення ...</span>
+                  <Layout.Loader />
+               </div>
+            </LocalSection>
          </div>
          <div className="ml-auto w-[620px]">
             <div className="border-[#9DA0A9] border rounded w-full p-8">
@@ -145,7 +216,9 @@ const CartPage: FC = () => {
    return (
       <Layout.Container className="pt-10 pb-20">
          <Typography.Heading>Оформлення замовлення</Typography.Heading>
-         {products.get.length === 1 ? emptyCartPageView : fullCartPageView}
+         {isLoading ? loadingView : (
+            products.get.length === 0 ? emptyCartPageView : fullCartPageView
+         )}
       </Layout.Container >
    );
 };

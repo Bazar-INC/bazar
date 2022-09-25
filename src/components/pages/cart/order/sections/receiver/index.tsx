@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { isEmpty } from "../../../../../../functions";
 import { useProperty } from "../../../../../hooks/property";
 import { Layout } from "../../../../../layout/layout";
 import { OrderSectionWrap } from "../order-section-wrap";
@@ -24,10 +25,12 @@ const ReceiverOrderSection: FC<Props> = ({ active, onFinish }) => {
       });
    };
 
+   const isValid = !isEmpty(name.get) && !isEmpty(surname.get) && !isEmpty(phone.get) && !isEmpty(email.get);
+
    const INPUT_CLASSES = "px-4 py-2 bg-transparent mt-2 border-2 rounded border-[#9DA0A9]";
 
    return (
-      <OrderSectionWrap name="Отримувач" onClick={handleFinish} active={active}>
+      <OrderSectionWrap valid={isValid} name="Отримувач" onClick={handleFinish} active={active}>
          <div className="flex gap-x-10 w-full">
             <div className="flex flex-col">
                <span className="bold">Ім{"'"}я</span>

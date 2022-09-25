@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { classes } from "../../../functions";
+import { classes, isEmpty } from "../../../functions";
 
 interface Props {
    className?: string;
@@ -10,9 +10,10 @@ interface Props {
    disabled?: boolean;
    onChange(value: string): void;
    hardValue?: string;
+   textCenter?: boolean;
 }
 
-const Input: FC<Props> = ({ className, hint, prefix, type, maxLength, disabled, onChange, hardValue }) => {
+const Input: FC<Props> = ({ className, hint, prefix, type, maxLength, disabled, onChange, hardValue, textCenter }) => {
 
    const [value, setValue] = useState("");
 
@@ -42,11 +43,11 @@ const Input: FC<Props> = ({ className, hint, prefix, type, maxLength, disabled, 
    }, [value]);
 
    return (
-      <div className={classes(className, "flex w-[230px]")}>
+      <div className={classes(className, "flex w-[230px] items-center justify-center")}>
          <div className="">{prefix}</div>
          <input
-            className="bg-transparent outline-none"
-            disabled={disabled}
+            className={classes("bg-transparent outline-none", textCenter && "w-full text-center", type === "phone" ? "w-[112px]" : "w-full")}
+            disabled={disabled} 
             type="text"
             placeholder={hint}
             value={hardValue ?? value}
