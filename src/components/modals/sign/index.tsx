@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import { targetClick } from "../../../functions";
 import { Layout } from "../../layout/layout";
 import { Typography } from "../../typography";
 import { useLogic } from "./logic";
@@ -32,15 +33,8 @@ const Sign: FC<Props> = ({ open, onClose }) => {
       return <></>;
    }
 
-   const handleClose = (event: React.MouseEvent) => {
-      // Prevent click on child elements
-      if (event.target === event.currentTarget) {
-         onClose();
-      }
-   };
-
    return (
-      <div onClick={handleClose} className="fixed w-full h-full left-0 top-0 bg-black/30 flex">
+      <div onClick={event => targetClick(event, onClose)} className="fixed w-full h-full left-0 top-0 bg-black/30 flex z-20">
          <div className="m-auto px-16 h-[520px] bg-white rounded-3xl flex flex-col items-center justify-center">
             <Typography.Heading>Вхід в аккаунт</Typography.Heading>
             <span className="text-lg mt-5">Введіть ваш номер телефону</span>
