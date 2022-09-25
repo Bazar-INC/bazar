@@ -130,8 +130,8 @@ const Header: FC<Props> = ({ openSignModal, fixMenu }) => {
                         <Icons.AlignLeft className="w-6 h-6 2xl:w-9 2xl:h-9" />
                      </span>
                      <span className="text-[14px] 2xl:text-[21px] font-bold 2xl:font-semibold text-white leading-[48px] h-[48px] 2xl:h-[70px] 2xl:leading-[70px] cursor-pointer">Каталог товарів</span>
-                     <div className={`hidden ${fixMenu && "lg:flex"} group-hover:flex absolute bg-white top-full flex z-50`}>
-                        <div className="w-[286px] py-5">
+                     <div className={`hidden ${fixMenu && "lg:flex"} group-hover:flex absolute bg-white top-full flex z-[1]`}>
+                        <div className="w-[286px] 2xl:w-[430px] 2xl:h-[642px] py-5">
                            {catalogMenuItems.map((item, index) => (
                               <div key={index} className="cursor-pointer item-menu flex items-center h-12 2xl:h-14 px-5">
                                  <img className="w-6 h-6 object-contain" src={`/catalog/${item.code}.png`} />

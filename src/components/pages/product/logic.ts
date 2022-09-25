@@ -12,7 +12,7 @@ export const useLogic = () => {
 
    const [product] = useProperty<ProductModel | null>(null);
 
-   const [productList] = useProperty<Array<ProductModel>>([]);
+   const [productList] = useProperty<Array<ProductModel>>([]);   
 
    useEffect(() => {
 

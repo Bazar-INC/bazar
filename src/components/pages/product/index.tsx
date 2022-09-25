@@ -5,6 +5,8 @@ import { useLogic } from "./logic";
 import { Typography } from "../../typography";
 import { HorizontalMenu } from "./components/horizontal-menu";
 import { getProductImageUrl } from "../../../image-source";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { accountActions } from "../../../features/account/reducer";
 
 const ProductPage: FC = () => {
 
@@ -13,6 +15,24 @@ const ProductPage: FC = () => {
       productList,
       ref,
    } = useLogic();
+
+   const dispatch = useAppDispatch();
+
+   const products = useAppSelector(state => state.accountReducer.cart.products);
+
+   const isInCart = products.some(w => w.id == product.get?.id);
+
+   const addToCart = () => {
+      if (!isInCart) {
+         product.get?.id && dispatch(accountActions.addProductToCard(product.get?.id));
+      }
+   };
+
+   const removeFromCart = () => {
+      if (isInCart) {
+         product.get?.id && dispatch(accountActions.removeProductFromCart(product.get?.id));
+      }
+   };
 
    return (
       <div className="bg-white pt-8">
@@ -51,7 +71,14 @@ const ProductPage: FC = () => {
                         {priceSeparateByThousands(product.get?.price ?? 0) + " грн"}
                      </Typography.Heading>
                      <span className="mt-2 mb-8">Кешбек 4 000</span>
-                     <Layout.Button stretch>Купити</Layout.Button>
+                     <Layout.Button onClick={isInCart ? removeFromCart : addToCart} stretch>
+                        {isInCart ? (
+                           "Забрати"
+                        ) : (
+                           "Додати в корзину"
+                        )}
+
+                     </Layout.Button>
                      <div className="mt-4">
                         <Layout.Button stretch>Розстрочка Від 1099 в міс.</Layout.Button>
                      </div>
@@ -236,7 +263,7 @@ const ProductPage: FC = () => {
                               <span className="w-1/2 text-[17px] font-bold font-[Gotham]">Основна камера</span>
                               <span>12 MP, f/1.6, 26mm (wide)</span>
                            </div>
-                           <button className="text-[22px] font-bold font-[Gotham] py-5 mt-8 rounded border-[#00FF74] border w-full">
+                           <button className="text-[22px] font-bold font-[Gotham] py-5 mt-8 rounded border-[#00FF74] border-[2px] w-full hover:bg-[#00FF74]">
                               Усі характеристики
                            </button>
                         </div>
@@ -248,7 +275,7 @@ const ProductPage: FC = () => {
                            <textarea className="w-full border-2 border-[#9DA0A9] rounded"></textarea>
                            <div>Ваше ім’я</div>
                            <textarea className="w-full border-2 border-[#9DA0A9] rounded"></textarea>
-                           <button className="text-[22px] font-bold font-[Gotham] py-5 mt-8 rounded border-[#00FF74] border w-full">
+                           <button className="text-[22px] font-bold font-[Gotham] py-5 mt-8 rounded border-[#00FF74] border-[2px] w-full hover:bg-[#00FF74]">
                               Залишити відгук
                            </button>
                         </div>

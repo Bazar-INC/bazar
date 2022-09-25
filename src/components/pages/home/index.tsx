@@ -12,7 +12,7 @@ const HomePage: FC = () => {
    return (
       <div className="py-8">
          <Layout.Container className="px-0">
-            <div className="flex gap-x-8">
+            <div className="flex gap-x-8 z-0">
                <div className="hidden lg:block w-[256px] xl:w-[286px] 2xl:w-[430px] h-2"></div>
                <Slider />
             </div>
@@ -28,7 +28,7 @@ const HomePage: FC = () => {
 
             <div className="mt-24 sm:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Спорт обладнання" badge="Огляд" picture="/girya.png" />
-               <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
+               <CustomCard title="Плати частинами" badge="Розстрочка" picture="/money.png" />
             </div>
 
             <Sections.PromoProducts
@@ -37,9 +37,9 @@ const HomePage: FC = () => {
                products={newProducts.get}
             />
 
-            <div className="mt-24 sm:mt-32 mb-40 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
-               <CustomCard title="Плати частинами" badge="Розтрочка" picture="/money.png" />
+            <div className="mt-24 sm:mt-32 2xl:mt-[270px] mb-40 2xl:mb-[98px] grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-32 gap-x-24">
                <CustomCard title="Фільтруй базар" badge="Категорії" picture="/txt.png" />
+               <CustomCard title="Смарт годинник" badge="Огляд" picture="/clock.png" />
             </div>
 
          </Layout.Container>

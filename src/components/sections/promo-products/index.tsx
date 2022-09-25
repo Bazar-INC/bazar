@@ -13,11 +13,11 @@ interface Props {
 const PromoProducts: FC<Props> = ({ icon, name, products }) => {
    return (
       <>
-         <div className="flex items-center">
+         <div className="flex items-center 2xl:mt-[81px]">
             <img src={icon} />
             <Typography.Heading className="mt-4">{name}</Typography.Heading>
          </div>
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-6">
             {products.map((product, index) => (
                <Layout.ProductCard
                   id={product.id}

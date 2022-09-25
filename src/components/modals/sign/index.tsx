@@ -40,7 +40,7 @@ const Sign: FC<Props> = ({ open, onClose }) => {
    };
 
    return (
-      <div onClick={handleClose} className="fixed w-full h-full left-0 top-0 bg-black/30 flex">
+      <div onClick={handleClose} className="fixed w-full h-full left-0 top-0 bg-black/30 flex z-[2]">
          <div className="m-auto px-16 h-[520px] bg-white rounded-3xl flex flex-col items-center justify-center">
             <Typography.Heading>Вхід в аккаунт</Typography.Heading>
             <span className="text-lg mt-5">Введіть ваш номер телефону</span>
