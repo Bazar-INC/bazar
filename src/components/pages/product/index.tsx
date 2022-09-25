@@ -4,14 +4,34 @@ import { Layout } from "../../layout/layout";
 import { useLogic } from "./logic";
 import { Typography } from "../../typography";
 import { getProductImageUrl } from "../../../image-source";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { accountActions } from "../../../features/account/reducer";
 
 const ProductPage: FC = () => {
+
+   const dispatch = useAppDispatch();
 
    const {
       product,
       productList,
       ref,
    } = useLogic();
+
+   const products = useAppSelector(state => state.accountReducer.cart.products);
+
+   const isInCart = products.some(w => w.id === product.get?.id);
+
+   const addToCart = () => {
+      if (!isInCart) {
+         product.get?.id && dispatch(accountActions.addProductToCard(product.get.id));
+      }
+   };
+
+   const removeFromCart = () => {
+      if (isInCart) {
+         product.get?.id && dispatch(accountActions.removeProductFromCart(product.get.id));
+      }
+   };
 
    return (
       <div className="bg-white pt-8">
@@ -49,8 +69,14 @@ const ProductPage: FC = () => {
                      <Typography.Heading>
                         {priceSeparateByThousands(product.get?.price ?? 0) + " грн"}
                      </Typography.Heading>
-                     <span className="mt-2 mb-8">Кешбек 4 000</span>
-                     <Layout.Button stretch>Купити</Layout.Button>
+                     <span className="mt-2 mb-8">Кешбек 300</span>
+                     <Layout.Button onClick={isInCart ? removeFromCart : addToCart} stretch>
+                        {isInCart ? (
+                           "Забрати"
+                        ) : (
+                           "Додати в корзину"
+                        )}
+                     </Layout.Button>
                      <div className="mt-4">
                         <Layout.Button stretch>Розстрочка Від 1099 в міс.</Layout.Button>
                      </div>
@@ -295,3 +321,4 @@ const ProductPage: FC = () => {
 };
 
 export { ProductPage };
+
